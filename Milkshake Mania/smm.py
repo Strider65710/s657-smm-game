@@ -13,7 +13,7 @@ install(show_locals=True)
 
 # === Config ===
 
-VERSION: float = 0.1
+VERSION: float = 0.2
 IS_ALPHA: bool = True
 IS_BETA: bool = False
 
