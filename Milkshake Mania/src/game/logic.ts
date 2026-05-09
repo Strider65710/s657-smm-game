@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Country, FlavorType, GameState } from "../types";
 
 const safeNumber = (value: unknown, fallback: number): number => {
