@@ -1,0 +1,69 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from "react";
+import { Coins } from "lucide-react";
+
+type Props = {
+  key?: any;
+  icon: any;
+  iconColor?: string;
+  name: string;
+  desc: string;
+  level: number;
+  cost: number;
+  onBuy: () => void;
+  canAfford: boolean;
+};
+
+const formatCost = (num: number) => {
+  if (num >= 1e12) return (num / 1e12).toFixed(3) + "T";
+  if (num >= 1e9) return (num / 1e9).toFixed(3) + "B";
+  if (num >= 1e6) return (num / 1e6).toFixed(3) + "M";
+  if (num >= 1e3) return (num / 1e3).toFixed(3) + "k";
+  return Math.floor(num).toLocaleString();
+};
+
+export default function UpgradeCard({
+  icon,
+  iconColor = "text-neutral-400",
+  name,
+  desc,
+  level,
+  cost,
+  onBuy,
+  canAfford,
+}: Props) {
+  return (
+    <div
+      className={`glass-panel p-4 space-y-2 transition-all border ${!canAfford ? "opacity-50 grayscale border-transparent" : "hover:bg-white/[0.07] border-white/5 hover:border-white/20 hover:shadow-xl hover:shadow-black/40"}`}
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className={`p-2 bg-white/5 rounded-lg ${iconColor}`}>{icon}</div>
+          <h4 className="font-bold text-sm tracking-tight">{name}</h4>
+        </div>
+        <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded text-neutral-300 font-mono border border-white/5">
+          LVL {level}
+        </span>
+      </div>
+      <p className="text-[11px] text-neutral-400 leading-relaxed h-8 line-clamp-2">
+        {desc}
+      </p>
+      <button
+        onClick={onBuy}
+        disabled={!canAfford}
+        className={`w-full py-2 rounded-lg font-bold text-xs transition-all flex items-center justify-center gap-2 shadow-lg ${
+          canAfford
+            ? "bg-gradient-to-r from-yellow-500 to-amber-600 text-black hover:scale-[1.02] active:scale-95 shadow-yellow-500/10"
+            : "bg-white/5 text-neutral-500 cursor-not-allowed"
+        }`}
+      >
+        <Coins className="w-3 h-3" />
+        {canAfford ? `Upgrade: $${formatCost(cost)}` : `Need $${formatCost(cost)}`}
+      </button>
+    </div>
+  );
+}
