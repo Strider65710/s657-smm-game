@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 export enum FlavorType {
   CHOCOLATE = "Chocolate",
   VANILLA = "Vanilla",
