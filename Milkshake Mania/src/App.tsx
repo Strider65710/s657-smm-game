@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -1253,6 +1248,9 @@ export default function App() {
                 ).toFixed(1)}
                 % Baked
               </span>
+              <span className="text-purple-400">
+                {(CHANCES.swirledBase * 100).toFixed(1)}% Swirl
+              </span>
               <span className="text-yellow-400">
                 {(
                   (CHANCES.goldenBase +
@@ -1260,9 +1258,6 @@ export default function App() {
                   100
                 ).toFixed(2)}
                 % Gold
-              </span>
-              <span className="text-purple-400">
-                {(CHANCES.swirledBase * 100).toFixed(1)}% Swirl
               </span>
             </div>
           </div>
