@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 export function formatLargeNumber(num: number, precision = 2): string {
   if (num === 0) return "0";
   const floorNum = Math.floor(num);
