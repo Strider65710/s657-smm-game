@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { FlavorType, Shop, Country } from "./types";
 import { SHOP_REGISTRY, FLAVOR_REGISTRY } from "./registry";
 
