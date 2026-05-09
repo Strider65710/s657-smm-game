@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useEffect, useState } from "react";
 import type { GameState } from "../types";
 import { createDefaultState, sanitizeLoadedState } from "../state";
