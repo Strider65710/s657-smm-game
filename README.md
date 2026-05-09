@@ -75,3 +75,11 @@ Windows note:
 Vite note:
 
 - Scripts use `--configLoader native` to avoid permission issues in restricted environments.
+
+## Extra scripts
+```bash
+devrpl # Development (1-4 choice)
+devrpl -1 # Goes up to 5. Does the same thing but doesn't open the REPL
+build # Builds the game (-> dist/)
+run # Runs the game (desktop)
+smm_build # Builds the game and bundles it into a windows .exe
