@@ -2,6 +2,8 @@
 
 Milkshake Mania is an incremental, clicker-like game built with React + Vite. It features manual blending, passive income from employees, and a variety of upgrades and special outcomes.
 
+**Note:** For some reason, github in the code section may recognize .tsx files (react ts) as LaTeX.
+
 ## Gameplay (quick)
 
 - Manual blending starts at **10s per blend** (upgradeable).
