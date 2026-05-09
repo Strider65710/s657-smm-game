@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { GameState, FlavorType, Shop } from "./types";
 import { INITIAL_SHOPS } from "./constants";
 
