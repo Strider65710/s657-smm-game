@@ -1,7 +1,7 @@
 {
-  "name": "react-example",
+  "name": "milkshake-mania",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.3-1",
   "type": "module",
   "scripts": {
     "dev": "vite --configLoader native --port=3000 --host=0.0.0.0",
