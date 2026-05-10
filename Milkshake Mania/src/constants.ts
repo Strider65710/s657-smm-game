@@ -1,3 +1,8 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 import { FlavorType, Shop, Country } from "./types";
 import { SHOP_REGISTRY, FLAVOR_REGISTRY } from "./registry";
 
@@ -9,9 +14,13 @@ export const INITIAL_SHOPS: Shop[] = Object.values(SHOP_REGISTRY).map(
   (shop) => ({
     id: shop.id,
     name: shop.name,
+    section: shop.section,
+    description: shop.description,
+    employeeCapacity: shop.employeeCapacity || 0,
     count: 0,
     baseIncome: shop.baseIncome,
     cost: shop.cost,
+    monthlyCost: shop.monthlyCost,
   }),
 );
 
@@ -180,13 +189,16 @@ export const CHANCES = {
 // Multipliers for special outcome types (stacking)
 export const MULTIPLIERS = {
   crusty: 5,
-  baked: 25,
-  golden: 75,
-  swirled: 250,
+  baked: 15,
+  swirled: 35,
+  golden: 50,
 };
 
 // Default blend time in seconds
-export const INITIAL_BLEND_TIME = 10;
+export const INITIAL_BLEND_TIME = 7.5;
+
+// Default manual milkshake sale value
+export const BASE_SHAKE_SALE = 5;
 
 // Background themes
 export const BACKGROUNDS = [
@@ -201,12 +213,12 @@ export const BACKGROUNDS = [
     filter: "saturate(1.8) brightness(0.6) hue-rotate(210deg)",
   },
   {
-    name: "Neon Hub",
+    name: "Sandwhich",
     url: "https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&q=80&w=2400",
     filter: "brightness(0.4) saturate(1.5)",
   },
   {
-    name: "Midnight Mist",
+    name: "RGB Glow",
     url: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=2400",
     filter: "brightness(0.3) saturate(0.8)",
   },
@@ -214,5 +226,20 @@ export const BACKGROUNDS = [
     name: "Blue Abstract",
     url: "https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80&w=2400",
     filter: "hue-rotate(180deg) brightness(0.4)",
+  },
+  {
+    name: "Neon City",
+    url: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&q=80&w=2400",
+    filter: "brightness(0.35) saturate(1.6) hue-rotate(190deg)",
+  },
+  {
+    name: "Golden Lounge",
+    url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=2400",
+    filter: "brightness(0.55) saturate(1.3)",
+  },
+  {
+    name: "Rainforest Cafe",
+    url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=2400",
+    filter: "brightness(0.45) saturate(1.4)",
   },
 ];
