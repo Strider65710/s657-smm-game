@@ -1,3 +1,8 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -5,6 +10,7 @@ import {
   Flame,
   TrendingUp,
   Store,
+  Users,
   Zap,
   Trophy,
   ChevronRight,
@@ -21,6 +27,7 @@ import {
   Layers,
   Smile,
   ZapOff,
+  Info,
   Music,
   Snowflake,
 } from "lucide-react";
@@ -36,6 +43,7 @@ import {
 } from "./constants";
 import { UPGRADE_REGISTRY } from "./registry";
 import { createDefaultState, sanitizeLoadedState } from "./state";
+import pkg from "../package.json";
 import { formatLargeNumber } from "./utils/format";
 import UpgradeCard from "./components/UpgradeCard";
 import StatBox from "./components/StatBox";
@@ -48,6 +56,7 @@ import {
 } from "./game/logic";
 
 const SAVE_KEY = "milkshake-tycoon-v1";
+const APP_VERSION = pkg.version;
 
 // --- Utility Functions ---
 /** Safely convert any value to a valid number, defaulting to 0 if NaN or undefined */
@@ -60,6 +69,16 @@ const safeNumber = (value: any, defaultVal: number = 0): number => {
 const safeCalc = (fn: () => number): number => {
   const result = fn();
   return isNaN(result) ? 0 : result;
+};
+
+const formatGameDate = (gameDays: number): string => {
+  const baseDate = new Date(2025, 0, 1);
+  const current = new Date(baseDate);
+  current.setDate(baseDate.getDate() + gameDays - 1);
+  const mm = String(current.getMonth() + 1).padStart(2, "0");
+  const dd = String(current.getDate()).padStart(2, "0");
+  const yy = String(current.getFullYear()).slice(-2);
+  return `${mm}/${dd}/${yy}`;
 };
 
 export default function App() {
@@ -84,7 +103,13 @@ export default function App() {
     { id: number; amount: string; x: number; y: number }[]
   >([]);
   const [activeTab, setActiveTab] = useState<
-    "employees" | "upgrades" | "flavors" | "countries" | "settings"
+    | "employees"
+    | "shops"
+    | "upgrades"
+    | "flavors"
+    | "countries"
+    | "settings"
+    | "about"
   >("employees");
   const [isBlending, setIsBlending] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -95,6 +120,9 @@ export default function App() {
   // --- Refs for Game Loop ---
   const requestRef = useRef<number>(null);
   const previousTimeRef = useRef<number>(null);
+  const blendFrameRef = useRef<number | null>(null);
+  const blendTimeoutRef = useRef<number | null>(null);
+  const dayTimeRef = useRef<number>(0);
 
   // --- Logic Helpers ---
   const addNotification = (
@@ -140,6 +168,37 @@ export default function App() {
     state.upgrades.portionSize,
     getGlobalMultiplier,
   ]);
+
+  const getEmployeeCount = useCallback(
+    () =>
+      state.shops
+        .filter((shop) => shop.section === "employees")
+        .reduce((acc, shop) => acc + (shop.count || 0), 0),
+    [state.shops],
+  );
+
+  const getEmployeeCapacity = useCallback(
+    () =>
+      state.shops
+        .filter((shop) => shop.section === "shops")
+        .reduce(
+          (acc, shop) => acc + (shop.count || 0) * (shop.employeeCapacity || 0),
+          0,
+        ),
+    [state.shops],
+  );
+
+  const totalShopExtensions = state.shops.reduce(
+    (acc, shop) => acc + (shop.section === "shops" ? shop.count : 0),
+    0,
+  );
+
+  const monthlyOperatingCost = state.shops.reduce(
+    (acc, shop) => acc + (shop.count || 0) * (shop.monthlyCost || 0),
+    0,
+  );
+
+  const daysUntilPayroll = 30 - ((state.gameDays - 1) % 30);
 
   const produceMilkshake = useCallback(
     (isManual = false) => {
@@ -207,43 +266,56 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (isBlending) {
-      // Calculate blend time: starts at 10s, reduced by 0.5s per mixSpeed upgrade, min 0.5s
-      const blendTime = Math.max(
-        0.5,
-        INITIAL_BLEND_TIME - state.upgrades.mixSpeed * 0.5,
-      );
-      const durationMs = blendTime * 1000; // Convert to milliseconds
-      const start = performance.now();
-
-      const updateProgress = () => {
-        const now = performance.now();
-        const elapsed = now - start;
-        const newProgress = Math.min(100, (elapsed / durationMs) * 100);
-
-        setProgress(newProgress);
-
-        if (newProgress < 100) {
-          requestAnimationFrame(updateProgress);
-        } else {
-          // Force set to 100 for final frame
-          setProgress(100);
-          if (blendMode === "manual") {
-            produceMilkshake(true);
-          } else if (blendMode === "autoMix") {
-            produceMilkshake(false);
-          }
-          // Hold at 100% for 300ms so user sees completion
-          setTimeout(() => {
-            setIsBlending(false);
-            setProgress(0);
-            setBlendMode(null);
-          }, 300);
-        }
-      };
-
-      requestAnimationFrame(updateProgress);
+    if (!isBlending) {
+      return;
     }
+
+    // Calculate blend time: starts at 10s, reduced by 0.5s per mixSpeed upgrade, min 0.5s
+    const blendTime = Math.max(
+      0.5,
+      INITIAL_BLEND_TIME - state.upgrades.mixSpeed * 0.5,
+    );
+    const durationMs = blendTime * 1000; // Convert to milliseconds
+    const start = performance.now();
+
+    const updateProgress = () => {
+      const now = performance.now();
+      const elapsed = now - start;
+      const newProgress = Math.min(100, (elapsed / durationMs) * 100);
+
+      setProgress(newProgress);
+
+      if (newProgress < 100) {
+        blendFrameRef.current = requestAnimationFrame(updateProgress);
+      } else {
+        // Force set to 100 for final frame
+        setProgress(100);
+        if (blendMode === "manual") {
+          produceMilkshake(true);
+        } else if (blendMode === "autoMix") {
+          produceMilkshake(false);
+        }
+
+        blendTimeoutRef.current = window.setTimeout(() => {
+          setIsBlending(false);
+          setProgress(0);
+          setBlendMode(null);
+        }, 300);
+      }
+    };
+
+    blendFrameRef.current = requestAnimationFrame(updateProgress);
+
+    return () => {
+      if (blendFrameRef.current !== null) {
+        cancelAnimationFrame(blendFrameRef.current);
+        blendFrameRef.current = null;
+      }
+      if (blendTimeoutRef.current !== null) {
+        clearTimeout(blendTimeoutRef.current);
+        blendTimeoutRef.current = null;
+      }
+    };
   }, [isBlending, state.upgrades.mixSpeed, produceMilkshake, blendMode]);
 
   // --- Purchases ---
@@ -255,7 +327,19 @@ export default function App() {
   const buyShop = (id: string) => {
     const shop = state.shops.find((s: Shop) => s.id === id);
     const cost = shop ? getShopCost(shop) : 0;
+    const employeeCapacity = getEmployeeCapacity();
+    const currentEmployees = getEmployeeCount();
     if (!shop || state.money < cost) return;
+
+    if (shop.section === "employees" && currentEmployees >= employeeCapacity) {
+      addNotification(
+        employeeCapacity === 0
+          ? "No shop extensions purchased yet. Add a shop first to hire staff."
+          : "Employee capacity reached. Buy more shop extensions to hire additional staff.",
+        "crusty",
+      );
+      return;
+    }
 
     setState((prev: GameState) => ({
       ...prev,
@@ -407,6 +491,31 @@ export default function App() {
       const income = getIncomePerSecond() * dt;
       setState((prev: GameState) => ({ ...prev, money: prev.money + income }));
 
+      // Game clock and payroll
+      dayTimeRef.current += dt;
+      if (dayTimeRef.current >= 1) {
+        const daysToAdvance = Math.floor(dayTimeRef.current);
+        dayTimeRef.current -= daysToAdvance;
+
+        setState((prev: GameState) => {
+          const oldDay = prev.gameDays;
+          const newDay = prev.gameDays + daysToAdvance;
+          let nextMoney = prev.money;
+
+          for (let day = oldDay + 1; day <= newDay; day += 1) {
+            if (day % 30 === 0) {
+              nextMoney -= prev.shops.reduce(
+                (sum, shop) =>
+                  sum + (shop.count || 0) * (shop.monthlyCost || 0),
+                0,
+              );
+            }
+          }
+
+          return { ...prev, gameDays: newDay, money: nextMoney };
+        });
+      }
+
       // Manual blending animation removed from auto-loop
       // progress is now only handled by handleManualShake clicks
 
@@ -424,30 +533,45 @@ export default function App() {
   ]);
 
   // --- Visibility Filters ---
-  const visibleShops = state.shops.filter((shop: Shop, index: number) => {
-    // Standard compat instead of findLastIndex
+  const getVisibleShopItems = (section: "employees" | "shops") => {
+    const items = state.shops.filter((shop) => shop.section === section);
     let lastOwnedIndex = -1;
-    for (let i = state.shops.length - 1; i >= 0; i--) {
-      if (state.shops[i].count > 0) {
+    for (let i = items.length - 1; i >= 0; i -= 1) {
+      if (items[i].count > 0) {
         lastOwnedIndex = i;
         break;
       }
     }
-    return index <= lastOwnedIndex + 3;
+    return items.filter((_, index) => index <= lastOwnedIndex + 3);
+  };
+
+  const visibleEmployees = getVisibleShopItems("employees");
+  const visibleShopExtensions = getVisibleShopItems("shops");
+
+  const flavorTypes = Object.values(FLAVORS).map(
+    (flavor) => flavor.type,
+  ) as FlavorType[];
+  const visibleFlavors = flavorTypes.filter((type, index) => {
+    const isUnlocked = state.unlockedFlavors.includes(type);
+    const lastUnlockedIndex = flavorTypes.reduce(
+      (acc, flavorType, flavorIndex) =>
+        state.unlockedFlavors.includes(flavorType) ? flavorIndex : acc,
+      -1,
+    );
+    return (
+      isUnlocked ||
+      index <= Math.min(lastUnlockedIndex + 8, flavorTypes.length - 1)
+    );
   });
 
-  const allFlavorTypes = Object.keys(FLAVORS) as FlavorType[];
-  const visibleFlavors = allFlavorTypes.filter((type, index) => {
-    const isUnlocked = state.unlockedFlavors.includes(type);
-    let lastUnlockedIndex = -1;
-    for (let i = allFlavorTypes.length - 1; i >= 0; i--) {
-      if (state.unlockedFlavors.includes(allFlavorTypes[i])) {
-        lastUnlockedIndex = i;
-        break;
-      }
-    }
-    return isUnlocked || index <= lastUnlockedIndex + 5;
-  });
+  const totalEmployees = getEmployeeCount();
+  const totalShopCapacity = getEmployeeCapacity();
+  const ownedShops = state.shops.filter((shop) => shop.count > 0).length;
+  const totalCountries = state.unlockedCountries.length;
+
+  const blenderFillHeight = isBlending
+    ? Math.min(100, 40 + progress * 0.6)
+    : 40;
 
   return (
     <div className="flex h-screen w-full bg-neutral-950 text-neutral-100 font-sans selection:bg-pink-500/30">
@@ -485,15 +609,15 @@ export default function App() {
             <motion.div
               key={i}
               initial={{
-                x: Math.random() * 100 + "%",
-                y: Math.random() * 100 + "%",
+                x: Math.random() * 80 + 10 + "%",
+                y: Math.random() * 80 + 10 + "%",
                 opacity: 0,
                 scale: Math.random() * 0.5 + 0.5,
               }}
               animate={{
                 y: ["0%", "-40%", "0%"],
                 opacity: [0, 0.3, 0],
-                x: [Math.random() * 100 + "%", Math.random() * 100 + "%"],
+                x: [Math.random() * 90 + 5 + "%", Math.random() * 90 + 5 + "%"],
               }}
               transition={{
                 duration: 10 + Math.random() * 20,
@@ -516,21 +640,45 @@ export default function App() {
 
         {/* Floating Icons */}
         {state.options.floatingShakes &&
-          state.activeFlavors.map((t: FlavorType, i: number) => (
-            <motion.div
-              key={t + i}
-              initial={{ y: "110vh", x: i * 20 + Math.random() * 10 + "%" }}
-              animate={{ y: "-20vh", rotate: 360 }}
-              transition={{
-                duration: 15 + i * 5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute opacity-20 pointer-events-none z-10"
-            >
-              <Milk className="w-16 h-16" style={{ color: FLAVORS[t].color }} />
-            </motion.div>
-          ))}
+          Array.from({ length: 10 }).map((_, i) => {
+            const flavor =
+              state.activeFlavors[i % state.activeFlavors.length] ||
+              (Object.keys(FLAVORS)[0] as FlavorType);
+            const startX = Math.random() * 80 + 8;
+            const endX = Math.random() * 80 + 8;
+            const startY = 110 + Math.random() * 20;
+            const endY = -20 - Math.random() * 20;
+
+            return (
+              <motion.div
+                key={`float-${i}-${flavor}`}
+                initial={{
+                  y: `${startY}vh`,
+                  x: `${startX}%`,
+                  opacity: 0,
+                  rotate: Math.random() * 360,
+                }}
+                animate={{
+                  y: `${endY}vh`,
+                  x: `${endX}%`,
+                  opacity: [0.2, 0.8, 0.2],
+                  rotate: 360 + Math.random() * 180,
+                }}
+                transition={{
+                  duration: 8 + Math.random() * 10,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: Math.random() * 3,
+                }}
+                className="absolute opacity-20 pointer-events-none z-10"
+              >
+                <Milk
+                  className="w-16 h-16"
+                  style={{ color: FLAVORS[flavor].color }}
+                />
+              </motion.div>
+            );
+          })}
 
         {/* Money Display */}
         <div className="absolute top-12 flex flex-col items-center z-30">
@@ -542,33 +690,169 @@ export default function App() {
               </span>
               {formatLargeNumber(state.money)
                 .split("")
-                .map((char, i) => (
-                  <motion.span
-                    key={`${i}-${char}`}
-                    initial={{ y: 5, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className="inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 mt-2">
-            <div className="text-neutral-400 font-mono text-[11px] font-bold uppercase tracking-[0.3em] bg-white/5 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 shadow-2xl">
-              +${formatLargeNumber(getIncomePerSecond())}/S
+                .map((char, i) =>
+                  state.options.numberAnimation ? (
+                    <motion.span
+                      key={`${i}-${char}`}
+                      initial={{ y: 5, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 25,
+                      }}
+                      className="inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ) : (
+                    <span key={`${i}-${char}`} className="inline-block">
+                      {char}
+                    </span>
+                  ),
+                )}
             </div>
           </div>
           {getGlobalMultiplier() > 1 && (
             <motion.div
               initial={{ y: 5, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="mt-2 text-[10px] font-bold bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30 uppercase"
+              className="mt-2 text-xs font-bold bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30 uppercase"
             >
               Global Multiplier: x{getGlobalMultiplier().toFixed(1)}
             </motion.div>
           )}
+        </div>
+
+        <div className="absolute bottom-8 left-8 z-30 w-[28rem] space-y-3">
+          <div className="glass-panel p-4 border-white/10 bg-black/40 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="text-xs uppercase tracking-[0.35em] text-neutral-400 font-black">
+                Empire Stats
+              </div>
+              <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-bold">
+                v{APP_VERSION}
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-sm text-neutral-200">
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-neutral-400">
+                  Shakes
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {formatLargeNumber(state.totalStats.totalMilkshakes)}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-blue-300">Crusty</div>
+                <div className="mt-1 font-bold text-white">
+                  {formatLargeNumber(state.totalStats.totalCrusty)}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-orange-300">
+                  Baked
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {formatLargeNumber(state.totalStats.totalBaked)}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-purple-300">
+                  Swirled
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {formatLargeNumber(state.totalStats.totalSwirled)}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-yellow-300">
+                  Golden
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {formatLargeNumber(state.totalStats.totalGolden)}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-pink-300">
+                  Flavors
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {state.unlockedFlavors.length}/{flavorTypes.length}
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-sm text-neutral-200">
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-emerald-300">
+                  Employees
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {totalEmployees}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-cyan-300">
+                  Extensions
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {totalShopExtensions}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-2xl p-3">
+                <div className="font-black uppercase text-lime-300">
+                  Capacity
+                </div>
+                <div className="mt-1 font-bold text-white">
+                  {totalShopCapacity}
+                </div>
+              </div>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 text-sm text-neutral-200">
+              <div className="flex justify-between">
+                <span>Income /s</span>
+                <span className="font-bold text-white">
+                  +${formatLargeNumber(getIncomePerSecond())}/s
+                </span>
+              </div>
+              <div className="flex justify-between mt-2">
+                <span>Next payroll</span>
+                <span className="font-bold text-white">
+                  {daysUntilPayroll} day{daysUntilPayroll === 1 ? "" : "s"} · -$
+                  {formatLargeNumber(monthlyOperatingCost)}
+                </span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs uppercase tracking-[0.2em] text-neutral-400">
+              <span className="text-blue-400">
+                {(
+                  (CHANCES.crustyBase +
+                    state.upgrades.qualityControl * 0.005 +
+                    state.upgrades.equipmentUpgrade * 0.002) *
+                  100
+                ).toFixed(1)}
+                % Crusty
+              </span>
+              <span className="text-orange-400">
+                {(
+                  (CHANCES.bakedBase + state.upgrades.heatControl * 0.001) *
+                  100
+                ).toFixed(1)}
+                % Baked
+              </span>
+              <span className="text-purple-400">
+                {(CHANCES.swirledBase * 100).toFixed(1)}% Swirl
+              </span>
+              <span className="text-yellow-400">
+                {(
+                  (CHANCES.goldenBase +
+                    state.upgrades.recipeDevelopment * 0.0001) *
+                  100
+                ).toFixed(2)}
+                % Gold
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Main Content Area */}
@@ -595,7 +879,7 @@ export default function App() {
                 <p className="text-xs font-black uppercase leading-none">
                   Auto-Mixer
                 </p>
-                <p className="text-[8px] font-bold opacity-60 uppercase">
+                <p className="text-xs font-bold opacity-60 uppercase">
                   {state.options.autoMix ? "Enabled" : "Disabled"}
                 </p>
               </div>
@@ -666,9 +950,9 @@ export default function App() {
               {/* Liquid Fill */}
               <motion.div
                 className="absolute bottom-0 w-full"
-                initial={{ height: "12%" }}
+                initial={{ height: "40%" }}
                 animate={{
-                  height: `${isBlending ? (progress >= 98 ? 100 : progress) : 12}%`,
+                  height: `${blenderFillHeight}%`,
                 }}
                 transition={{
                   type: "spring",
@@ -680,6 +964,8 @@ export default function App() {
                     state.activeFlavors.length > 1
                       ? `linear-gradient(to top, ${state.activeFlavors.map((t) => FLAVORS[t].color).join(", ")})`
                       : FLAVORS[state.activeFlavors[0]]?.color || "#3d2b1f",
+                  backgroundSize: "100% 200%",
+                  backgroundPosition: "bottom",
                 }}
               >
                 {/* Highlight and liquid surface */}
@@ -768,30 +1054,33 @@ export default function App() {
       <div className="w-[450px] bg-neutral-900 flex flex-col border-l border-white/10 shrink-0 z-50">
         {/* Sidebar Header / Tabs - 2 Row Layout */}
         <div className="bg-neutral-800/80 p-2 border-b border-white/5 space-y-1">
-          <div className="grid grid-cols-3 gap-1">
-            {(["employees", "upgrades", "flavors"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`py-2 px-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
-                  activeTab === tab
-                    ? "bg-white text-black"
-                    : "bg-white/5 text-neutral-400 hover:bg-white/20"
-                }`}
-              >
-                {tab === "employees" && <Store className="w-4 h-4" />}
-                {tab === "upgrades" && <Zap className="w-4 h-4" />}
-                {tab === "flavors" && <Palette className="w-4 h-4" />}
-                {tab}
-              </button>
-            ))}
+          <div className="grid grid-cols-4 gap-1">
+            {(["employees", "shops", "upgrades", "flavors"] as const).map(
+              (tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`py-2 px-1 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
+                    activeTab === tab
+                      ? "bg-white text-black"
+                      : "bg-white/5 text-neutral-400 hover:bg-white/20"
+                  }`}
+                >
+                  {tab === "employees" && <Users className="w-4 h-4" />}
+                  {tab === "shops" && <Store className="w-4 h-4" />}
+                  {tab === "upgrades" && <Zap className="w-4 h-4" />}
+                  {tab === "flavors" && <Palette className="w-4 h-4" />}
+                  {tab}
+                </button>
+              ),
+            )}
           </div>
-          <div className="grid grid-cols-2 gap-1">
-            {(["countries", "settings"] as const).map((tab) => (
+          <div className="grid grid-cols-3 gap-1">
+            {(["countries", "settings", "about"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-2 px-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
+                className={`py-2 px-1 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
                   activeTab === tab
                     ? "bg-white text-black"
                     : "bg-white/5 text-neutral-400 hover:bg-white/20"
@@ -799,6 +1088,7 @@ export default function App() {
               >
                 {tab === "countries" && <Globe className="w-4 h-4" />}
                 {tab === "settings" && <Settings className="w-4 h-4" />}
+                {tab === "about" && <Info className="w-4 h-4" />}
                 {tab}
               </button>
             ))}
@@ -811,11 +1101,57 @@ export default function App() {
           {activeTab === "employees" && (
             <div className="space-y-3">
               <div className="px-1 pb-2 border-b border-white/5">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-500">
-                  Employee Management
+                <h3 className="text-xs font-black uppercase tracking-[0.2em] text-neutral-500">
+                  Employee Roster
                 </h3>
               </div>
-              {visibleShops.map((shop) => {
+              {visibleEmployees.map((shop) => {
+                const cost = getShopCost(shop);
+                return (
+                  <div
+                    key={shop.id}
+                    className={`glass-panel p-4 flex items-center justify-between transition-all ${state.money < cost ? "opacity-50 grayscale" : "hover:bg-white/5 cursor-pointer active:scale-95"}`}
+                    onClick={() => buyShop(shop.id)}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <Users className="w-6 h-6 text-cyan-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-sm tracking-tight">
+                          {shop.name}
+                        </h4>
+                        <p className="text-xs font-mono text-neutral-500">
+                          {shop.description}
+                        </p>
+                        <p className="text-xs font-mono text-neutral-500 mt-1">
+                          Staff Count: {shop.count}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-mono font-black text-yellow-500 tracking-tighter">
+                        ${formatLargeNumber(cost)}
+                      </div>
+                      <div className="text-xs text-green-400 font-mono text-center">
+                        +${formatLargeNumber(shop.baseIncome)}/s
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* --- SHOPS TAB --- */}
+          {activeTab === "shops" && (
+            <div className="space-y-3">
+              <div className="px-1 pb-2 border-b border-white/5">
+                <h3 className="text-xs font-black uppercase tracking-[0.2em] text-neutral-500">
+                  Shop Extensions
+                </h3>
+              </div>
+              {visibleShopExtensions.map((shop) => {
                 const cost = getShopCost(shop);
                 return (
                   <div
@@ -831,8 +1167,11 @@ export default function App() {
                         <h4 className="font-bold text-sm tracking-tight">
                           {shop.name}
                         </h4>
-                        <p className="text-[10px] font-mono text-neutral-500">
-                          Staff Count: {shop.count}
+                        <p className="text-xs font-mono text-neutral-500">
+                          {shop.description}
+                        </p>
+                        <p className="text-xs font-mono text-neutral-500 mt-1">
+                          Level: {shop.count}
                         </p>
                       </div>
                     </div>
@@ -840,7 +1179,7 @@ export default function App() {
                       <div className="text-sm font-mono font-black text-yellow-500 tracking-tighter">
                         ${formatLargeNumber(cost)}
                       </div>
-                      <div className="text-[10px] text-green-400 font-mono text-center">
+                      <div className="text-xs text-green-400 font-mono text-center">
                         +${formatLargeNumber(shop.baseIncome)}/s
                       </div>
                     </div>
@@ -985,7 +1324,7 @@ export default function App() {
                       <span className="text-xs font-bold text-yellow-400">
                         ${formatLargeNumber(flavor.unlockCost)}
                       </span>
-                      <span className="text-[10px] uppercase text-neutral-500 font-bold">
+                      <span className="text-xs uppercase text-neutral-500 font-bold">
                         Unlock
                       </span>
                     </button>
@@ -1055,6 +1394,136 @@ export default function App() {
               );
             })}
 
+          {/* --- ABOUT TAB --- */}
+          {activeTab === "about" && (
+            <div className="space-y-4">
+              <div className="glass-panel p-4 space-y-3">
+                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-blue-300 text-justify">
+                  About
+                </h3>
+                <p className="text-xs text-neutral-300 leading-relaxed text-justify">
+                  Milkshake Mania is an incremental, clicker-like game built
+                  with <span className="text-cyan-300">React + Vite</span>. It
+                  features manual blending, passive income from employees, and a
+                  variety of upgrades and special outcomes. This experience
+                  allows you to create your own milkshake empire, starting from
+                  a small shop and building your empire through blends, staff,
+                  and expansion.
+                </p>
+                <p className="text-xs text-green-300">Version: {APP_VERSION}</p>
+              </div>
+
+              <div className="glass-panel p-4 space-y-3">
+                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-red-300">
+                  License
+                </h3>
+
+                <p className="text-xs text-neutral-300 leading-relaxed text-justify">
+                  Copyright (c) 2026 Strider657
+                  <br />
+                  <br />
+                  ALL RIGHTS RESERVED
+                  <br />
+                  <br />
+                  This software, including but not limited to the game
+                  "Milkshake Mania" (the "Software"), and all associated source
+                  code, compiled binaries, web builds, assets, audio, visual
+                  elements, UI/UX designs, documentation, data structures, game
+                  mechanics, systems, and any related materials, is and remains
+                  the exclusive property of Strider657.
+                  <br />
+                  <br />
+                  No rights are granted to any person or entity except as
+                  explicitly authorized in writing by the copyright holder. All
+                  rights are hereby reserved.
+                  <br />
+                  <br />
+                  Without prior written permission, you may not:
+                  <br />
+                  - Copy, reproduce, distribute, publish, or redistribute the
+                  Software in whole or in part
+                  <br />
+                  - Modify, adapt, translate, merge, or create derivative works
+                  based on the Software
+                  <br />
+                  - Sell, license, sublicense, rent, lease, or otherwise
+                  commercially exploit the Software or any portion of it
+                  <br />
+                  - Upload, host, or make the Software available on any platform
+                  under any name other than the original copyright holder
+                  <br />
+                  - Reverse engineer, decompile, disassemble, or otherwise
+                  attempt to derive source code, algorithms, or underlying
+                  structures from compiled or obfuscated forms
+                  <br />
+                  - Remove, alter, or obscure any copyright, ownership, or
+                  attribution notices
+                  <br />
+                  <br />
+                  Unauthorized use of this Software constitutes infringement of
+                  intellectual property rights and may result in civil and/or
+                  criminal liability, including injunctive relief, damages, and
+                  legal costs.
+                  <br />
+                  <br />
+                  The Software is provided "as is", without warranties of any
+                  kind, express or implied, including but not limited to
+                  merchantability, fitness for a particular purpose, and
+                  non-infringement. The copyright holder shall not be liable for
+                  any damages or losses arising from use or inability to use the
+                  Software.
+                  <br />
+                  <br />
+                  All rights not expressly granted are strictly reserved.
+                  <br />
+                  <br />
+                  (c) 2026 Strider657. All Rights Reserved.
+                </p>
+              </div>
+
+              <div className="glass-panel p-4 space-y-3">
+                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-neutral-400">
+                  Credits
+                </h3>
+                <p className="text-xs text-neutral-300 leading-relaxed  text-justify">
+                  UI design, music, and game logic brought together by the
+                  <strong> Strider657's Milkshake Mania</strong> team.
+                  <br />
+                  <br />
+                  <hr />
+                  <br />
+                  <strong className="text-center">MAIN DEVELOPER</strong>
+                  <p class="text-center">Strider657</p>
+                  <br />
+                  <hr />
+                  <br />
+                  <strong className="text-center">
+                    MAIN DIRECTOR OF CONCEPTUAL GAME DESIGN (IDEAS AND GAME
+                    CONCEPTS)
+                  </strong>
+                  <p className="text-center">Oliver382</p>
+                  <br />
+                  <hr />
+                  <br />
+                  <p className="text-justify">
+                    Huge thanks to everyone who contributed to this project!
+                    Special shoutout to Oliver382 for bringing so many creative
+                    ideas and shaping the gameplay and features of Milkshake
+                    Mania. I'm Strider657, and it's been awesome collaborating
+                    with him on the game's design and overall vision.
+                  </p>
+                  <br />
+                  <p className="text-justify">
+                    This game wouldn't be what it is without Oliver382's ideas.
+                    His creativity inspired a lot of the game's mechanics and
+                    features, and I'm really grateful for his support throughout
+                    development. Big thanks, Oliver!
+                  </p>
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* --- SETTINGS TAB --- */}
           {activeTab === "settings" && (
             <div className="space-y-6">
@@ -1067,7 +1536,7 @@ export default function App() {
                     <Sparkles className="w-5 h-5 text-blue-400" />
                     <div>
                       <h4 className="text-sm font-bold">High Quality FX</h4>
-                      <p className="text-[10px] text-neutral-400">
+                      <p className="text-xs text-neutral-400">
                         Better gradients and shadows.
                       </p>
                     </div>
@@ -1175,6 +1644,62 @@ export default function App() {
                     </span>
                   </button>
                 </div>
+
+                <div className="glass-panel p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Music className="w-5 h-5 text-sky-400" />
+                    <div>
+                      <h4 className="text-sm font-bold">Animate Numbers</h4>
+                      <p className="text-[10px] text-neutral-400">
+                        Toggle rolling number transitions.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        options: {
+                          ...prev.options,
+                          numberAnimation: !prev.options.numberAnimation,
+                        },
+                      }))
+                    }
+                    className={`w-12 h-6 rounded-full transition-colors relative ${state.options.numberAnimation ? "bg-green-500" : "bg-neutral-700"}`}
+                  >
+                    <div
+                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${state.options.numberAnimation ? "right-1" : "left-1"}`}
+                    />
+                  </button>
+                </div>
+
+                <div className="glass-panel p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Snowflake className="w-5 h-5 text-teal-400" />
+                    <div>
+                      <h4 className="text-sm font-bold">Better Animations</h4>
+                      <p className="text-[10px] text-neutral-400">
+                        Smoother movement and visual polish.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        options: {
+                          ...prev.options,
+                          betterAnimations: !prev.options.betterAnimations,
+                        },
+                      }))
+                    }
+                    className={`w-12 h-6 rounded-full transition-colors relative ${state.options.betterAnimations ? "bg-green-500" : "bg-neutral-700"}`}
+                  >
+                    <div
+                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${state.options.betterAnimations ? "right-1" : "left-1"}`}
+                    />
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-3">
@@ -1225,69 +1750,6 @@ export default function App() {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Global Stats Footer */}
-        <div className="p-6 bg-neutral-950 border-t border-white/5">
-          <div className="flex justify-between text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-4">
-            <span>Empire Stats</span>
-            <div className="flex gap-4">
-              <span className="text-blue-400">
-                {(
-                  (CHANCES.crustyBase +
-                    state.upgrades.qualityControl * 0.005 +
-                    state.upgrades.equipmentUpgrade * 0.002) *
-                  100
-                ).toFixed(1)}
-                % Crusty
-              </span>
-              <span className="text-orange-400">
-                {(
-                  (CHANCES.bakedBase + state.upgrades.heatControl * 0.001) *
-                  100
-                ).toFixed(1)}
-                % Baked
-              </span>
-              <span className="text-purple-400">
-                {(CHANCES.swirledBase * 100).toFixed(1)}% Swirl
-              </span>
-              <span className="text-yellow-400">
-                {(
-                  (CHANCES.goldenBase +
-                    state.upgrades.recipeDevelopment * 0.0001) *
-                  100
-                ).toFixed(2)}
-                % Gold
-              </span>
-            </div>
-          </div>
-          <div className="grid grid-cols-5 gap-2">
-            <StatBox
-              icon={<Milk className="w-3 h-3" />}
-              value={formatLargeNumber(state.totalStats.totalMilkshakes)}
-              label="Shakes"
-            />
-            <StatBox
-              icon={<Sparkles className="w-3 h-3 text-blue-400" />}
-              value={formatLargeNumber(state.totalStats.totalCrusty)}
-              label="Crusty"
-            />
-            <StatBox
-              icon={<Flame className="w-3 h-3 text-orange-400" />}
-              value={formatLargeNumber(state.totalStats.totalBaked)}
-              label="Baked"
-            />
-            <StatBox
-              icon={<Layers className="w-3 h-3 text-purple-400" />}
-              value={formatLargeNumber(state.totalStats.totalSwirled)}
-              label="Swirled"
-            />
-            <StatBox
-              icon={<Trophy className="w-3 h-3 text-yellow-400" />}
-              value={formatLargeNumber(state.totalStats.totalGolden)}
-              label="Golden"
-            />
-          </div>
         </div>
       </div>
 
