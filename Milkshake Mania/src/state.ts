@@ -1,3 +1,8 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 import { GameState, FlavorType, Shop } from "./types";
 import { INITIAL_SHOPS } from "./constants";
 
@@ -25,7 +30,11 @@ export function createDefaultState(now: number = Date.now()): GameState {
       floatingShakes: true,
       screenShake: true,
       autoMix: false,
+      numberAnimation: true,
+      betterAnimations: true,
       bgIndex: 0,
+      guiScale: 1,
+      textScale: 1,
     },
     shops: INITIAL_SHOPS,
     upgrades: {
@@ -45,7 +54,13 @@ export function createDefaultState(now: number = Date.now()): GameState {
       storefrontAppeal: 0,
       expansionNegotiation: 0,
       autoMixerTuning: 0,
+      talentRecruitment: 0,
+      supplyChainOptimization: 0,
+      brandLicensing: 0,
+      premiumPackaging: 0,
+      automationExpansion: 0,
     },
+    gameDays: 1,
     lastUpdate: now,
   };
 }
@@ -90,6 +105,7 @@ export function sanitizeLoadedState(raw: unknown): GameState {
       ? parsed.unlockedCountries
       : defaults.unlockedCountries,
     options: { ...defaults.options, ...(parsed.options || {}) },
+    gameDays: safeNumber(parsed.gameDays, defaults.gameDays),
     lastUpdate: safeNumber(parsed.lastUpdate, Date.now()),
   };
 }
