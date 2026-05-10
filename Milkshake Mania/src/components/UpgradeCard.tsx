@@ -1,5 +1,11 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 import React from "react";
 import { Coins } from "lucide-react";
+import { formatLargeNumber } from "../utils/format";
 
 type Props = {
   key?: any;
@@ -11,14 +17,6 @@ type Props = {
   cost: number;
   onBuy: () => void;
   canAfford: boolean;
-};
-
-const formatCost = (num: number) => {
-  if (num >= 1e12) return (num / 1e12).toFixed(3) + "T";
-  if (num >= 1e9) return (num / 1e9).toFixed(3) + "B";
-  if (num >= 1e6) return (num / 1e6).toFixed(3) + "M";
-  if (num >= 1e3) return (num / 1e3).toFixed(3) + "k";
-  return Math.floor(num).toLocaleString();
 };
 
 export default function UpgradeCard({
@@ -40,11 +38,11 @@ export default function UpgradeCard({
           <div className={`p-2 bg-white/5 rounded-lg ${iconColor}`}>{icon}</div>
           <h4 className="font-bold text-sm tracking-tight">{name}</h4>
         </div>
-        <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded text-neutral-300 font-mono border border-white/5">
+        <span className="text-xs bg-white/10 px-2 py-0.5 rounded text-neutral-300 font-mono border border-white/5">
           LVL {level}
         </span>
       </div>
-      <p className="text-[11px] text-neutral-400 leading-relaxed h-8 line-clamp-2">
+      <p className="text-sm text-neutral-400 leading-relaxed h-8 line-clamp-2">
         {desc}
       </p>
       <button
@@ -57,7 +55,9 @@ export default function UpgradeCard({
         }`}
       >
         <Coins className="w-3 h-3" />
-        {canAfford ? `Upgrade: $${formatCost(cost)}` : `Need $${formatCost(cost)}`}
+        {canAfford
+          ? `Upgrade: $${formatLargeNumber(cost)}`
+          : `Need $${formatLargeNumber(cost)}`}
       </button>
     </div>
   );
