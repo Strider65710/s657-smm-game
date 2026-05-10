@@ -1,6 +1,7 @@
 """Milkshake Mania Launcher"""
 
-import ctypes, os
+import json
+import os
 from pathlib import Path
 
 import webview  # type: ignore
@@ -13,12 +14,25 @@ install(show_locals=True)
 
 # === Config ===
 
-VERSION: float = 0.2
+PACKAGE_JSON: Path = Path(__file__).resolve().parent / "package.json"
+
 IS_ALPHA: bool = True
 IS_BETA: bool = False
 
+
+def get_app_version() -> str:
+    try:
+        with PACKAGE_JSON.open("r", encoding="utf-8") as package_file:
+            data = json.load(package_file)
+            version = data.get("version")
+            return str(version) if version is not None else "0.0.0"
+    except Exception:
+        return "0.0.0"
+
+
+APP_VERSION: str = get_app_version()
 APP_NAME: str = (
-    f"Strider657's Milkshake Mania (SMM) - {VERSION}{'-alpha' if IS_ALPHA else ''}{'-beta' if IS_BETA else ''}"
+    f"Strider657's Milkshake Mania (SMM) - {APP_VERSION}{'-alpha' if IS_ALPHA else ''}{'-beta' if IS_BETA else ''}"
 )
 
 WIDTH: int = 1280
@@ -51,11 +65,11 @@ def main() -> None:
             height=HEIGHT,
             min_size=(WIDTH, HEIGHT),
             background_color="#000000",
-        )
+        )  # type: ignore
 
         cs.log("Webview window created successfully.")
 
-        webview.start(None, window, icon=icon_path, private_mode=False)
+        webview.start(None, window, icon=icon_path, private_mode=False)  # type: ignore
 
     except Exception:
         cs.log("Webview window failed.")
