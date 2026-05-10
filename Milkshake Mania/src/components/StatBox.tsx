@@ -1,3 +1,8 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 import React from "react";
 
 type Props = {
@@ -17,4 +22,3 @@ export default function StatBox({ icon, value, label }: Props) {
     </div>
   );
 }
-
