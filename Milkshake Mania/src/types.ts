@@ -1,3 +1,8 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 export enum FlavorType {
   CHOCOLATE = "Chocolate",
   VANILLA = "Vanilla",
@@ -20,6 +25,10 @@ export enum FlavorType {
   CELESTIAL = "Celestial Delight",
   PHOENIX = "Phoenix Flame",
   COSMIC = "Cosmic Wonder",
+  CITRUS = "Citrus Zest",
+  MARSHMALLOW = "Marshmallow Cloud",
+  GALAXY = "Galaxy Swirl",
+  PHANTOM = "Phantom Frost",
 }
 export interface FlavorInfo {
   type: FlavorType;
@@ -31,9 +40,13 @@ export interface FlavorInfo {
 export interface Shop {
   id: string;
   name: string;
+  section: "employees" | "shops";
+  description: string;
+  employeeCapacity?: number;
   count: number;
   baseIncome: number;
   cost: number;
+  monthlyCost: number;
 }
 
 export interface Upgrade {
@@ -72,7 +85,11 @@ export interface GameState {
     floatingShakes: boolean;
     screenShake: boolean;
     autoMix: boolean;
+    numberAnimation: boolean;
+    betterAnimations: boolean;
     bgIndex: number;
+    guiScale: number;
+    textScale: number;
   };
   shops: Shop[];
   upgrades: {
@@ -92,6 +109,12 @@ export interface GameState {
     storefrontAppeal: number;
     expansionNegotiation: number;
     autoMixerTuning: number;
+    talentRecruitment: number;
+    supplyChainOptimization: number;
+    brandLicensing: number;
+    premiumPackaging: number;
+    automationExpansion: number;
   };
+  gameDays: number;
   lastUpdate: number;
 }
