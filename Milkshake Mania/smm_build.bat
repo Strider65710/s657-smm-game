@@ -14,6 +14,8 @@ echo.
 echo [BUILD] Building the executable...
 echo.
 
+if exist build rmdir /s /q build
+
 pyinstaller --onefile --windowed --name "MilkshakeMania" --icon "assets/favicon.ico" --add-data "dist;dist" ^
 --add-data "assets;assets" --collect-all bottle --clean --distpath build smm.py
 
