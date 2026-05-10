@@ -94,14 +94,14 @@ export interface GameState {
   shops: Shop[];
   upgrades: {
     mixSpeed: number;
-    qualityControl: number;
-    employeeTraining: number;
     marketingCampaign: number;
-    bulkPurchasing: number;
+    employeeTraining: number;
+    qualityControl: number;
     equipmentUpgrade: number;
     heatControl: number;
     recipeDevelopment: number;
     customBlending: number;
+    bulkPurchasing: number;
     distributionNetwork: number;
     portionSize: number;
     specialMastery: number;
@@ -114,6 +114,12 @@ export interface GameState {
     brandLicensing: number;
     premiumPackaging: number;
     automationExpansion: number;
+    wifiOptimization: number;
+    customerAnalyticsAI: number;
+    cloudKitchenIntegration: number;
+    viralMarketingAI: number;
+    automationOverclock: number;
+    quantumLogistics: number;
   };
   gameDays: number;
   lastUpdate: number;
