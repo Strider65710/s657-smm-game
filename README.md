@@ -8,7 +8,7 @@ Milkshake Mania is an incremental, clicker-like game built with React + Vite. It
 
 ## Gameplay (quick)
 
-- Manual blending starts at **10s per blend** (upgradeable).
+- Manual blending starts at **7.5s per blend** (upgradeable).
 - Special outcomes are independent and can stack per blend:
   - **Crusty:** 10%
   - **Baked:** 5%
