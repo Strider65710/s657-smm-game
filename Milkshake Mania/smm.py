@@ -25,9 +25,9 @@ def get_app_version() -> str:
         with PACKAGE_JSON.open("r", encoding="utf-8") as package_file:
             data = json.load(package_file)
             version = data.get("version")
-            return str(version) if version is not None else "0.0.0"
+            return str(version) if version is not None else "0.0"
     except Exception:
-        return "0.0.0"
+        return "0.0"
 
 
 APP_VERSION: str = get_app_version()
@@ -35,8 +35,8 @@ APP_NAME: str = (
     f"Strider657's Milkshake Mania (SMM) - {APP_VERSION}{'-alpha' if IS_ALPHA else ''}{'-beta' if IS_BETA else ''}"
 )
 
-WIDTH: int = 1280
-HEIGHT: int = 720
+WIDTH: int = 1920
+HEIGHT: int = 1080
 
 SCRIPT_DIR: Path = Path(__file__).resolve().parent
 DIST_INDEX: Path = SCRIPT_DIR / "dist" / "index.html"
