@@ -1,3 +1,8 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 import { useEffect, useState } from "react";
 import type { GameState } from "../types";
 import { createDefaultState, sanitizeLoadedState } from "../state";
@@ -24,4 +29,3 @@ export function useSavedGameState(saveKey: string) {
 
   return { state, setState, clearSave };
 }
-
