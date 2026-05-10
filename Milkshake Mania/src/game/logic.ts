@@ -1,4 +1,10 @@
+/**
+ * @license
+ * All Rights Reserved.
+ */
+
 import { Country, FlavorType, GameState } from "../types";
+import { BASE_SHAKE_SALE } from "../constants";
 
 const safeNumber = (value: unknown, fallback: number): number => {
   const num = Number(value);
@@ -6,10 +12,7 @@ const safeNumber = (value: unknown, fallback: number): number => {
 };
 
 export function calcGlobalMultiplier(
-  state: Pick<
-    GameState,
-    "unlockedCountries" | "activeFlavors" | "upgrades"
-  >,
+  state: Pick<GameState, "unlockedCountries" | "activeFlavors" | "upgrades">,
   countries: Country[],
   flavors: Record<FlavorType, { multiplier: number }>,
 ): number {
@@ -23,12 +26,17 @@ export function calcGlobalMultiplier(
     1,
   );
 
-  const researchBonus = 1 + safeNumber(state.upgrades.recipeDevelopment, 0) * 0.5;
+  const researchBonus =
+    1 + safeNumber(state.upgrades.recipeDevelopment, 0) * 0.5;
 
-  const ingredientBonus = 1 + safeNumber(state.upgrades.ingredientQuality, 0) * 0.02;
-  const storefrontBonus = 1 + safeNumber(state.upgrades.storefrontAppeal, 0) * 0.03;
+  const ingredientBonus =
+    1 + safeNumber(state.upgrades.ingredientQuality, 0) * 0.02;
+  const storefrontBonus =
+    1 + safeNumber(state.upgrades.storefrontAppeal, 0) * 0.03;
 
-  return countryMult * mixMult * researchBonus * ingredientBonus * storefrontBonus;
+  return (
+    countryMult * mixMult * researchBonus * ingredientBonus * storefrontBonus
+  );
 }
 
 export function calcIncomePerSecond(
@@ -80,7 +88,9 @@ export function rollSpecialOutcomes(
   },
 ): { multiplier: number; activeTypes: SpecialOutcomeId[] } {
   const crustChance =
-    chances.crustyBase + upgrades.qualityControl * 0.005 + upgrades.equipmentUpgrade * 0.002;
+    chances.crustyBase +
+    upgrades.qualityControl * 0.005 +
+    upgrades.equipmentUpgrade * 0.002;
   const bakedChance = chances.bakedBase + upgrades.heatControl * 0.001;
   const goldenChance = chances.goldenBase + upgrades.recipeDevelopment * 0.0001;
   const swirledChance = chances.swirledBase;
@@ -121,10 +131,14 @@ export function calcManualBlendGain(
   globalMultiplier: number,
   specialMultiplier: number,
 ): number {
-  const baseIncome =
-    state.shops.reduce((acc, shop) => acc + (shop.count || 0) * (shop.baseIncome || 0), 0) ||
-    1;
+  const baseShopIncome = state.shops.reduce(
+    (acc, shop) => acc + (shop.count || 0) * (shop.baseIncome || 0),
+    0,
+  );
+  const baseIncome = BASE_SHAKE_SALE + baseShopIncome;
 
   const portionMult = 1 + state.upgrades.portionSize * 0.1;
-  return Math.floor(baseIncome * specialMultiplier * portionMult * globalMultiplier);
+  return Math.floor(
+    baseIncome * specialMultiplier * portionMult * globalMultiplier,
+  );
 }
