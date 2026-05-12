@@ -1415,69 +1415,173 @@ export default function App() {
 
               <div className="glass-panel p-4 space-y-3">
                 <h3 className="text-sm font-black uppercase tracking-[0.2em] text-red-300">
-                  License
+                  Legal (EULA)
                 </h3>
 
                 <p className="text-xs text-neutral-300 leading-relaxed text-justify">
-                  Copyright (c) 2026 Strider657
+                  END USER LICENSE AGREEMENT (EULA)
                   <br />
                   <br />
-                  ALL RIGHTS RESERVED
+                  Effective Date: January 1, 2026
+                  <br />
+                  Copyright © 2026 Strider657. All Rights Reserved.
                   <br />
                   <br />
-                  This software, including but not limited to the game
-                  "Milkshake Mania" (the "Software"), and all associated source
-                  code, compiled binaries, web builds, assets, audio, visual
-                  elements, UI/UX designs, documentation, data structures, game
-                  mechanics, systems, and any related materials, is and remains
-                  the exclusive property of Strider657.
+                  This End User License Agreement ("Agreement") is a legal
+                  agreement between you ("User", "you") and Strider657
+                  ("Licensor", "we", "our", or "us") governing the use of the
+                  software product known as "Milkshake Mania" (the "Software").
                   <br />
                   <br />
-                  No rights are granted to any person or entity except as
-                  explicitly authorized in writing by the copyright holder. All
-                  rights are hereby reserved.
+                  BY INSTALLING, ACCESSING, COPYING, DOWNLOADING, LAUNCHING, OR
+                  USING THE SOFTWARE IN ANY WAY, YOU AGREE TO BE BOUND BY THE
+                  TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO THESE TERMS,
+                  DO NOT INSTALL OR USE THE SOFTWARE.
                   <br />
                   <br />
-                  Without prior written permission, you may not:
+                  1. OWNERSHIP
                   <br />
-                  - Copy, reproduce, distribute, publish, or redistribute the
-                  Software in whole or in part
                   <br />
-                  - Modify, adapt, translate, merge, or create derivative works
+                  The Software and all associated content, including but not
+                  limited to source code, compiled binaries, assets, textures,
+                  models, animations, music, sound effects, dialogue, visual
+                  designs, UI/UX elements, systems, mechanics, scripts,
+                  documentation, branding, and related materials are and shall
+                  remain the exclusive intellectual property of Strider657 and
+                  are protected under applicable copyright, trademark, and
+                  intellectual property laws.
+                  <br />
+                  <br />
+                  No ownership rights are transferred to you under this
+                  Agreement.
+                  <br />
+                  <br />
+                  2. LIMITED LICENSE
+                  <br />
+                  <br />
+                  Subject to your compliance with this Agreement, Strider657
+                  grants you a limited, revocable, non-exclusive,
+                  non-transferable, non-sublicensable license to install and use
+                  one copy of the Software solely for personal, non-commercial
+                  entertainment purposes.
+                  <br />
+                  <br />
+                  3. RESTRICTIONS
+                  <br />
+                  <br />
+                  You may NOT, without prior written permission from Strider657:
+                  <br />
+                  - Copy, reproduce, distribute, republish, or redistribute the
+                  Software or any component thereof
+                  <br />
+                  - Modify, adapt, translate, patch, or create derivative works
                   based on the Software
                   <br />
-                  - Sell, license, sublicense, rent, lease, or otherwise
-                  commercially exploit the Software or any portion of it
+                  - Sell, rent, lease, sublicense, monetize, or commercially
+                  exploit the Software
                   <br />
-                  - Upload, host, or make the Software available on any platform
-                  under any name other than the original copyright holder
+                  - Reverse engineer, decompile, disassemble, or attempt to
+                  derive the source code, algorithms, or underlying systems of
+                  the Software, except where expressly permitted by applicable
+                  law
                   <br />
-                  - Reverse engineer, decompile, disassemble, or otherwise
-                  attempt to derive source code, algorithms, or underlying
-                  structures from compiled or obfuscated forms
+                  - Remove, alter, or obscure any copyright, trademark, or
+                  proprietary notices
                   <br />
-                  - Remove, alter, or obscure any copyright, ownership, or
-                  attribution notices
+                  - Upload, mirror, host, or redistribute the Software on
+                  third-party platforms under any name other than the official
+                  release
                   <br />
+                  - Use the Software for unlawful, harmful, fraudulent, or
+                  malicious purposes
                   <br />
-                  Unauthorized use of this Software constitutes infringement of
-                  intellectual property rights and may result in civil and/or
-                  criminal liability, including injunctive relief, damages, and
-                  legal costs.
-                  <br />
-                  <br />
-                  The Software is provided "as is", without warranties of any
-                  kind, express or implied, including but not limited to
-                  merchantability, fitness for a particular purpose, and
-                  non-infringement. The copyright holder shall not be liable for
-                  any damages or losses arising from use or inability to use the
-                  Software.
+                  - Circumvent, disable, or interfere with security features,
+                  authentication systems, or technical protections used by the
+                  Software
                   <br />
                   <br />
-                  All rights not expressly granted are strictly reserved.
+                  4. USER CONTENT
                   <br />
                   <br />
-                  (c) 2026 Strider657. All Rights Reserved.
+                  If the Software permits the creation or sharing of
+                  user-generated content, you retain ownership of your original
+                  content. However, by submitting or sharing such content
+                  through the Software, you grant Strider657 a worldwide,
+                  non-exclusive, royalty-free license to host, display,
+                  reproduce, and distribute that content solely for operation,
+                  promotion, and improvement of the Software.
+                  <br />
+                  <br />
+                  You are solely responsible for any content you create or
+                  share.
+                  <br />
+                  <br />
+                  5. UPDATES AND MODIFICATIONS
+                  <br />
+                  <br />
+                  Strider657 may update, patch, modify, suspend, or discontinue
+                  the Software or any online functionality at any time without
+                  notice or liability.
+                  <br />
+                  <br />
+                  6. TERMINATION
+                  <br />
+                  <br />
+                  This Agreement automatically terminates if you violate any
+                  provision of this Agreement. Upon termination, you must
+                  immediately cease all use of the Software and delete all
+                  copies in your possession or control.
+                  <br />
+                  <br />
+                  7. DISCLAIMER OF WARRANTIES
+                  <br />
+                  <br />
+                  THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT
+                  WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+                  LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+                  A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, OR THAT THE
+                  SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE.
+                  <br />
+                  <br />
+                  8. LIMITATION OF LIABILITY
+                  <br />
+                  <br />
+                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, STRIDER657 SHALL NOT
+                  BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+                  CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING LOSS
+                  OF DATA, LOSS OF PROFITS, BUSINESS INTERRUPTION, OR SYSTEM
+                  FAILURE ARISING FROM OR RELATED TO USE OF THE SOFTWARE.
+                  <br />
+                  <br />
+                  9. INDEMNIFICATION
+                  <br />
+                  <br />
+                  You agree to indemnify and hold harmless Strider657 from any
+                  claims, liabilities, damages, losses, or expenses arising from
+                  your misuse of the Software or violation of this Agreement.
+                  <br />
+                  <br />
+                  10. GOVERNING LAW
+                  <br />
+                  <br />
+                  This Agreement shall be governed and interpreted in accordance
+                  with the laws applicable in the Licensor's jurisdiction,
+                  without regard to conflict of law principles.
+                  <br />
+                  <br />
+                  11. ENTIRE AGREEMENT
+                  <br />
+                  <br />
+                  This Agreement constitutes the complete and exclusive
+                  agreement between you and Strider657 regarding the Software
+                  and supersedes all prior agreements or understandings.
+                  <br />
+                  <br />
+                  All rights not expressly granted herein are reserved
+                  exclusively by Strider657.
+                  <br />
+                  <br />
+                  Copyright © 2026 Strider657. All Rights Reserved.
                 </p>
               </div>
 
