@@ -220,16 +220,6 @@ Here's what to work toward:
 
 ---
 
-## Controls
-
-| Device       | Action                            |
-| ------------ | --------------------------------- |
-| **Mouse**    | Click the Blend Button            |
-| **Touch**    | Tap the Blend Button              |
-| **Keyboard** | Press `Space` or `Enter` to blend |
-
----
-
 ## That's It
 
 You're ready to start your milkshake empire! Remember:
