@@ -70,7 +70,14 @@ export function calcIncomePerSecond(
   );
 }
 
-export type SpecialOutcomeId = "CRUSTY" | "BAKED" | "GOLDEN" | "SWIRLED";
+export type SpecialOutcomeId =
+  | "FAN_FAVORITE"
+  | "CREAMY"
+  | "CRUSTY"
+  | "BAKED"
+  | "GOLDEN"
+  | "SWIRLED"
+  | "DECORATED";
 
 export function rollSpecialOutcomes(
   upgrades: GameState["upgrades"],
@@ -79,12 +86,18 @@ export function rollSpecialOutcomes(
     bakedBase: number;
     goldenBase: number;
     swirledBase: number;
+    fanFavoriteBase: number;
+    decoratedBase: number;
+    creamyBase: number;
   },
   multipliers: {
     crusty: number;
     baked: number;
     golden: number;
     swirled: number;
+    fanFavorite: number;
+    decorated: number;
+    creamy: number;
   },
 ): { multiplier: number; activeTypes: SpecialOutcomeId[] } {
   const crustChance =
@@ -94,18 +107,33 @@ export function rollSpecialOutcomes(
   const bakedChance = chances.bakedBase + upgrades.heatControl * 0.001;
   const goldenChance = chances.goldenBase + upgrades.recipeDevelopment * 0.0001;
   const swirledChance = chances.swirledBase;
+  const fanFavoriteChance = chances.fanFavoriteBase;
+  const decoratedChance = chances.decoratedBase;
+  const creamyChance = chances.creamyBase;
 
   const clampChance = (v: number) => Math.max(0, Math.min(0.95, v));
   const crust = clampChance(crustChance);
   const baked = clampChance(bakedChance);
   const golden = clampChance(goldenChance);
   const swirled = clampChance(swirledChance);
+  const fanFavorite = clampChance(fanFavoriteChance);
+  const decorated = clampChance(decoratedChance);
+  const creamy = clampChance(creamyChance);
 
   const specialBoost = 1 + upgrades.specialMastery * 0.1;
 
   let multiplier = 1;
   const activeTypes: SpecialOutcomeId[] = [];
 
+  // Fan Favorite must be first if stacked
+  if (Math.random() < fanFavorite) {
+    multiplier *= multipliers.fanFavorite * specialBoost;
+    activeTypes.push("FAN_FAVORITE");
+  }
+  if (Math.random() < creamy) {
+    multiplier *= multipliers.creamy * specialBoost;
+    activeTypes.push("CREAMY");
+  }
   if (Math.random() < crust) {
     multiplier *= multipliers.crusty * specialBoost;
     activeTypes.push("CRUSTY");
@@ -121,6 +149,10 @@ export function rollSpecialOutcomes(
   if (Math.random() < swirled) {
     multiplier *= multipliers.swirled * specialBoost;
     activeTypes.push("SWIRLED");
+  }
+  if (Math.random() < decorated) {
+    multiplier *= multipliers.decorated * specialBoost;
+    activeTypes.push("DECORATED");
   }
 
   return { multiplier, activeTypes };
