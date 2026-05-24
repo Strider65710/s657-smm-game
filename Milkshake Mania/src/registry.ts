@@ -12,9 +12,9 @@ export const SHOP_REGISTRY = {
   INTERNS: {
     id: "interns",
     name: "Student Interns",
-    baseIncome: 0.5,
+    baseIncome: 0.3,
     cost: 300,
-    monthlyCost: 18,
+    monthlyCost: 5,
     tier: 1,
     section: "employees",
     employeeCapacity: 0,
@@ -23,9 +23,9 @@ export const SHOP_REGISTRY = {
   BARISTAS: {
     id: "baristas",
     name: "Skilled Baristas",
-    baseIncome: 2.0,
+    baseIncome: 1.2,
     cost: 1500,
-    monthlyCost: 65,
+    monthlyCost: 19,
     tier: 2,
     section: "employees",
     employeeCapacity: 0,
@@ -34,9 +34,9 @@ export const SHOP_REGISTRY = {
   CHEFS: {
     id: "chefs",
     name: "Trained Chefs",
-    baseIncome: 7,
+    baseIncome: 4,
     cost: 9000,
-    monthlyCost: 380,
+    monthlyCost: 63,
     tier: 3,
     section: "employees",
     employeeCapacity: 0,
@@ -45,9 +45,9 @@ export const SHOP_REGISTRY = {
   SUPERVISORS: {
     id: "supervisors",
     name: "Shift Supervisors",
-    baseIncome: 26,
+    baseIncome: 15,
     cost: 45000,
-    monthlyCost: 1700,
+    monthlyCost: 236,
     tier: 4,
     section: "employees",
     employeeCapacity: 0,
@@ -56,9 +56,9 @@ export const SHOP_REGISTRY = {
   MANAGERS: {
     id: "managers",
     name: "Location Managers",
-    baseIncome: 110,
+    baseIncome: 65,
     cost: 220000,
-    monthlyCost: 8700,
+    monthlyCost: 1024,
     tier: 5,
     section: "employees",
     employeeCapacity: 0,
@@ -67,9 +67,9 @@ export const SHOP_REGISTRY = {
   REGIONAL_LEADS: {
     id: "regional_leads",
     name: "Regional Directors",
-    baseIncome: 320,
+    baseIncome: 190,
     cost: 1200000,
-    monthlyCost: 39000,
+    monthlyCost: 2993,
     tier: 6,
     section: "employees",
     employeeCapacity: 0,
@@ -78,9 +78,9 @@ export const SHOP_REGISTRY = {
   NATIONAL_OPS: {
     id: "national_ops",
     name: "National Operations",
-    baseIncome: 1100,
+    baseIncome: 650,
     cost: 6500000,
-    monthlyCost: 140000,
+    monthlyCost: 10238,
     tier: 7,
     section: "employees",
     employeeCapacity: 0,
@@ -89,9 +89,9 @@ export const SHOP_REGISTRY = {
   DISTRIBUTION: {
     id: "distribution",
     name: "Distribution Centers",
-    baseIncome: 4200,
+    baseIncome: 2500,
     cost: 42000000,
-    monthlyCost: 510000,
+    monthlyCost: 39375,
     tier: 8,
     section: "employees",
     employeeCapacity: 0,
@@ -100,9 +100,9 @@ export const SHOP_REGISTRY = {
   GLOBAL_SUPPLY: {
     id: "global_supply",
     name: "Global Supply Chain",
-    baseIncome: 16000,
+    baseIncome: 9500,
     cost: 260000000,
-    monthlyCost: 2500000,
+    monthlyCost: 149625,
     tier: 9,
     section: "employees",
     employeeCapacity: 0,
@@ -111,9 +111,9 @@ export const SHOP_REGISTRY = {
   CORPORATE: {
     id: "corporate",
     name: "Corporate Headquarters",
-    baseIncome: 60000,
+    baseIncome: 35000,
     cost: 1200000000,
-    monthlyCost: 11000000,
+    monthlyCost: 551250,
     tier: 10,
     section: "employees",
     employeeCapacity: 0,
@@ -122,9 +122,9 @@ export const SHOP_REGISTRY = {
   BRAND_AMBASSADORS: {
     id: "brand_ambassadors",
     name: "Brand Ambassadors",
-    baseIncome: 160000,
+    baseIncome: 95000,
     cost: 5000000000,
-    monthlyCost: 42000000,
+    monthlyCost: 1496250,
     tier: 11,
     section: "employees",
     employeeCapacity: 0,
@@ -133,9 +133,9 @@ export const SHOP_REGISTRY = {
   FRANCHISE_NETWORK: {
     id: "franchise_network",
     name: "Franchise Network",
-    baseIncome: 710000,
+    baseIncome: 420000,
     cost: 25000000000,
-    monthlyCost: 160000000,
+    monthlyCost: 6615000,
     tier: 12,
     section: "employees",
     employeeCapacity: 0,
@@ -144,9 +144,9 @@ export const SHOP_REGISTRY = {
   GLOBAL_HUB: {
     id: "global_hub",
     name: "Global Hub",
-    baseIncome: 62000000,
+    baseIncome: 37000000,
     cost: 85000000000,
-    monthlyCost: 520000000,
+    monthlyCost: 582750000,
     tier: 13,
     section: "employees",
     employeeCapacity: 0,
@@ -155,9 +155,9 @@ export const SHOP_REGISTRY = {
   GALACTIC_OPS: {
     id: "galactic_ops",
     name: "Galactic Operations",
-    baseIncome: 280000000,
+    baseIncome: 165000000,
     cost: 320000000000,
-    monthlyCost: 2400000000,
+    monthlyCost: 2598750000,
     tier: 14,
     section: "employees",
     employeeCapacity: 0,
@@ -170,7 +170,7 @@ export const SHOP_REGISTRY = {
     name: "Indoor Seating",
     baseIncome: 1.5,
     cost: 800,
-    monthlyCost: 20,
+    monthlyCost: 24,
     tier: 1,
     section: "shops",
     employeeCapacity: 2,
@@ -181,10 +181,10 @@ export const SHOP_REGISTRY = {
     name: "Booth Seating",
     baseIncome: 5,
     cost: 3200,
-    monthlyCost: 65,
+    monthlyCost: 80,
     tier: 2,
     section: "shops",
-    employeeCapacity: 4,
+    employeeCapacity: 3,
     description: "Cozy booths keep guests ordering more.",
   },
   EXTRA_CASHIERS: {
@@ -192,10 +192,10 @@ export const SHOP_REGISTRY = {
     name: "Extra Cashiers",
     baseIncome: 15,
     cost: 12000,
-    monthlyCost: 180,
+    monthlyCost: 240,
     tier: 3,
     section: "shops",
-    employeeCapacity: 6,
+    employeeCapacity: 4,
     description: "Speed up service and reduce queue drag.",
   },
   KITCHEN_OVERHAUL: {
@@ -203,10 +203,10 @@ export const SHOP_REGISTRY = {
     name: "Kitchen Overhaul",
     baseIncome: 55,
     cost: 55000,
-    monthlyCost: 700,
+    monthlyCost: 875,
     tier: 4,
     section: "shops",
-    employeeCapacity: 10,
+    employeeCapacity: 6,
     description: "A better kitchen means faster, richer shakes.",
   },
   DRIVE_THROUGH: {
@@ -214,10 +214,10 @@ export const SHOP_REGISTRY = {
     name: "Drive-Through Lane",
     baseIncome: 180,
     cost: 220000,
-    monthlyCost: 2600,
+    monthlyCost: 3250,
     tier: 5,
     section: "shops",
-    employeeCapacity: 14,
+    employeeCapacity: 8,
     description: "Serve cars quickly without losing customers.",
   },
   BILLBOARD_ADS: {
@@ -236,10 +236,10 @@ export const SHOP_REGISTRY = {
     name: "Outdoor Patio",
     baseIncome: 2300,
     cost: 4100000,
-    monthlyCost: 21000,
+    monthlyCost: 26000,
     tier: 7,
     section: "shops",
-    employeeCapacity: 8,
+    employeeCapacity: 5,
     description: "Al fresco seating turns passersby into customers.",
   },
   FOOD_COURT_KIOSK: {
@@ -247,10 +247,10 @@ export const SHOP_REGISTRY = {
     name: "Food Court Kiosk",
     baseIncome: 7200,
     cost: 18000000,
-    monthlyCost: 88000,
+    monthlyCost: 110000,
     tier: 8,
     section: "shops",
-    employeeCapacity: 14,
+    employeeCapacity: 8,
     description: "Place your brand inside busy shopping centers.",
   },
   MALL_STOREFRONT: {
@@ -258,10 +258,10 @@ export const SHOP_REGISTRY = {
     name: "Mall Storefront",
     baseIncome: 24000,
     cost: 82000000,
-    monthlyCost: 320000,
+    monthlyCost: 400000,
     tier: 9,
     section: "shops",
-    employeeCapacity: 24,
+    employeeCapacity: 12,
     description: "Flagship locations inside premium malls.",
   },
   MILKSHAKE_MALL: {
@@ -269,10 +269,10 @@ export const SHOP_REGISTRY = {
     name: "Milkshake Mall",
     baseIncome: 90000,
     cost: 360000000,
-    monthlyCost: 1350000,
+    monthlyCost: 1700000,
     tier: 10,
     section: "shops",
-    employeeCapacity: 50,
+    employeeCapacity: 25,
     description: "A whole mall dedicated to your milkshake empire.",
   },
   HIGH_SPEED_DELIVERY: {
@@ -280,10 +280,10 @@ export const SHOP_REGISTRY = {
     name: "High-Speed Delivery",
     baseIncome: 320000,
     cost: 1200000000,
-    monthlyCost: 4200000,
+    monthlyCost: 5250000,
     tier: 11,
     section: "shops",
-    employeeCapacity: 60,
+    employeeCapacity: 30,
     description: "Instant delivery routes keep customers ordering nonstop.",
   },
   GLOBAL_DISTRIBUTION: {
@@ -291,10 +291,10 @@ export const SHOP_REGISTRY = {
     name: "Global Distribution",
     baseIncome: 2800000,
     cost: 21000000000,
-    monthlyCost: 52000000,
+    monthlyCost: 65000000,
     tier: 13,
     section: "shops",
-    employeeCapacity: 140,
+    employeeCapacity: 60,
     description: "Supply chains span across continents for massive reach.",
   },
   AUTOMATED_PRODUCTION: {
@@ -302,22 +302,21 @@ export const SHOP_REGISTRY = {
     name: "Automated Production",
     baseIncome: 8500000,
     cost: 90000000000,
-    monthlyCost: 180000000,
+    monthlyCost: 225000000,
     tier: 14,
     section: "shops",
-    employeeCapacity: 200,
-    description:
-      "Fully automated systems    drastically boost output efficiency.",
+    employeeCapacity: 80,
+    description: "Fully automated systems drastically boost output efficiency.",
   },
   MILKSHAKE_EMPIRE_CORE: {
     id: "milkshake_empire_core",
     name: "Milkshake Empire Core",
     baseIncome: 25000000,
     cost: 400000000000,
-    monthlyCost: 650000000,
+    monthlyCost: 810000000,
     tier: 15,
     section: "shops",
-    employeeCapacity: 500,
+    employeeCapacity: 150,
     description: "The central hub powering a worldwide milkshake empire.",
   },
   WIFI_NETWORK: {
@@ -419,16 +418,27 @@ export type UpgradeDefinition = {
   baseCost: number;
   costMultiplier: number;
   effect: string;
+  maxLevel: number;
 };
 
 export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
+  flavorSlots: {
+    name: "Multi-Flavor Blending",
+    description: "Unlock an additional flavor slot in the blender.",
+    category: "production",
+    baseCost: 500,
+    costMultiplier: 10,
+    effect: "+1 flavor slot",
+    maxLevel: 2,
+  },
   mixSpeed: {
     name: "Faster Blending",
     description: "Reduces blend time.",
     category: "production",
     baseCost: 250,
     costMultiplier: 2.1,
-    effect: "-0.4s blend time",
+    effect: "-0.2s blend time",
+    maxLevel: 10,
   },
   marketingCampaign: {
     name: "Local Marketing",
@@ -437,6 +447,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 500,
     costMultiplier: 2.2,
     effect: "+8% income",
+    maxLevel: 10,
   },
   employeeTraining: {
     name: "Employee Training",
@@ -445,6 +456,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 1000,
     costMultiplier: 2.4,
     effect: "+6% output",
+    maxLevel: 10,
   },
   qualityControl: {
     name: "Quality Control",
@@ -453,6 +465,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 5000,
     costMultiplier: 2.8,
     effect: "+quality bonus",
+    maxLevel: 10,
   },
   equipmentUpgrade: {
     name: "Equipment Upgrade",
@@ -461,6 +474,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 20000,
     costMultiplier: 3.0,
     effect: "+efficiency",
+    maxLevel: 10,
   },
   heatControl: {
     name: "Heat Control",
@@ -469,6 +483,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 35000,
     costMultiplier: 3.2,
     effect: "+stability",
+    maxLevel: 10,
   },
   recipeDevelopment: {
     name: "Recipe Development",
@@ -477,6 +492,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 80000,
     costMultiplier: 3.5,
     effect: "+quality scaling",
+    maxLevel: 10,
   },
   customBlending: {
     name: "Custom Blending",
@@ -485,6 +501,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 50000,
     costMultiplier: 3.0,
     effect: "+combo bonus",
+    maxLevel: 10,
   },
   bulkPurchasing: {
     name: "Bulk Purchasing",
@@ -493,6 +510,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 25000,
     costMultiplier: 3.3,
     effect: "-cost reduction",
+    maxLevel: 10,
   },
   distributionNetwork: {
     name: "Distribution Network",
@@ -501,6 +519,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 75000,
     costMultiplier: 3.8,
     effect: "+efficiency",
+    maxLevel: 10,
   },
   portionSize: {
     name: "Bigger Cups",
@@ -509,6 +528,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 12000,
     costMultiplier: 2.9,
     effect: "+value",
+    maxLevel: 10,
   },
   specialMastery: {
     name: "Specialty Mastery",
@@ -517,6 +537,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 75000,
     costMultiplier: 3.6,
     effect: "+special boost",
+    maxLevel: 10,
   },
   ingredientQuality: {
     name: "Better Ingredients",
@@ -525,6 +546,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 65000,
     costMultiplier: 3.1,
     effect: "+base multiplier",
+    maxLevel: 10,
   },
   storefrontAppeal: {
     name: "Storefront Appeal",
@@ -533,6 +555,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 45000,
     costMultiplier: 2.7,
     effect: "+sales boost",
+    maxLevel: 10,
   },
   expansionNegotiation: {
     name: "Expansion Negotiation",
@@ -541,6 +564,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 45000,
     costMultiplier: 3.0,
     effect: "-expansion cost",
+    maxLevel: 10,
   },
   autoMixerTuning: {
     name: "Auto-Mixer Tuning",
@@ -549,6 +573,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 30000,
     costMultiplier: 2.9,
     effect: "-cycle time",
+    maxLevel: 6,
   },
   talentRecruitment: {
     name: "Talent Recruitment",
@@ -557,6 +582,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 65000,
     costMultiplier: 3.1,
     effect: "+8% staff output",
+    maxLevel: 10,
   },
   supplyChainOptimization: {
     name: "Supply Chain Optimization",
@@ -565,6 +591,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 90000,
     costMultiplier: 3.2,
     effect: "-overhead",
+    maxLevel: 10,
   },
   brandLicensing: {
     name: "Brand Licensing",
@@ -573,6 +600,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 85000,
     costMultiplier: 3.4,
     effect: "+12% brand reach",
+    maxLevel: 10,
   },
   premiumPackaging: {
     name: "Premium Packaging",
@@ -581,6 +609,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 55000,
     costMultiplier: 2.9,
     effect: "+price premium",
+    maxLevel: 10,
   },
   automationExpansion: {
     name: "Automation Expansion",
@@ -589,6 +618,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 100000,
     costMultiplier: 3.5,
     effect: "+auto scaling",
+    maxLevel: 5,
   },
   wifiOptimization: {
     name: "WiFi Optimization",
@@ -597,6 +627,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 2500,
     costMultiplier: 2.0,
     effect: "+5% global income",
+    maxLevel: 5,
   },
   customerAnalyticsAI: {
     name: "Customer Analytics AI",
@@ -605,6 +636,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 12000,
     costMultiplier: 2.5,
     effect: "+conversion rate",
+    maxLevel: 5,
   },
   cloudKitchenIntegration: {
     name: "Cloud Kitchen Integration",
@@ -613,6 +645,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 75000,
     costMultiplier: 3.0,
     effect: "+offsite production",
+    maxLevel: 5,
   },
   viralMarketingAI: {
     name: "Viral Marketing AI",
@@ -621,6 +654,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 250000,
     costMultiplier: 3.2,
     effect: "+viral growth chance",
+    maxLevel: 5,
   },
   automationOverclock: {
     name: "Automation Overclock",
@@ -629,6 +663,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 1000000,
     costMultiplier: 3.6,
     effect: "+50% machine output",
+    maxLevel: 5,
   },
   quantumLogistics: {
     name: "Quantum Logistics",
@@ -637,6 +672,7 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     baseCost: 50000000,
     costMultiplier: 4.2,
     effect: "-delivery delay",
+    maxLevel: 5,
   },
 };
 
