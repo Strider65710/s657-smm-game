@@ -71,10 +71,13 @@ export interface GameState {
   money: number;
   totalStats: {
     totalMilkshakes: number;
+    totalFanFavorite: number;
+    totalCreamy: number;
     totalCrusty: number;
     totalBaked: number;
     totalGolden: number;
     totalSwirled: number;
+    totalDecorated: number;
   };
   unlockedFlavors: FlavorType[];
   activeFlavors: FlavorType[];
@@ -88,8 +91,12 @@ export interface GameState {
     numberAnimation: boolean;
     betterAnimations: boolean;
     bgIndex: number;
+    colorMode: "dark" | "light";
     guiScale: number;
     textScale: number;
+    dateFormat: "mdy" | "dmy";
+    seenTutorial: boolean;
+    wageLevel: "low" | "normal" | "high";
   };
   shops: Shop[];
   upgrades: {
@@ -120,7 +127,18 @@ export interface GameState {
     viralMarketingAI: number;
     automationOverclock: number;
     quantumLogistics: number;
+    flavorSlots: number;
   };
   gameDays: number;
   lastUpdate: number;
+  earnedAchievements: string[];
+  activeBuffs: { id: string; multiplier: number; expiresAt: number }[];
+  eventStats: {
+    totalChoiceEvents: number;
+    totalAutoEvents: number;
+    finesPaid: number;
+    inspectionsGambled: number;
+    viralInvestments: number;
+    blendersRepaired: number;
+  };
 }
