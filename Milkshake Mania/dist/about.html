@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="About Milkshake Mania — quick start, gameplay, progression, credits, and licenses for the free incremental clicker by Strider657."
+    />
+    <meta
+      name="keywords"
+      content="Strider657, Milkshake Mania, about, how to play, guide, credits"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="About — Strider657's Milkshake Mania" />
+    <meta
+      property="og:description"
+      content="Quick start, gameplay, progression, and credits for Milkshake Mania."
+    />
+    <meta property="og:url" content="https://striderplays.vercel.app/about" />
+    <meta
+      property="og:image"
+      content="https://striderplays.vercel.app/smm/banner.png"
+    />
+
+    <title>About — Milkshake Mania</title>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="canonical" href="https://striderplays.vercel.app/about" />
+    <meta name="theme-color" content="#0f1115" />
+    <link rel="stylesheet" href="./index.css" />
+
+    <script src="./theme-init.js"></script>
+  </head>
+
+  <body>
+    <!-- ── Navbar ─────────────────────────────────────────────────────────── -->
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="./index.html">
+        <img
+          src="./favicon.png"
+          class="nav__logo"
+          alt=""
+          width="30"
+          height="30"
+        />
+        <span>Milkshake Mania</span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="./index.html#features">Features</a>
+        <a href="./index.html#tips">Tips</a>
+        <a href="./index.html#gallery">Gameplay</a>
+        <a href="./index.html#faq">FAQ</a>
+        <a href="./about.html" aria-current="page">About</a>
+      </nav>
+      <div class="nav__actions">
+        <button
+          class="icon-btn"
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle light and dark theme"
+        >
+          <i data-lucide="moon"></i>
+        </button>
+        <a
+          class="btn btn--primary btn--sm"
+          href="https://striderplays.vercel.app/smm"
+        >
+          <i data-lucide="play"></i><span>Play</span>
+        </a>
+        <button
+          class="icon-btn nav__burger"
+          id="navToggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <main id="top" class="section">
+      <h1 class="section__title">About Milkshake Mania</h1>
+      <p class="section__lead">
+        Everything you need to know: quick start, gameplay, progression,
+        credits, and licenses.
+      </p>
+
+      <div class="cards" style="margin-top: 2.75rem">
+        <article class="card">
+          <h2>Quick start</h2>
+          <ol>
+            <li>
+              <strong>Click the blend button</strong> — your primary action to
+              produce milkshakes.
+            </li>
+            <li>
+              <strong>Watch your money grow</strong> — each shake earns cash you
+              can reinvest.
+            </li>
+            <li>
+              <strong>Unlock upgrades</strong> — buy improvements to increase
+              earnings per blend.
+            </li>
+            <li>
+              <strong>Hire employees</strong> — earn passively while away.
+            </li>
+            <li>
+              <strong>Expand</strong> — grow your shop into a larger business.
+            </li>
+          </ol>
+        </article>
+
+        <article class="card">
+          <h2>How to play</h2>
+          <p>
+            The milkshake blender is the central mechanic. Each click makes a
+            shake and grants money. Base blend time starts around 7.5s and can
+            be reduced via upgrades.
+          </p>
+          <h4>Making money</h4>
+          <ul>
+            <li><strong>Manual blending</strong> — full payout per click.</li>
+            <li>
+              <strong>Auto-blend</strong> — optional automation to reduce
+              clicking.
+            </li>
+            <li>
+              <strong>Employees</strong> — passive income, paid periodically.
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Upgrades &amp; shops</h2>
+          <p>
+            Use the Upgrades and Employees screens to buy improvements and
+            staff. Shop extensions increase capacity and unlock further
+            progression.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Special outcomes</h2>
+          <p>Lucky blends pay bonus cash — rarer ones pay far more:</p>
+          <ul>
+            <li><strong>Crusty</strong> — small bonus</li>
+            <li><strong>Creamy</strong> — small bonus</li>
+            <li><strong>Decorated Baked</strong> — moderate bonus</li>
+            <li><strong>Swirled</strong> — large bonus</li>
+            <li><strong>Golden</strong> — very large bonus</li>
+          </ul>
+          <p>…and more. Effects can stack for multiplied rewards.</p>
+        </article>
+
+        <article class="card">
+          <h2>Screens &amp; HUD</h2>
+          <ul>
+            <li>
+              <strong>Milkshake panel</strong> — main blender, money, progress.
+            </li>
+            <li><strong>Upgrades</strong> — purchase and view effects.</li>
+            <li><strong>Employees</strong> — hire and manage worker output.</li>
+            <li>
+              <strong>Shop extensions &amp; stats</strong> — expand and review
+              totals.
+            </li>
+            <li>
+              <strong>Settings</strong> — export/import saves, hard reset, and
+              preferences.
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Economy &amp; progression</h2>
+          <p>Typical goals by stage:</p>
+          <ul>
+            <li><strong>Early</strong> — focus on upgrades and small hires.</li>
+            <li><strong>Mid</strong> — hire better staff and scale output.</li>
+            <li>
+              <strong>Late</strong> — maximize staff and upgrades for late-game
+              growth.
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Tips &amp; FAQ</h2>
+          <p>
+            <strong>Tip:</strong> upgrades often give higher ROI early on than
+            extra hires. Save and check back for sales.
+          </p>
+          <p>
+            <strong>FAQ:</strong> progress autosaves; export/import is available
+            in Settings for backups.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Credits</h2>
+          <p>
+            <strong>Creator:</strong> Strider657 — design, development, audio.
+          </p>
+          <p>
+            <strong>Concept designer:</strong> Oliver382 — concepts and feature
+            ideas.
+          </p>
+          <p>
+            <strong>Contributors &amp; testers:</strong> see the project
+            repository for the full list.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Licenses &amp; attributions</h2>
+          <p>
+            Icons: <a href="https://lucide.dev">Lucide</a>. Other libraries and
+            assets are credited in the repository and included with the project.
+          </p>
+        </article>
+      </div>
+
+      <p style="margin-top: 1.5rem; color: var(--muted)">
+        Back to <a href="./index.html">homepage</a> or
+        <a href="https://striderplays.vercel.app/smm">play the game</a>.
+        Repository:
+        <a href="https://github.com/Strider65710/s657-smm-game">GitHub</a>.
+      </p>
+    </main>
+
+    <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer__brand">
+        <i data-lucide="cup-soda"></i><span>Milkshake Mania</span>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="./index.html">Home</a>
+        <a href="https://striderplays.vercel.app/smm">Play</a>
+        <a href="https://github.com/Strider65710/s657-smm-game">GitHub</a>
+      </nav>
+      <p class="footer__legal">© 2026 Strider657. All rights reserved.</p>
+    </footer>
+
+    <!-- Lucide icons (CDN) + shared site behavior -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

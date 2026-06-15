@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Page Not Found — Milkshake Mania</title>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <meta name="theme-color" content="#0f1115" />
+    <link rel="stylesheet" href="./index.css" />
+    <script src="./theme-init.js"></script>
+  </head>
+
+  <body>
+    <!-- ── Navbar ─────────────────────────────────────────────────────────── -->
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="./index.html">
+        <img
+          src="./favicon.png"
+          class="nav__logo"
+          alt=""
+          width="30"
+          height="30"
+        />
+        <span>Milkshake Mania</span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="./index.html#features">Features</a>
+        <a href="./index.html#gallery">Gameplay</a>
+        <a href="./index.html#faq">FAQ</a>
+        <a href="./about.html">About</a>
+      </nav>
+      <div class="nav__actions">
+        <button
+          class="icon-btn"
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle light and dark theme"
+        >
+          <i data-lucide="moon"></i>
+        </button>
+        <a
+          class="btn btn--primary btn--sm"
+          href="https://striderplays.vercel.app/smm"
+        >
+          <i data-lucide="play"></i><span>Play</span>
+        </a>
+        <button
+          class="icon-btn nav__burger"
+          id="navToggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <main id="top" class="cta">
+      <div class="cup" aria-hidden="true" style="margin: 0 auto 1.5rem">
+        <div class="cup__shake"></div>
+        <div class="cup__straw"></div>
+        <i data-lucide="cup-soda" class="cup__icon"></i>
+      </div>
+      <h1 class="section__title">404 — page not found</h1>
+      <p class="section__lead">
+        Looks like that page got blended away. Let's get you back.
+      </p>
+      <div class="row" style="justify-content: center; margin-top: 1.75rem">
+        <a class="btn btn--primary btn--lg" href="./index.html">
+          <i data-lucide="home"></i><span>Return home</span>
+        </a>
+        <a
+          class="btn btn--ghost btn--lg"
+          href="https://striderplays.vercel.app/smm"
+        >
+          <i data-lucide="play"></i><span>Play the game</span>
+        </a>
+      </div>
+    </main>
+
+    <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer__brand">
+        <i data-lucide="cup-soda"></i><span>Milkshake Mania</span>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="https://github.com/Strider65710/s657-smm-game">GitHub</a>
+      </nav>
+      <p class="footer__legal">© 2026 Strider657. All rights reserved.</p>
+    </footer>
+
+    <!-- Lucide icons (CDN) + shared site behavior -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

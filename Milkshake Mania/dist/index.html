@@ -1,45 +1,570 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Strider657's Milkshake Mania is an idle clicker game where you blend flavors, hire staff, and buy upgrades to turn a tiny shop into a massive milkshake empire."
+    />
+    <meta
+      name="google-site-verification"
+      content="dVxkao_ZG9GcxsNvednxyy8ajFWcFHCcT-BpaWv46Lg"
+    />
+    <meta
+      name="keywords"
+      content="Strider657, Milkshake Mania, clicker game, incremental game, idle game, browser game, free web app"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Milkshake Mania is an idle clicker game where you blend flavors, hire staff, and buy upgrades to turn a tiny shop into a massive milkshake empire." />
-  <meta name="google-site-verification" content="dVxkao_ZG9GcxsNvednxyy8ajFWcFHCcT-BpaWv46Lg" />
-    
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Milkshake Mania Homepage" />
-  <meta property="og:description" content="Mix, upgrade, and build your empire in this fast-paced incremental clicker web game." />
-  <meta property="og:url" content="https://striderplays.vercel.app" />
-  <meta property="og:image" content="https://striderplays.vercel.app/smm/banner.png" />
-  
-  <meta name="keywords" content="Strider657, Milkshake Mania, clicker game, incremental game, idle game, browser game, free web app" />
-  <title>Milkshake Mania Homepage</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-</head>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Strider657's Milkshake Mania" />
+    <meta
+      property="og:description"
+      content="Mix, upgrade, and build your empire in this fast-paced incremental clicker web game."
+    />
+    <meta property="og:url" content="https://striderplays.vercel.app" />
+    <meta
+      property="og:image"
+      content="https://striderplays.vercel.app/smm/banner.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Strider657's Milkshake Mania" />
+    <meta
+      name="twitter:description"
+      content="Blend, hire, and expand — build your milkshake empire in this incremental clicker."
+    />
+    <meta
+      name="twitter:image"
+      content="https://striderplays.vercel.app/smm/banner.png"
+    />
 
-<body>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "VideoGame",
-    "name": "Strider657's Milkshake Mania Homepage",
-    "genre": "Incremental, Clicker, Idle",
-    "url": "https://striderplays.vercel.app",
-    "author": {
-      "@type": "Person",
-      "name": "Strider657"
-    },
-    "gamePlatform": "Web Browser"
-  }
-  </script>
+    <title>Milkshake Mania — Strider657</title>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="canonical" href="https://striderplays.vercel.app/" />
+    <meta name="theme-color" content="#0f1115" />
+    <link rel="stylesheet" href="./index.css" />
 
-  <main>
-    <h1>Sorry, Homepage under construction! Play the game <a href="https://striderplays.vercel.app/smm">here</a></h1>
-  </main>
-</body>
+    <!-- Apply saved theme before paint to avoid a flash. -->
+    <script src="./theme-init.js"></script>
+  </head>
 
+  <body>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Strider657's Milkshake Mania",
+        "genre": ["Incremental", "Clicker", "Idle"],
+        "url": "https://striderplays.vercel.app/smm",
+        "author": { "@type": "Person", "name": "Strider657" },
+        "applicationCategory": "Game",
+        "operatingSystem": "Web Browser, Windows",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "gamePlatform": ["Web Browser", "Windows"]
+      }
+    </script>
+
+    <!-- ── Navbar ─────────────────────────────────────────────────────────── -->
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="#top">
+        <img
+          src="./favicon.png"
+          class="nav__logo"
+          alt=""
+          width="30"
+          height="30"
+        />
+        <span>Milkshake Mania</span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#tips">Tips</a>
+        <a href="#gallery">Gameplay</a>
+        <a href="#faq">FAQ</a>
+        <a href="./about.html">About</a>
+      </nav>
+      <div class="nav__actions">
+        <button
+          class="icon-btn"
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle light and dark theme"
+        >
+          <i data-lucide="moon"></i>
+        </button>
+        <!-- No Play button here: the hero already has Play / Get-the-launcher CTAs. -->
+        <button
+          class="icon-btn nav__burger"
+          id="navToggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+      <section class="hero">
+        <div class="hero__copy">
+          <a class="version-pill" id="versionPill" hidden>
+            <span class="version-pill__dot"></span>
+            <span class="version-pill__text">Now playing</span>
+            <i data-lucide="arrow-up-right"></i>
+          </a>
+          <p class="eyebrow">
+            Free incremental clicker · plays in your browser
+          </p>
+          <h1 class="hero__title">
+            Build your <span class="grad">milkshake empire</span>
+          </h1>
+          <p class="lead">
+            Blend shakes by hand, hire a crew for passive income, unlock wild
+            upgrades, and grow from a tiny stand into a global franchise.
+          </p>
+          <div class="row">
+            <a
+              class="btn btn--primary"
+              href="https://striderplays.vercel.app/smm"
+            >
+              <i data-lucide="play"></i><span>Play now</span>
+            </a>
+            <a
+              class="btn btn--ghost"
+              href="https://github.com/Strider65710/s657-smm-game/releases"
+            >
+              <i data-lucide="download"></i><span>Get the launcher</span>
+            </a>
+          </div>
+          <ul class="badges">
+            <li><i data-lucide="badge-check"></i><span>100% free</span></li>
+            <li><i data-lucide="eye-off"></i><span>No ads</span></li>
+            <li><i data-lucide="save"></i><span>Auto-saves</span></li>
+          </ul>
+        </div>
+
+        <!-- Interactive mini blend demo -->
+        <div class="preview">
+          <button
+            type="button"
+            class="cup cup--btn"
+            id="blendBtn"
+            aria-label="Blend a milkshake"
+          >
+            <div class="cup__shake"></div>
+            <div class="cup__straw"></div>
+            <i data-lucide="cup-soda" class="cup__icon"></i>
+          </button>
+          <span class="cup__pops" id="cupPops" aria-hidden="true"></span>
+          <p class="preview__hint">Click the cup to blend!</p>
+          <div class="preview__stats">
+            <div><b id="statMoney">$0</b><small>earned</small></div>
+            <div><b id="statBlends">0</b><small>blends</small></div>
+            <div><b id="statCombo">×1</b><small>combo</small></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Features ─────────────────────────────────────────────────────── -->
+      <section id="features" class="section">
+        <h2 class="section__title">What you'll be doing</h2>
+        <p class="section__lead">
+          Simple to start, deep enough to lose hours to.
+        </p>
+        <div class="cards">
+          <article class="card">
+            <span class="card__icon"
+              ><i data-lucide="mouse-pointer-click"></i
+            ></span>
+            <h3>Blend by hand</h3>
+            <p>
+              Click to craft milkshakes and build combos for bonus earnings.
+            </p>
+          </article>
+          <article class="card">
+            <span class="card__icon"><i data-lucide="users"></i></span>
+            <h3>Hire a crew</h3>
+            <p>
+              Employees keep blending while you're away — passive income that
+              scales.
+            </p>
+          </article>
+          <article class="card">
+            <span class="card__icon"><i data-lucide="trending-up"></i></span>
+            <h3>Upgrade &amp; expand</h3>
+            <p>
+              Reinvest profits into upgrades and new locations to grow your
+              empire.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Tips ─────────────────────────────────────────────────────────── -->
+      <section id="tips" class="section section--alt">
+        <h2 class="section__title">Pro tips</h2>
+        <p class="section__lead">Get blending like a tycoon.</p>
+        <div class="cards">
+          <article class="card">
+            <span class="card__icon"><i data-lucide="piggy-bank"></i></span>
+            <h3>Reinvest early</h3>
+            <p>
+              Hire staff before splurging on upgrades — passive income snowballs
+              fastest.
+            </p>
+          </article>
+          <article class="card">
+            <span class="card__icon"><i data-lucide="zap"></i></span>
+            <h3>Chase combos</h3>
+            <p>
+              Rapid clicks build a blend multiplier. Keep the streak alive for
+              big payouts.
+            </p>
+          </article>
+          <article class="card">
+            <span class="card__icon"><i data-lucide="moon-star"></i></span>
+            <h3>Profit while idle</h3>
+            <p>
+              Log off with a full crew hired and return to a pile of stacked
+              earnings.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Gameplay carousel ────────────────────────────────────────────── -->
+      <section id="gallery" class="section">
+        <h2 class="section__title">Gameplay</h2>
+        <p class="section__lead">A peek at the milkshake empire in action.</p>
+        <div class="carousel">
+          <button
+            class="carousel__nav carousel__nav--prev"
+            id="carPrev"
+            type="button"
+            aria-label="Previous screenshot"
+          >
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <div class="carousel__track" id="carTrack">
+            <figure class="slide">
+              <img
+                src="./assets/gameplay-1.png"
+                alt="Milkshake Mania gameplay screenshot 1"
+                loading="lazy"
+                onerror="
+                  this.closest('.slide').setAttribute('data-missing', '')
+                "
+              />
+            </figure>
+            <figure class="slide">
+              <img
+                src="./assets/gameplay-2.png"
+                alt="Milkshake Mania gameplay screenshot 2"
+                loading="lazy"
+                onerror="
+                  this.closest('.slide').setAttribute('data-missing', '')
+                "
+              />
+            </figure>
+            <figure class="slide">
+              <img
+                src="./assets/gameplay-3.png"
+                alt="Milkshake Mania gameplay screenshot 3"
+                loading="lazy"
+                onerror="
+                  this.closest('.slide').setAttribute('data-missing', '')
+                "
+              />
+            </figure>
+            <figure class="slide">
+              <img
+                src="./assets/gameplay-4.png"
+                alt="Milkshake Mania gameplay screenshot 4"
+                loading="lazy"
+                onerror="
+                  this.closest('.slide').setAttribute('data-missing', '')
+                "
+              />
+            </figure>
+            <figure class="slide">
+              <img
+                src="./assets/gameplay-5.png"
+                alt="Milkshake Mania gameplay screenshot 5"
+                loading="lazy"
+                onerror="
+                  this.closest('.slide').setAttribute('data-missing', '')
+                "
+              />
+            </figure>
+          </div>
+          <button
+            class="carousel__nav carousel__nav--next"
+            id="carNext"
+            type="button"
+            aria-label="Next screenshot"
+          >
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+        <div class="carousel__dots" id="carDots" aria-hidden="true"></div>
+      </section>
+
+      <!-- ── FAQ ──────────────────────────────────────────────────────────── -->
+      <section id="faq" class="section">
+        <h2 class="section__title">Frequently asked questions (FAQ)</h2>
+        <div class="faq">
+          <details class="faq__item">
+            <summary>
+              Is it really free?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Yes — completely free, with no ads and no purchases. It's a
+              passion project.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Do I need to install anything?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              No. It runs right in your browser. A Windows launcher is also
+              available if you'd prefer a desktop app with offline play and
+              auto-updates.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Does my progress save?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Yes. The game auto-saves to your browser, so you can close the tab
+              and pick up right where you left off.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              What is the launcher for?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              It's an optional desktop app that manages game versions, lets you
+              play offline, and keeps both the game and itself up to date
+              automatically.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              What platforms can I play on?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Any modern browser on desktop or mobile. The standalone launcher
+              is Windows-only.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              How do I report a bug or suggest an idea?<i
+                data-lucide="chevron-down"
+              ></i>
+            </summary>
+            <p>
+              Head to the
+              <a href="https://github.com/Strider65710/s657-smm-game"
+                >GitHub repo</a
+              >
+              and open an issue — feedback is always welcome.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Do I need an account?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Nope — no sign-up, no login. Just open the game and start
+              blending. Your progress lives right in your browser.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Can I play on mobile?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Yes. The layout is touch-friendly and works on phones and tablets
+              — tap to blend, just like clicking on desktop.
+
+              <em
+                ><strong>Important: </strong>The GUI in v1.0 and lower is known
+                to not adapt well to smaller screens, with overlapping elements,
+                etc. Using v1.1 (when released, at the time of writing) will
+                solve this. The website automatically uses the latest version.
+              </em>
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Are there more updates coming?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              It's actively worked on, with new upgrades, mechanics, and balance
+              tweaks rolling out. Watch the
+              <a href="https://github.com/Strider65710/s657-smm-game/releases"
+                >releases page</a
+              >
+              to keep up.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Could clearing my browser data wipe my save?<i
+                data-lucide="chevron-down"
+              ></i>
+            </summary>
+            <p>
+              Yes — the save is stored locally, so clearing site data resets it.
+              The desktop launcher keeps things tidier if you want a more
+              permanent setup.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              How do I earn money faster?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Stack upgrades for a bigger payout per blend, then hire employees
+              so the cash keeps flowing even when you're not clicking.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              What are special outcomes?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Lucky blends — Crusty, Creamy, Decorated Baked, Swirled, Golden,
+              and more — that pay bonus cash. Rarer ones pay far more, and
+              effects can stack.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Can blending be automated?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Yes. You can enable Auto Blend mode using button in the top left
+              corner. You can also buy upgrades to reduce blend time (applies
+              for auto and manual clicking).
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              How do I reset my progress?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Open Settings in-game and use the hard reset option. It wipes your
+              save and starts you fresh — there's no undo, so be sure.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Can I back up or move my save?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Settings includes export and import, so you can save a backup file
+              or carry your progress to another device.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Is there an end goal?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              It's open-ended — keep upgrading, hiring, and expanding to grow
+              your empire as large as you like. New content arrives over time.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Why is the launcher Windows-only?<i
+                data-lucide="chevron-down"
+              ></i>
+            </summary>
+            <p>
+              The desktop launcher is a Windows app. On any other system, the
+              browser version plays exactly the same — no install needed. The
+              real reason why the launcher is only on Windows is because I
+              [Strider657] use a Windows PC.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              Does the launcher cost anything?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              No — the launcher is free too. It just adds offline play, version
+              management, and automatic updates.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              How do I get the latest version?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              The browser game is always current. The launcher updates both
+              itself and the game automatically, or grab builds from the
+              <a href="https://github.com/Strider65710/s657-smm-game/releases"
+                >releases page</a
+              >.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary>
+              I found a bug — what now?<i data-lucide="chevron-down"></i>
+            </summary>
+            <p>
+              Open an issue on
+              <a href="https://github.com/Strider65710/s657-smm-game">GitHub</a>
+              with what happened. Reproduction steps and screenshots help a ton.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <!-- ── Final CTA ────────────────────────────────────────────────────── -->
+      <section class="cta">
+        <h2>Ready to blend?</h2>
+        <p>Your first milkshake is one click away.</p>
+        <a
+          class="btn btn--primary btn--lg"
+          href="https://striderplays.vercel.app/smm"
+        >
+          <i data-lucide="play"></i><span>Play Milkshake Mania</span>
+        </a>
+      </section>
+    </main>
+
+    <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer__brand">
+        <i data-lucide="cup-soda"></i><span>Milkshake Mania</span>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="https://striderplays.vercel.app/smm">Play</a>
+        <a href="https://github.com/Strider65710/s657-smm-game">GitHub</a>
+        <a href="https://github.com/Strider65710/s657-smm-game/releases"
+          >Releases</a
+        >
+      </nav>
+      <p class="footer__legal">© 2026 Strider657. All rights reserved.</p>
+    </footer>
+
+    <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+      <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- Lucide icons (CDN — no build step) + external site scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./app.js"></script>
+    <script src="./home.js"></script>
+  </body>
 </html>
