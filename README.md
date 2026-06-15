@@ -4,6 +4,9 @@
 
 ---
 
+**IMPORTANT: ** URL is now [https://striderplays.vercel.app](https://striderplays.vercel.app)
+---
+
 ## Quick Start Guide
 
 Ready to start blending? Here's what to do:
