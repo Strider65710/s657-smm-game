@@ -4,7 +4,8 @@
 
 ---
 
-**IMPORTANT: ** URL is now [https://striderplays.vercel.app](https://striderplays.vercel.app)
+**IMPORTANT:** URL is now [https://striderplays.vercel.app](https://striderplays.vercel.app)
+
 ---
 
 ## Quick Start Guide
