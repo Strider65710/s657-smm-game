@@ -4,7 +4,7 @@
  */
 
 import { Country, FlavorType, GameState } from "../types";
-import { BASE_SHAKE_SALE } from "../constants";
+import { BASE_SHAKE_SALE, PROFIT_DIVISOR } from "../constants";
 
 const safeNumber = (value: unknown, fallback: number): number => {
   const num = Number(value);
@@ -33,9 +33,19 @@ export function calcGlobalMultiplier(
     1 + safeNumber(state.upgrades.ingredientQuality, 0) * 0.02;
   const storefrontBonus =
     1 + safeNumber(state.upgrades.storefrontAppeal, 0) * 0.03;
+  const socialMediaBonus =
+    1 + safeNumber(state.upgrades.socialMediaBuzz, 0) * 0.03;
+  const masterMixBonus =
+    1 + safeNumber(state.upgrades.masterMixologist, 0) * 0.03;
 
   return (
-    countryMult * mixMult * researchBonus * ingredientBonus * storefrontBonus
+    countryMult *
+    mixMult *
+    researchBonus *
+    ingredientBonus *
+    storefrontBonus *
+    socialMediaBonus *
+    masterMixBonus
   );
 }
 
@@ -54,19 +64,26 @@ export function calcIncomePerSecond(
   const customMult = 1 + state.upgrades.customBlending * 0.15;
   const distributionMult = 1 + state.upgrades.distributionNetwork * 0.08;
   const portionMult = 1 + state.upgrades.portionSize * 0.1;
+  const loyaltyMult = 1 + (state.upgrades.loyaltyProgram || 0) * 0.08;
+  const freezerMult = 1 + (state.upgrades.freezerTech || 0) * 0.06;
+  const rushHourMult = 1 + (state.upgrades.rushHourOptimization || 0) * 0.07;
 
   // Automation penalty: employees are weaker than manual play
   const automationPenalty = 0.75;
 
   return (
-    base *
-    marketingMult *
-    trainingMult *
-    customMult *
-    distributionMult *
-    portionMult *
-    globalMultiplier *
-    automationPenalty
+    (base *
+      marketingMult *
+      trainingMult *
+      customMult *
+      distributionMult *
+      portionMult *
+      loyaltyMult *
+      freezerMult *
+      rushHourMult *
+      globalMultiplier *
+      automationPenalty) /
+    PROFIT_DIVISOR
   );
 }
 
@@ -171,6 +188,7 @@ export function calcManualBlendGain(
 
   const portionMult = 1 + state.upgrades.portionSize * 0.1;
   return Math.floor(
-    baseIncome * specialMultiplier * portionMult * globalMultiplier,
+    (baseIncome * specialMultiplier * portionMult * globalMultiplier) /
+      PROFIT_DIVISOR,
   );
 }
