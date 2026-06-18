@@ -7,6 +7,7 @@ import React from "react";
 import { Coins } from "lucide-react";
 import { formatLargeNumber } from "../utils/format";
 
+
 type Props = {
   key?: any;
   icon: any;
@@ -19,6 +20,7 @@ type Props = {
   cost: number;
   onBuy: () => void;
   canAfford: boolean;
+  timeToAffordLabel?: string | null;
 };
 
 export default function UpgradeCard({
@@ -32,6 +34,7 @@ export default function UpgradeCard({
   cost,
   onBuy,
   canAfford,
+  timeToAffordLabel,
 }: Props) {
   const isMaxed = level >= maxLevel;
   return (
@@ -59,7 +62,7 @@ export default function UpgradeCard({
           {isMaxed ? `MAX ${maxLevel}` : `LVL ${level}/${maxLevel}`}
         </span>
       </div>
-      <p className="text-sm text-neutral-400 leading-relaxed h-8 line-clamp-2">
+      <p className="text-sm text-neutral-400 leading-relaxed h-12 line-clamp-2">
         {desc}
       </p>
       {effect && (
@@ -89,6 +92,11 @@ export default function UpgradeCard({
           </>
         )}
       </button>
+      {!isMaxed && !canAfford && timeToAffordLabel && (
+        <p className="text-[10px] text-neutral-500 text-center font-mono">
+          {timeToAffordLabel}
+        </p>
+      )}
     </div>
   );
 }

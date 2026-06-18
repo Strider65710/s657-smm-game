@@ -1,13 +1,24 @@
 /**
  * @license
  * All Rights Reserved.
+ *
+ * Strider657's Milkshake Mania - Music Player Component
  */
 
-import { useState, useRef, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2 } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume2,
+  Rewind,
+  FastForward,
+} from "lucide-react";
 import songAfternoon from "../assets/music/song1-afternoon.wav?url";
 import songMilkshakes from "../assets/music/song2-milkshakes.wav?url";
 import songBeginning from "../assets/music/song3-beginning.wav?url";
+import songEmpire from "../assets/music/song4-empire.wav?url";
 
 interface MusicTrack {
   id: string;
@@ -19,6 +30,7 @@ const MUSIC_TRACKS: MusicTrack[] = [
   { id: "song1", name: "Afternoon", file: songAfternoon },
   { id: "song2", name: "Milkshakes", file: songMilkshakes },
   { id: "song3", name: "Beginning", file: songBeginning },
+  { id: "song4", name: "Empire", file: songEmpire },
 ];
 
 export default function MusicPlayer() {
@@ -31,23 +43,66 @@ export default function MusicPlayer() {
 
   const currentTrack = MUSIC_TRACKS[currentTrackIndex];
 
+  // Sync volume level with audio element
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
+  // Handle continuous playback when track index changes
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = volume;
-  }, [volume]);
+    if (isPlaying) {
+      audio
+        .play()
+        .catch((e) =>
+          console.error("Audio playback blocked or interrupted:", e),
+        );
+    }
+  }, [currentTrackIndex, isPlaying]);
 
+  // Scoped track shifting functions using functional state updates to keep references completely stable
+  const nextTrack = useCallback(() => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % MUSIC_TRACKS.length);
+    setCurrentTime(0);
+  }, []);
+
+  const prevTrack = useCallback(() => {
+    setCurrentTrackIndex((prevIndex) =>
+      prevIndex === 0 ? MUSIC_TRACKS.length - 1 : prevIndex - 1,
+    );
+    setCurrentTime(0);
+  }, []);
+
+  // Scoped skip controls with stable dependencies
+  const skipBack = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = Math.max(
+        0,
+        audioRef.current.currentTime - 10,
+      );
+    }
+  }, []);
+
+  const skipForward = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = Math.min(
+        duration,
+        audioRef.current.currentTime + 10,
+      );
+    }
+  }, [duration]);
+
+  // Unified audio event listener scope
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
     const handleLoadedMetadata = () => setDuration(audio.duration);
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setCurrentTime(0);
-    };
     const handleError = (e: any) => {
       console.error("Audio error:", e);
       console.error("Current track file:", currentTrack.file);
@@ -55,16 +110,16 @@ export default function MusicPlayer() {
 
     audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("ended", nextTrack); // Safely triggers stable nextTrack reference
     audio.addEventListener("error", handleError);
 
     return () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("ended", nextTrack);
       audio.removeEventListener("error", handleError);
     };
-  }, [currentTrackIndex, currentTrack.file]);
+  }, [currentTrack.file, nextTrack]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -72,55 +127,27 @@ export default function MusicPlayer() {
 
     if (isPlaying) {
       audio.pause();
+      setIsPlaying(false);
     } else {
-      audio.play();
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((e) => console.error("Playback failed to start:", e));
     }
-    setIsPlaying(!isPlaying);
   };
 
-  const handleSeek = (e: any) => {
+  const handleSeek = (e: { target: { value: string } }) => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const target = e.target as HTMLInputElement;
-    const newTime = parseFloat(target.value);
+    const newTime = parseFloat(e.target.value);
     audio.currentTime = newTime;
     setCurrentTime(newTime);
   };
 
-  const handleVolumeChange = (e: any) => {
-    const target = e.target as HTMLInputElement;
-    const newVolume = parseFloat(target.value);
+  const handleVolumeChange = (e: { target: { value: string } }) => {
+    const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
-  };
-
-  const skipBack = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.currentTime = Math.max(0, audio.currentTime - 10);
-  };
-
-  const skipForward = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.currentTime = Math.min(duration, audio.currentTime + 10);
-  };
-
-  const nextTrack = () => {
-    const newIndex = (currentTrackIndex + 1) % MUSIC_TRACKS.length;
-    setCurrentTrackIndex(newIndex);
-    setCurrentTime(0);
-    setIsPlaying(false);
-  };
-
-  const prevTrack = () => {
-    const newIndex =
-      currentTrackIndex === 0 ? MUSIC_TRACKS.length - 1 : currentTrackIndex - 1;
-    setCurrentTrackIndex(newIndex);
-    setCurrentTime(0);
-    setIsPlaying(false);
   };
 
   const formatTime = (time: number) => {
@@ -178,7 +205,7 @@ export default function MusicPlayer() {
           className="p-1 hover:bg-white/10 rounded transition-colors"
           title="Rewind 10s"
         >
-          <SkipBack className="w-4 h-4 text-neutral-400" />
+          <Rewind className="w-4 h-4 text-neutral-400" />
         </button>
         <button
           onClick={togglePlay}
@@ -196,7 +223,7 @@ export default function MusicPlayer() {
           className="p-1 hover:bg-white/10 rounded transition-colors"
           title="Forward 10s"
         >
-          <SkipForward className="w-4 h-4 text-neutral-400" />
+          <FastForward className="w-4 h-4 text-neutral-400" />
         </button>
         <button
           onClick={nextTrack}
@@ -239,7 +266,6 @@ export default function MusicPlayer() {
               onClick={() => {
                 setCurrentTrackIndex(index);
                 setCurrentTime(0);
-                setIsPlaying(false);
               }}
               className={`w-full p-2 rounded-lg border transition-all text-[10px] font-bold uppercase tracking-wider ${
                 currentTrackIndex === index
