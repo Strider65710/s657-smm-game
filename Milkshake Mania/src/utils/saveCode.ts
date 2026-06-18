@@ -42,7 +42,9 @@ async function getKey(): Promise<CryptoKey> {
 
 export async function encodeSaveCode(state: unknown): Promise<string> {
   const key = await getKey();
-  const iv: Uint8Array<ArrayBuffer> = crypto.getRandomValues(new Uint8Array(12)) as Uint8Array<ArrayBuffer>;
+  const iv: Uint8Array<ArrayBuffer> = crypto.getRandomValues(
+    new Uint8Array(12),
+  ) as Uint8Array<ArrayBuffer>;
   const plaintext = textEncoder.encode(JSON.stringify(state));
   const ciphertext = await crypto.subtle.encrypt(
     { name: "AES-GCM", iv },
