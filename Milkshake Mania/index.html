@@ -16,25 +16,42 @@
   <meta name="robots" content="index, follow">
   <title>Milkshake Mania 1.0</title>
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
+
+  <a href="/smm">Play Milkshake Mania</a>
+  
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoGame",
-  "name": "Strider657's Milkshake Mania",
-  "genre": "Incremental, Clicker, Idle",
-  "url": "https://striderplays-smm.vercel.app",
-  "author": {
-    "@type": "Person",
-    "name": "Strider657"
-  },
-  "gamePlatform": "Web Browser"
-}
-</script>
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Strider657's Milkshake Mania",
+    "genre": "Incremental, Clicker, Idle",
+    "url": "https://striderplays-smm.vercel.app",
+    "author": {
+      "@type": "Person",
+      "name": "Strider657"
+    },
+    "gamePlatform": "Web Browser",
+    "hasPart": [
+      {
+        "@type": "WebPage",
+        "name": "Play Milkshake Mania",
+        "url": "https://striderplays-smm.vercel.app/smm",
+        "description": "Launch the web app version of the game directly in your browser."
+      },
+      {
+        "@type": "WebPage",
+        "name": "Desktop Launcher & Releases",
+        "url": "https://github.com/strider65710/s657-smm-game/releases",
+        "description": "Download the official Milkshake Mania desktop client launchers."
+      }
+    ]
+  }
+  </script>
 </body>
 
 </html>
