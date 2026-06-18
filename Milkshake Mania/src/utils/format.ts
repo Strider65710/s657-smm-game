@@ -56,5 +56,44 @@ export function formatLargeNumber(num: number, precision: number = 2): string {
     }
   }
 
+  // Below 1000 — show cents but strip the redundant .00 for whole numbers.
+  if (abs < 1000) {
+    return num.toFixed(2).replace(/\.00$/, "");
+  }
+
+  // 1000–9999: no decimals needed.
   return Math.floor(num).toLocaleString();
+}
+
+/**
+ * Formats a money value for the main HUD counter.
+ * Always shows two decimal places for sub-$1 000 values (cents visible),
+ * and uses the short-suffix tiers for large numbers.
+ */
+export function formatMoney(num: number): string {
+  return formatLargeNumber(num);
+}
+
+/**
+ * Returns a human-readable estimate of how long until the player can afford
+ * `cost` given their current `money` and `incomePerSec`. Returns null when
+ * the player already has enough money.
+ */
+export function timeToAfford(
+  cost: number,
+  money: number,
+  incomePerSec: number,
+): string | null {
+  if (money >= cost) return null;
+  if (incomePerSec <= 0) return null;
+  const secs = Math.ceil((cost - money) / incomePerSec);
+  if (secs < 60) return `~${secs}s`;
+  const mins = Math.floor(secs / 60);
+  const remSecs = secs % 60;
+  if (mins < 60) return remSecs > 0 ? `~${mins}m ${remSecs}s` : `~${mins}m`;
+  const hours = Math.floor(mins / 60);
+  const remMins = mins % 60;
+  if (hours < 24) return remMins > 0 ? `~${hours}h ${remMins}m` : `~${hours}h`;
+  const days = Math.floor(hours / 24);
+  return `~${days}d`;
 }
