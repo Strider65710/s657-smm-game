@@ -419,6 +419,7 @@ export type UpgradeDefinition = {
   costMultiplier: number;
   effect: string;
   maxLevel: number;
+  section?: "standard" | "special";
 };
 
 export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
@@ -430,6 +431,18 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     costMultiplier: 10,
     effect: "+1 flavor slot",
     maxLevel: 2,
+    section: "special",
+  },
+  goldenTouch: {
+    name: "Golden Touch",
+    description:
+      "Your blender has a knack for gold. Permanently boosts Golden Milkshake chance by 5×.",
+    category: "quality",
+    baseCost: 50000,
+    costMultiplier: 1,
+    effect: "Golden chance ×5",
+    maxLevel: 1,
+    section: "special",
   },
   mixSpeed: {
     name: "Faster Blending",
@@ -673,6 +686,99 @@ export const UPGRADE_REGISTRY: Record<UpgradeKey, UpgradeDefinition> = {
     costMultiplier: 4.2,
     effect: "-delivery delay",
     maxLevel: 5,
+  },
+  loyaltyProgram: {
+    name: "Loyalty Program",
+    description:
+      "Repeat customers tip extra. Each level boosts passive income by 8%.",
+    category: "sales",
+    baseCost: 200,
+    costMultiplier: 2.0,
+    effect: "+8% income/s",
+    maxLevel: 5,
+  },
+  freezerTech: {
+    name: "Freezer Technology",
+    description:
+      "Industrial refrigeration keeps shakes fresher longer. +6% income per level.",
+    category: "operations",
+    baseCost: 600,
+    costMultiplier: 2.0,
+    effect: "+6% income/s",
+    maxLevel: 5,
+  },
+  socialMediaBuzz: {
+    name: "Social Media Buzz",
+    description:
+      "Instagram-worthy presentations go viral. +3% global multiplier per level.",
+    category: "sales",
+    baseCost: 3000,
+    costMultiplier: 2.2,
+    effect: "+3% global mult",
+    maxLevel: 5,
+  },
+  masterMixologist: {
+    name: "Master Mixologist",
+    description:
+      "Artisan blending expertise elevates every shake. +3% global multiplier per level.",
+    category: "quality",
+    baseCost: 10000,
+    costMultiplier: 2.5,
+    effect: "+3% global mult",
+    maxLevel: 5,
+  },
+  rushHourOptimization: {
+    name: "Rush Hour Optimization",
+    description:
+      "Pre-positioned staff and supplies for peak traffic. +7% income per level.",
+    category: "management",
+    baseCost: 30000,
+    costMultiplier: 2.5,
+    effect: "+7% income/s",
+    maxLevel: 5,
+  },
+  doubleShot: {
+    name: "Double Shot",
+    description: "Each manual blend produces twice the income. Permanently.",
+    category: "production",
+    baseCost: 75000,
+    costMultiplier: 1,
+    effect: "Manual blend ×2",
+    maxLevel: 1,
+    section: "special",
+  },
+  speedBlending: {
+    name: "Speed Blending",
+    description:
+      "Overclocked motor assembly. Blend time is permanently halved.",
+    category: "production",
+    baseCost: 40000,
+    costMultiplier: 1,
+    effect: "Blend time ×0.5",
+    maxLevel: 1,
+    section: "special",
+  },
+  extraBlender: {
+    name: "Additional Blender",
+    description:
+      "Install another industrial blender. Every blend cycle produces one extra milkshake per blender (max 4 total).",
+    category: "production",
+    baseCost: 750000,
+    costMultiplier: 9,
+    effect: "+1 blender",
+    maxLevel: 3,
+    section: "special",
+  },
+  shiftManager: {
+    name: "Shift Manager",
+    description:
+      "Hires a manager who keeps income flowing when you step away. Level 1: earn 25% of normal income while offline (capped at 1 hour). Level 2: 50% offline income, capped at 2 hours.",
+    category: "management",
+    baseCost: 80000,
+    costMultiplier: 8,
+    effect: "25% offline income",
+    maxLevel: 2,
+    section: "special",
   },
 };
 

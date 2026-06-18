@@ -11,6 +11,40 @@
   body {
     @apply bg-neutral-900 text-neutral-100 overflow-hidden;
   }
+
+  /*
+   * Tailwind v4 no longer forces `cursor: pointer` on buttons — it follows the
+   * native browser default (`default`). Restore the pointer on interactive
+   * elements so the whole UI feels clickable, and show `not-allowed` on
+   * disabled controls.
+   */
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary,
+  label[for],
+  a[href] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  /*
+   * Give every button a smooth default transition for color / transform /
+   * opacity / shadow so hover and active states animate even when a button
+   * doesn't declare its own `transition-*` utility.
+   */
+  button {
+    transition:
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease,
+      opacity 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.12s ease;
+  }
 }
 
 .liquid-fill {
@@ -28,6 +62,10 @@
 
 .glass-panel {
   @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 @keyframes shake {
@@ -165,3 +203,17 @@
 .light-mode .text-green-300 {
   color: #15803d !important;
 }
+
+/* Text scale — JS sets --txt-s on :root; these unlayered rules beat Tailwind's layered utilities */
+:root {
+  --txt-s: 1;
+}
+.text-xs   { font-size: calc(0.75rem   * var(--txt-s)); }
+.text-sm   { font-size: calc(0.875rem  * var(--txt-s)); }
+.text-base { font-size: calc(1rem      * var(--txt-s)); }
+.text-lg   { font-size: calc(1.125rem  * var(--txt-s)); }
+.text-xl   { font-size: calc(1.25rem   * var(--txt-s)); }
+.text-2xl  { font-size: calc(1.5rem    * var(--txt-s)); }
+.text-3xl  { font-size: calc(1.875rem  * var(--txt-s)); }
+.text-4xl  { font-size: calc(2.25rem   * var(--txt-s)); }
+.text-5xl  { font-size: calc(3rem      * var(--txt-s)); }

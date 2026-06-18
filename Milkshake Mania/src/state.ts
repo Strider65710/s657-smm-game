@@ -3,7 +3,12 @@
  * All Rights Reserved.
  */
 
-import { GameState, FlavorType, Shop } from "./types";
+import { GameState, FlavorType, Shop, EventLogEntry, GoalEntry } from "./types";
+import {
+  generateDailyGoals,
+  generateHourlyGoals,
+  ALL_GOAL_MAP,
+} from "./game/goals";
 import { BACKGROUNDS, INITIAL_SHOPS } from "./constants";
 
 const DEFAULT_BG_INDEX = Math.max(
@@ -53,6 +58,10 @@ export function createDefaultState(now: number = Date.now()): GameState {
       dateFormat: "mdy",
       seenTutorial: false,
       wageLevel: "normal" as const,
+      shakePrice: "normal" as const,
+      autoSaveInterval: 60 as const,
+      notifDuration: 8 as const,
+      autoIdlePause: true,
     },
     shops: INITIAL_SHOPS,
     upgrades: {
@@ -84,9 +93,20 @@ export function createDefaultState(now: number = Date.now()): GameState {
       automationOverclock: 0,
       quantumLogistics: 0,
       flavorSlots: 0,
+      goldenTouch: 0,
+      loyaltyProgram: 0,
+      freezerTech: 0,
+      socialMediaBuzz: 0,
+      masterMixologist: 0,
+      rushHourOptimization: 0,
+      doubleShot: 0,
+      speedBlending: 0,
+      extraBlender: 0,
+      shiftManager: 0,
     },
     gameDays: 1,
     lastUpdate: now,
+    xp: 0,
     earnedAchievements: [],
     activeBuffs: [],
     eventStats: {
@@ -96,6 +116,14 @@ export function createDefaultState(now: number = Date.now()): GameState {
       inspectionsGambled: 0,
       viralInvestments: 0,
       blendersRepaired: 0,
+    },
+    eventLog: [],
+    consumables: {},
+    goals: {
+      daily: generateDailyGoals(now, 1),
+      dailyResetAt: now + 24 * 60 * 60 * 1000,
+      hourly: generateHourlyGoals(now, 1),
+      hourlyResetAt: now + 60 * 60 * 1000,
     },
   };
 }
@@ -209,19 +237,38 @@ export function sanitizeLoadedState(raw: unknown): GameState {
           : defaults.options.bgIndex;
       })(),
       colorMode: parsed.options?.colorMode === "light" ? "light" : "dark",
+      guiScale: Math.max(0.5, Math.min(
+        1.5,
+        safeNumber(parsed.options?.guiScale, defaults.options.guiScale),
+      )),
+      textScale: Math.max(0.7, Math.min(
+        1.3,
+        safeNumber(parsed.options?.textScale, defaults.options.textScale),
+      )),
       dateFormat:
         parsed.options?.dateFormat === "dmy"
           ? "dmy"
           : defaults.options.dateFormat,
+      autoIdlePause:
+        typeof parsed.options?.autoIdlePause === "boolean"
+          ? parsed.options.autoIdlePause
+          : defaults.options.autoIdlePause,
       wageLevel:
         parsed.options?.wageLevel === "low"
           ? "low"
           : parsed.options?.wageLevel === "high"
             ? "high"
             : "normal",
+      shakePrice:
+        parsed.options?.shakePrice === "low"
+          ? "low"
+          : parsed.options?.shakePrice === "high"
+            ? "high"
+            : "normal",
     },
     gameDays: safeNumber(parsed.gameDays, defaults.gameDays),
     lastUpdate: safeNumber(parsed.lastUpdate, Date.now()),
+    xp: Math.max(0, safeNumber(parsed.xp, defaults.xp)),
     eventStats: {
       totalChoiceEvents: safeNumber(parsed.eventStats?.totalChoiceEvents, 0),
       totalAutoEvents: safeNumber(parsed.eventStats?.totalAutoEvents, 0),
@@ -233,6 +280,58 @@ export function sanitizeLoadedState(raw: unknown): GameState {
     earnedAchievements: Array.isArray(parsed.earnedAchievements)
       ? parsed.earnedAchievements.filter((v: unknown) => typeof v === "string")
       : [],
+    eventLog: Array.isArray(parsed.eventLog)
+      ? (parsed.eventLog as EventLogEntry[]).filter(
+          (e) =>
+            e &&
+            typeof e.day === "number" &&
+            typeof e.name === "string" &&
+            typeof e.choice === "string" &&
+            typeof e.outcome === "string",
+        )
+      : [],
+    consumables:
+      parsed.consumables && typeof parsed.consumables === "object"
+        ? Object.fromEntries(
+            Object.entries(parsed.consumables).filter(
+              ([, v]) => typeof v === "number" && v >= 0,
+            ),
+          )
+        : {},
+    goals: (() => {
+      const now = Date.now();
+      const defaultGoals = {
+        daily: generateDailyGoals(now, 1),
+        dailyResetAt: now + 24 * 60 * 60 * 1000,
+        hourly: generateHourlyGoals(now, 1),
+        hourlyResetAt: now + 60 * 60 * 1000,
+      };
+      if (!parsed.goals || typeof parsed.goals !== "object") return defaultGoals;
+      const validateGoals = (raw: unknown, count: number): GoalEntry[] => {
+        if (!Array.isArray(raw)) return [];
+        const valid = raw.filter(
+          (g: unknown): g is GoalEntry =>
+            !!g &&
+            typeof g === "object" &&
+            typeof (g as any).id === "string" &&
+            typeof (g as any).target === "number" &&
+            typeof (g as any).progress === "number" &&
+            typeof (g as any).claimed === "boolean" &&
+            ALL_GOAL_MAP.has((g as any).id),
+        );
+        return valid.length === count ? valid : [];
+      };
+      const daily = validateGoals(parsed.goals.daily, 5);
+      const hourly = validateGoals(parsed.goals.hourly, 3);
+      const dailyResetAt = safeNumber(parsed.goals.dailyResetAt, 0);
+      const hourlyResetAt = safeNumber(parsed.goals.hourlyResetAt, 0);
+      return {
+        daily: daily.length === 5 ? daily : defaultGoals.daily,
+        dailyResetAt: dailyResetAt > now ? dailyResetAt : defaultGoals.dailyResetAt,
+        hourly: hourly.length === 3 ? hourly : defaultGoals.hourly,
+        hourlyResetAt: hourlyResetAt > now ? hourlyResetAt : defaultGoals.hourlyResetAt,
+      };
+    })(),
     activeBuffs: Array.isArray(parsed.activeBuffs)
       ? parsed.activeBuffs.filter(
           (b: unknown) =>

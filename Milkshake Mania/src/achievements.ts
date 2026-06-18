@@ -50,10 +50,59 @@ import {
   Cpu,
 } from "lucide-react";
 import { GameState, FlavorType } from "./types";
+import { levelFromXp } from "./game/leveling";
 
 export type AchievementReward =
   | { type: "money"; amount: number; label: string }
   | { type: "buff"; multiplier: number; duration: number; label: string };
+
+/**
+ * Achievement rewards are authored on a generous "raw" tier scale, then
+ * balanced at grant/display time by the helpers below. This keeps the economy
+ * grounded without hand-editing every entry.
+ */
+
+/**
+ * Compress a raw cash reward with a 1.4th root, then round to a clean step
+ * (nearest 5 for small payouts, nearest 10 once it grows). Achievements should
+ * be a nudge, not a jackpot.
+ */
+export function scaleAchievementMoney(rawAmount: number): number {
+  const raw = Math.max(0, Number(rawAmount) || 0);
+  if (raw <= 0) return 0;
+  const compressed = Math.pow(raw, 1 / 1.4);
+  const step = compressed < 100 ? 5 : 10;
+  return Math.max(step, Math.round(compressed / step) * step);
+}
+
+/**
+ * Map a raw buff tier (historically 2×–100×) into a tame 1.1×–2.0× window and
+ * shorten its duration. Returns the balanced values plus a fresh label.
+ */
+export function scaleAchievementBuff(
+  rawMultiplier: number,
+  rawDuration: number,
+): { multiplier: number; duration: number; label: string } {
+  const rawM = Math.max(1.01, Number(rawMultiplier) || 1);
+  const minM = 1.1;
+  const maxM = 2.0;
+  const lo = Math.log(2);
+  const hi = Math.log(100);
+  const t = Math.min(1, Math.max(0, (Math.log(rawM) - lo) / (hi - lo)));
+  // Round to the nearest 0.05 for tidy labels.
+  const multiplier = Math.min(
+    maxM,
+    Math.max(minM, Math.round((minM + (maxM - minM) * t) * 20) / 20),
+  );
+  const duration = Math.min(
+    45,
+    Math.max(15, Math.round((Number(rawDuration) || 30) * 0.4)),
+  );
+  const multLabel = Number.isInteger(multiplier)
+    ? `${multiplier}×`
+    : `${multiplier.toFixed(2).replace(/0$/, "")}×`;
+  return { multiplier, duration, label: `${multLabel} income for ${duration}s` };
+}
 
 export interface Achievement {
   id: string;
@@ -72,7 +121,11 @@ export interface Achievement {
     | "time"
     | "misc"
     | "combos"
-    | "events";
+    | "events"
+    | "legend"
+    | "secrets"
+    | "quirks"
+    | "levels";
   reward?: AchievementReward;
   check: (
     state: GameState,
@@ -251,9 +304,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: "shakes",
     reward: {
       type: "buff",
-      multiplier: 100,
-      duration: 30,
-      label: "100× income for 30s",
+      multiplier: 20,
+      duration: 60,
+      label: "20× income for 60s",
     },
     check: (s) => s.totalStats.totalMilkshakes >= 2_000_000,
   },
@@ -265,9 +318,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: "shakes",
     reward: {
       type: "buff",
-      multiplier: 200,
-      duration: 30,
-      label: "200× income for 30s",
+      multiplier: 35,
+      duration: 60,
+      label: "35× income for 60s",
     },
     check: (s) => s.totalStats.totalMilkshakes >= 5_000_000,
   },
@@ -279,9 +332,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: "shakes",
     reward: {
       type: "buff",
-      multiplier: 500,
-      duration: 30,
-      label: "500× income for 30s",
+      multiplier: 50,
+      duration: 60,
+      label: "50× income for 60s",
     },
     check: (s) => s.totalStats.totalMilkshakes >= 10_000_000,
   },
@@ -602,9 +655,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: "employees",
     reward: {
       type: "buff",
-      multiplier: 50,
+      multiplier: 20,
       duration: 120,
-      label: "50× income for 120s",
+      label: "20× income for 120s",
     },
     check: (_s, d) => d.employees >= 2_000,
   },
@@ -701,9 +754,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: "shops",
     reward: {
       type: "buff",
-      multiplier: 50,
+      multiplier: 20,
       duration: 120,
-      label: "50× income for 120s",
+      label: "20× income for 120s",
     },
     check: (_s, d) => d.shopExtensions >= 500,
   },
@@ -868,7 +921,7 @@ export const ACHIEVEMENTS: Achievement[] = [
       duration: 120,
       label: "20× income for 120s",
     },
-    check: (s) => s.unlockedCountries.length >= 21,
+    check: (s) => s.unlockedCountries.length >= 34,
   },
 
   // === SPECIAL OUTCOMES ===
@@ -1199,12 +1252,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: "Enable the Auto-Mixer.",
     icon: Bot,
     category: "upgrades",
-    reward: {
-      type: "buff",
-      multiplier: 3,
-      duration: 60,
-      label: "3× income for 60s",
-    },
+    reward: { type: "money", amount: 200, label: "+$200" },
     check: (s) => s.options.autoMix,
   },
   {
@@ -1235,34 +1283,16 @@ export const ACHIEVEMENTS: Achievement[] = [
       label: "20× income for 120s",
     },
     check: (s) => {
-      const { flavorSlots: _fs, ...rest } = s.upgrades;
+      const { flavorSlots: _fs, goldenTouch: _gt, doubleShot: _ds, speedBlending: _sb, ...rest } = s.upgrades;
       return Object.values(rest).every((v) => v >= 5);
     },
   },
 
-  // === GAME DAYS / TIME ===
+  // === GAME DAYS / TIME (1 real second ≈ 1 game day) ===
   {
-    id: "days_7",
-    name: "One Week In",
-    description: "Survive 7 game days.",
-    icon: Calendar,
-    category: "time",
-    reward: { type: "money", amount: 25, label: "+$25" },
-    check: (s) => s.gameDays >= 7,
-  },
-  {
-    id: "days_30",
-    name: "One Month",
-    description: "Play through 30 game days.",
-    icon: CalendarDays,
-    category: "time",
-    reward: { type: "money", amount: 250, label: "+$250" },
-    check: (s) => s.gameDays >= 30,
-  },
-  {
-    id: "days_100",
-    name: "Quarter Year",
-    description: "Play through 100 game days.",
+    id: "days_180",
+    name: "Half a Year",
+    description: "Keep the blenders running for six months (180 game days).",
     icon: CalendarDays,
     category: "time",
     reward: {
@@ -1271,12 +1301,12 @@ export const ACHIEVEMENTS: Achievement[] = [
       duration: 30,
       label: "2× income for 30s",
     },
-    check: (s) => s.gameDays >= 100,
+    check: (s) => s.gameDays >= 180,
   },
   {
     id: "days_365",
-    name: "One Year",
-    description: "Play through a full year of game days.",
+    name: "One Year Strong",
+    description: "Celebrate your first full year (365 game days).",
     icon: CalendarDays,
     category: "time",
     reward: {
@@ -1288,24 +1318,38 @@ export const ACHIEVEMENTS: Achievement[] = [
     check: (s) => s.gameDays >= 365,
   },
   {
-    id: "days_1000",
-    name: "Veteran Owner",
-    description: "Survive 1,000 game days. This is your life now.",
+    id: "days_730",
+    name: "Two-Year Veteran",
+    description: "Stay in business for two years (730 game days).",
     icon: Award,
     category: "time",
     reward: {
       type: "buff",
-      multiplier: 10,
-      duration: 90,
-      label: "10× income for 90s",
+      multiplier: 8,
+      duration: 60,
+      label: "8× income for 60s",
     },
-    check: (s) => s.gameDays >= 1_000,
+    check: (s) => s.gameDays >= 730,
   },
   {
-    id: "days_2000",
-    name: "Life's Work",
-    description: "Survive 2,000 game days. Your legacy is sealed.",
+    id: "days_1825",
+    name: "Five-Year Plan",
+    description: "Survive five years of milkshake mania (1,825 game days).",
     icon: Timer,
+    category: "time",
+    reward: {
+      type: "buff",
+      multiplier: 12,
+      duration: 90,
+      label: "12× income for 90s",
+    },
+    check: (s) => s.gameDays >= 1_825,
+  },
+  {
+    id: "days_3650",
+    name: "A Decade of Shakes",
+    description: "Reach ten years in business (3,650 game days).",
+    icon: Crown,
     category: "time",
     reward: {
       type: "buff",
@@ -1313,12 +1357,12 @@ export const ACHIEVEMENTS: Achievement[] = [
       duration: 120,
       label: "20× income for 120s",
     },
-    check: (s) => s.gameDays >= 2_000,
+    check: (s) => s.gameDays >= 3_650,
   },
   {
-    id: "days_5000",
-    name: "Eternal Empire",
-    description: "Survive 5,000 game days. The shakes outlive us all.",
+    id: "days_7300",
+    name: "Twenty-Year Dynasty",
+    description: "Two decades of blending (7,300 game days). A true legacy.",
     icon: Crown,
     category: "time",
     reward: {
@@ -1327,7 +1371,7 @@ export const ACHIEVEMENTS: Achievement[] = [
       duration: 120,
       label: "50× income for 120s",
     },
-    check: (s) => s.gameDays >= 5_000,
+    check: (s) => s.gameDays >= 7_300,
   },
 
   // === CRAZY SCENARIOS ===
@@ -1732,9 +1776,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     category: "misc",
     reward: {
       type: "buff",
-      multiplier: 50,
+      multiplier: 25,
       duration: 120,
-      label: "50× income for 120s",
+      label: "25× income for 120s",
     },
     check: (s) => s.earnedAchievements.length >= ACHIEVEMENTS.length - 1,
   },
@@ -2003,6 +2047,564 @@ export const ACHIEVEMENTS: Achievement[] = [
         s.activeFlavors.includes(f),
       ),
   },
+
+  // === COUNTRIES EXTENDED ===
+  {
+    id: "countries_20",
+    name: "Worldwide Expansion",
+    description: "Expand to 20 countries. The map is almost yours.",
+    icon: Globe,
+    category: "countries",
+    reward: {
+      type: "buff",
+      multiplier: 15,
+      duration: 120,
+      label: "15× income for 120s",
+    },
+    check: (s) => s.unlockedCountries.length >= 20,
+  },
+  {
+    id: "countries_25",
+    name: "Global Saturation",
+    description: "Expand to 25 countries. Milkshakes on every continent.",
+    icon: Crown,
+    category: "countries",
+    reward: {
+      type: "buff",
+      multiplier: 25,
+      duration: 120,
+      label: "25× income for 120s",
+    },
+    check: (s) => s.unlockedCountries.length >= 25,
+  },
+  {
+    id: "countries_30",
+    name: "Interplanetary",
+    description: "Expand to 30 markets. Your empire has left Earth.",
+    icon: Rocket,
+    category: "countries",
+    reward: {
+      type: "buff",
+      multiplier: 50,
+      duration: 120,
+      label: "50× income for 120s",
+    },
+    check: (s) => s.unlockedCountries.length >= 30,
+  },
+  {
+    id: "mars_landing",
+    name: "Red Planet Franchise",
+    description: "Open a location on Mars. One giant shake for mankind.",
+    icon: Rocket,
+    category: "countries",
+    reward: { type: "money", amount: 100_000_000, label: "+$100,000,000" },
+    check: (s) => s.unlockedCountries.includes("mars"),
+  },
+
+  // === LEGEND ACHIEVEMENTS ===
+  {
+    id: "shakes_25m",
+    name: "Blender of the Gods",
+    description: "Blend 25,000,000 milkshakes. Reality itself is a smoothie.",
+    icon: Crown,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 30,
+      duration: 120,
+      label: "30× income for 120s",
+    },
+    check: (s) => s.totalStats.totalMilkshakes >= 25_000_000,
+  },
+  {
+    id: "shakes_100m",
+    name: "Infinite Loop",
+    description: "Blend 100,000,000 milkshakes. The universe bows to your blender.",
+    icon: Sparkles,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 100,
+      duration: 120,
+      label: "100× income for 120s",
+    },
+    check: (s) => s.totalStats.totalMilkshakes >= 100_000_000,
+  },
+  {
+    id: "money_10t",
+    name: "Ten Trillion Club",
+    description: "Have $10 trillion in the bank. Central banks are calling.",
+    icon: Gem,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 10,
+      duration: 120,
+      label: "10× income for 120s",
+    },
+    check: (s) => s.money >= 10_000_000_000_000,
+  },
+  {
+    id: "money_100t",
+    name: "Almost Quintillionaire",
+    description: "Have $100 trillion in the bank. The economy fears you.",
+    icon: Star,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 15,
+      duration: 120,
+      label: "15× income for 120s",
+    },
+    check: (s) => s.money >= 100_000_000_000_000,
+  },
+  {
+    id: "shops_1000",
+    name: "City of Shakes",
+    description: "Own 1,000 shop extensions. You are the city.",
+    icon: Building2,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 30,
+      duration: 120,
+      label: "30× income for 120s",
+    },
+    check: (_s, d) => d.shopExtensions >= 1_000,
+  },
+  {
+    id: "employees_5000",
+    name: "Corporate Colossus",
+    description: "Have 5,000 employees. You have your own economy.",
+    icon: Users,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 25,
+      duration: 120,
+      label: "25× income for 120s",
+    },
+    check: (_s, d) => d.employees >= 5_000,
+  },
+  {
+    id: "days_10000",
+    name: "Outlived Generations",
+    description: "Survive 10,000 game days (~27 years). The shakes outlive civilizations.",
+    icon: Timer,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 100,
+      duration: 120,
+      label: "100× income for 120s",
+    },
+    check: (s) => s.gameDays >= 10_000,
+  },
+  {
+    id: "golden_5000",
+    name: "All That Glitters",
+    description: "Get 5,000 Golden milkshakes. You've struck the motherlode.",
+    icon: Sparkles,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 15,
+      duration: 120,
+      label: "15× income for 120s",
+    },
+    check: (s) => s.totalStats.totalGolden >= 5_000,
+  },
+  {
+    id: "fan_10000",
+    name: "Legendary Fan Base",
+    description: "Get 10,000 Fan Favorite blends. You have a cult following.",
+    icon: Megaphone,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 10,
+      duration: 120,
+      label: "10× income for 120s",
+    },
+    check: (s) => s.totalStats.totalFanFavorite >= 10_000,
+  },
+  {
+    id: "upgrades_300_total",
+    name: "Total Mastery",
+    description: "Accumulate 300 total upgrade levels. You've invested in everything.",
+    icon: Trophy,
+    category: "legend",
+    reward: {
+      type: "buff",
+      multiplier: 20,
+      duration: 120,
+      label: "20× income for 120s",
+    },
+    check: (s) => Object.values(s.upgrades).reduce((a, b) => a + b, 0) >= 300,
+  },
+
+  // === SECRETS ACHIEVEMENTS ===
+  {
+    id: "no_upgrades_rich",
+    name: "Primal Talent",
+    description: "Have $5,000 in the bank without purchasing any upgrades. Raw skill.",
+    icon: Star,
+    category: "secrets",
+    reward: { type: "money", amount: 5_000, label: "+$5,000" },
+    check: (s) =>
+      s.money >= 5_000 && Object.values(s.upgrades).every((v) => v === 0),
+  },
+  {
+    id: "no_country_million",
+    name: "Local Legend",
+    description: "Reach $1,000,000 without expanding to any country. Homegrown pride.",
+    icon: MapPin,
+    category: "secrets",
+    reward: {
+      type: "buff",
+      multiplier: 3,
+      duration: 60,
+      label: "3× income for 60s",
+    },
+    check: (s) => s.money >= 1_000_000 && s.unlockedCountries.length === 0,
+  },
+  {
+    id: "golden_touch_earned",
+    name: "Midas Hands",
+    description: "Purchase the Golden Touch special upgrade. Gold flows from your fingertips.",
+    icon: Sparkles,
+    category: "secrets",
+    reward: {
+      type: "buff",
+      multiplier: 5,
+      duration: 60,
+      label: "5× income for 60s",
+    },
+    check: (s) => s.upgrades.goldenTouch >= 1,
+  },
+  {
+    id: "double_shot_earned",
+    name: "Two For One",
+    description: "Unlock Double Shot. Every blend counts twice as much now.",
+    icon: Zap,
+    category: "secrets",
+    reward: {
+      type: "buff",
+      multiplier: 3,
+      duration: 60,
+      label: "3× income for 60s",
+    },
+    check: (s) => s.upgrades.doubleShot >= 1,
+  },
+  {
+    id: "wage_high_ach",
+    name: "Top Dollar",
+    description: "Set employee wages to High. Your staff loves you. For now.",
+    icon: Smile,
+    category: "secrets",
+    reward: { type: "money", amount: 1_000, label: "+$1,000" },
+    check: (s) => s.options.wageLevel === "high",
+  },
+  {
+    id: "wage_low_ach",
+    name: "Penny Pincher Boss",
+    description: "Set employee wages to Low. Bold move. They're not happy.",
+    icon: TrendingDown,
+    category: "secrets",
+    reward: { type: "money", amount: 500, label: "+$500" },
+    check: (s) => s.options.wageLevel === "low",
+  },
+  {
+    id: "empty_blender_ach",
+    name: "What Are We Making?",
+    description: "Have an empty blender with no active flavors. A blank canvas.",
+    icon: Ghost,
+    category: "secrets",
+    reward: { type: "money", amount: 100, label: "+$100" },
+    check: (s) => s.activeFlavors.length === 0,
+  },
+  {
+    id: "chocolate_only",
+    name: "Pure Chocolate",
+    description: "Blend 100 milkshakes with only Chocolate ever unlocked. Old school.",
+    icon: Milk,
+    category: "secrets",
+    reward: { type: "money", amount: 500, label: "+$500" },
+    check: (s) =>
+      s.unlockedFlavors.length === 1 &&
+      s.unlockedFlavors[0] === FlavorType.CHOCOLATE &&
+      s.totalStats.totalMilkshakes >= 100,
+  },
+  {
+    id: "void_golden",
+    name: "The Paradox",
+    description:
+      "Have The Void active in the blender while owning 100+ Golden milkshakes. Darkness meets gold.",
+    icon: Zap,
+    category: "secrets",
+    reward: {
+      type: "buff",
+      multiplier: 5,
+      duration: 60,
+      label: "5× income for 60s",
+    },
+    check: (s) =>
+      s.activeFlavors.includes(FlavorType.VOID) &&
+      s.totalStats.totalGolden >= 100,
+  },
+  {
+    id: "low_wage_army",
+    name: "Risky Business",
+    description:
+      "Have Low wages AND 100+ employees. Something is about to go very wrong.",
+    icon: AlertTriangle,
+    category: "secrets",
+    reward: {
+      type: "buff",
+      multiplier: 2,
+      duration: 45,
+      label: "2× income for 45s",
+    },
+    check: (s, d) => s.options.wageLevel === "low" && d.employees >= 100,
+  },
+  {
+    id: "speed_special_combo",
+    name: "Turbo God",
+    description: "Max out Mix Speed AND unlock Speed Blending. Impossibly fast.",
+    icon: Zap,
+    category: "secrets",
+    reward: {
+      type: "buff",
+      multiplier: 5,
+      duration: 90,
+      label: "5× income for 90s",
+    },
+    check: (s) => s.upgrades.mixSpeed >= 5 && s.upgrades.speedBlending >= 1,
+  },
+
+  // === QUIRKS ACHIEVEMENTS ===
+  {
+    id: "lava_ice",
+    name: "Hot n Cold",
+    description: "Have Lava Chili AND Phantom Frost active simultaneously. Contradictory, but delicious.",
+    icon: Flame,
+    category: "quirks",
+    reward: { type: "money", amount: 3_000, label: "+$3,000" },
+    check: (s) =>
+      s.activeFlavors.includes(FlavorType.LAVA) &&
+      s.activeFlavors.includes(FlavorType.PHANTOM),
+  },
+  {
+    id: "marshmallow_void",
+    name: "Sweet Nothingness",
+    description: "Have Marshmallow Cloud AND The Void active. Soft and terrifying.",
+    icon: Ghost,
+    category: "quirks",
+    reward: { type: "money", amount: 5_000, label: "+$5,000" },
+    check: (s) =>
+      s.activeFlavors.includes(FlavorType.MARSHMALLOW) &&
+      s.activeFlavors.includes(FlavorType.VOID),
+  },
+  {
+    id: "fruit_trio",
+    name: "Fruit Punch",
+    description: "Unlock Strawberry, Pineapple, and Melon. The tropical trifecta.",
+    icon: Palette,
+    category: "quirks",
+    reward: { type: "money", amount: 2_000, label: "+$2,000" },
+    check: (s) =>
+      [FlavorType.STRAWBERRY, FlavorType.PINEAPPLE, FlavorType.MELON].every(
+        (f) => s.unlockedFlavors.includes(f),
+      ),
+  },
+  {
+    id: "royal_active",
+    name: "Royal Treatment",
+    description: "Have Royal Elixir active in the blender. You deserve only the finest.",
+    icon: Crown,
+    category: "quirks",
+    reward: { type: "money", amount: 8_000, label: "+$8,000" },
+    check: (s) => s.activeFlavors.includes(FlavorType.ELIXIR),
+  },
+  {
+    id: "triple_buff_ach",
+    name: "The Buff Train",
+    description: "Have 3 or more active income buffs running simultaneously. The stacking never stops.",
+    icon: Zap,
+    category: "quirks",
+    reward: {
+      type: "buff",
+      multiplier: 5,
+      duration: 60,
+      label: "5× income for 60s",
+    },
+    check: (s) => s.activeBuffs.length >= 3,
+  },
+  {
+    id: "phantom_stardust",
+    name: "Cosmic Ice",
+    description: "Have Phantom Frost AND Stardust active. Frozen stardust in a cup.",
+    icon: Snowflake,
+    category: "quirks",
+    reward: { type: "money", amount: 4_000, label: "+$4,000" },
+    check: (s) =>
+      s.activeFlavors.includes(FlavorType.PHANTOM) &&
+      s.activeFlavors.includes(FlavorType.STARDUST),
+  },
+  {
+    id: "melon_mint",
+    name: "Cool Refresher",
+    description: "Have Melon AND Mint active. The most refreshing combo on the menu.",
+    icon: Leaf,
+    category: "quirks",
+    reward: { type: "money", amount: 1_500, label: "+$1,500" },
+    check: (s) =>
+      s.activeFlavors.includes(FlavorType.MELON) &&
+      s.activeFlavors.includes(FlavorType.MINT),
+  },
+  {
+    id: "marshmallow_active",
+    name: "Cloud Nine",
+    description: "Have Marshmallow Cloud active. Floating on a fluffy sugar high.",
+    icon: Sparkles,
+    category: "quirks",
+    reward: { type: "money", amount: 1_000, label: "+$1,000" },
+    check: (s) => s.activeFlavors.includes(FlavorType.MARSHMALLOW),
+  },
+  {
+    id: "cosmic_active",
+    name: "Cosmic Mind",
+    description: "Have Cosmic Wonder active. The flavor of the entire universe.",
+    icon: Globe,
+    category: "quirks",
+    reward: { type: "money", amount: 12_000, label: "+$12,000" },
+    check: (s) => s.activeFlavors.includes(FlavorType.COSMIC),
+  },
+  {
+    id: "all_exotic_unlocked",
+    name: "Astronomical Collection",
+    description:
+      "Unlock Stardust, Cosmic Wonder, Galaxy Swirl, and Phantom Frost. Space-tier flavors.",
+    icon: Moon,
+    category: "quirks",
+    reward: {
+      type: "buff",
+      multiplier: 4,
+      duration: 90,
+      label: "4× income for 90s",
+    },
+    check: (s) =>
+      [
+        FlavorType.STARDUST,
+        FlavorType.COSMIC,
+        FlavorType.GALAXY,
+        FlavorType.PHANTOM,
+      ].every((f) => s.unlockedFlavors.includes(f)),
+  },
+  {
+    id: "rainbow_active",
+    name: "Taste the Rainbow",
+    description: "Have Rainbow Sparkle active. Technicolor taste.",
+    icon: Palette,
+    category: "quirks",
+    reward: { type: "money", amount: 6_000, label: "+$6,000" },
+    check: (s) => s.activeFlavors.includes(FlavorType.RAINBOW),
+  },
+  {
+    id: "deep_in_debt",
+    name: "Rock Bottom",
+    description: "Sink to -$5,000 or lower. The IRS is impressed, in a bad way.",
+    icon: TrendingDown,
+    category: "quirks",
+    reward: {
+      type: "buff",
+      multiplier: 3,
+      duration: 30,
+      label: "3× income for 30s comeback boost",
+    },
+    check: (s) => s.money <= -5_000,
+  },
+
+  // === PLAYER LEVELS ===
+  {
+    id: "level_3",
+    name: "Finding Your Feet",
+    description: "Reach player level 3. Your milkshake instincts are sharpening.",
+    icon: TrendingUp,
+    category: "levels",
+    reward: { type: "money", amount: 500, label: "+$500" },
+    check: (s) => levelFromXp(s.xp) >= 3,
+  },
+  {
+    id: "level_5",
+    name: "Rising Star",
+    description: "Reach player level 5. Staff and storefronts await.",
+    icon: Star,
+    category: "levels",
+    reward: {
+      type: "buff",
+      multiplier: 2,
+      duration: 30,
+      label: "2× income for 30s",
+    },
+    check: (s) => levelFromXp(s.xp) >= 5,
+  },
+  {
+    id: "level_10",
+    name: "Seasoned Operator",
+    description: "Reach player level 10. You've earned the keys to the business.",
+    icon: Award,
+    category: "levels",
+    reward: {
+      type: "buff",
+      multiplier: 3,
+      duration: 45,
+      label: "3× income for 45s",
+    },
+    check: (s) => levelFromXp(s.xp) >= 10,
+  },
+  {
+    id: "level_20",
+    name: "Milkshake Professional",
+    description: "Reach player level 20. A true expert of the craft.",
+    icon: Trophy,
+    category: "levels",
+    reward: {
+      type: "buff",
+      multiplier: 5,
+      duration: 60,
+      label: "5× income for 60s",
+    },
+    check: (s) => levelFromXp(s.xp) >= 20,
+  },
+  {
+    id: "level_35",
+    name: "Blending Virtuoso",
+    description: "Reach player level 35. Few ever climb this high.",
+    icon: Sparkles,
+    category: "levels",
+    reward: {
+      type: "buff",
+      multiplier: 10,
+      duration: 90,
+      label: "10× income for 90s",
+    },
+    check: (s) => levelFromXp(s.xp) >= 35,
+  },
+  {
+    id: "level_50",
+    name: "Milkshake Grandmaster",
+    description: "Reach player level 50. The pinnacle of milkshake mastery.",
+    icon: Crown,
+    category: "levels",
+    reward: {
+      type: "buff",
+      multiplier: 25,
+      duration: 120,
+      label: "25× income for 120s",
+    },
+    check: (s) => levelFromXp(s.xp) >= 50,
+  },
 ];
 
 export const ACHIEVEMENT_CATEGORY_LABELS: Record<
@@ -2021,5 +2623,9 @@ export const ACHIEVEMENT_CATEGORY_LABELS: Record<
   misc: "Crazy Scenarios",
   combos: "Flavor Combos",
   events: "Random Events",
+  legend: "Legendary Milestones",
+  secrets: "Hidden Secrets",
+  quirks: "Curious Quirks",
+  levels: "Player Levels",
 };
 
