@@ -1,6 +1,6 @@
 # Strider657's Milkshake Mania
 
-> **Welcome to Strider657's Milkshake Mania!** You've just opened your very own milkshake stand, and it's time to blend your way to milkshake greatness! This guide will teach you everything you need to know to become the ultimate milkshake mogul.
+> **Welcome to Strider657's Milkshake Mania!** You've just opened your very own milkshake stand, and it's time to blend your way to milkshake greatness! This guide will teach you everything you need to know to become the ultimate milkshake empire.
 
 ---
 
