@@ -28,13 +28,26 @@
     />
 
     <meta name="robots" content="index, follow" />
-    <title>Strider657's Milkshake Mania 1.2-1</title>
+    <title>Strider657's Milkshake Mania 1.2-2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" href="./assets/favicon-MfcZds0h.png" />
-    <script type="module" crossorigin src="./assets/index-D02cLJ0W.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Ber6zUTh.css">
+    <style>
+      /*
+       * Acrylic blur is declared here (inline, not in the bundled CSS) because
+       * the production CSS minifier (Tailwind v4 / Lightning CSS) drops the
+       * unprefixed `backdrop-filter` and keeps only `-webkit-`, which Firefox /
+       * Gecko ignores — so the build looked transparent while dev did not.
+       * Both prefixes + !important guarantee the frosted glass survives the build.
+       */
+      .glass-panel {
+        -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+        backdrop-filter: blur(18px) saturate(160%) !important;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-DU9WgUPj.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DrjXDs0w.css">
   </head>
 
   <body>
