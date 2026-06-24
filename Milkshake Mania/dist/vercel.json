@@ -1,6 +1,5 @@
 {
   "redirects": [
-    { "source": "/wiki", "destination": "/wiki/", "permanent": true },
-    { "source": "/smm", "destination": "/smm/", "permanent": true }
+    { "source": "/wiki", "destination": "/wiki/", "permanent": true }
   ]
 }
