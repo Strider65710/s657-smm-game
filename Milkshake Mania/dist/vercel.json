@@ -1,20 +1,20 @@
 {
   "rewrites": [
     {
-      "source": "/wiki",
-      "destination": "/wiki/index.html"
+      "source": "https://striderplays.vercel.app/wiki",
+      "destination": "https://striderplays.vercel.app/wiki/index.html"
     },
     {
-      "source": "/wiki/",
-      "destination": "/wiki/index.html"
+      "source": "https://striderplays.vercel.app/wiki/",
+      "destination": "https://striderplays.vercel.app/wiki/index.html"
     },
     {
-      "source": "/smm",
-      "destination": "/smm/index.html"
+      "source": "https://striderplays.vercel.app/smm",
+      "destination": "https://striderplays.vercel.app/smm/index.html"
     },
     {
-      "source": "/smm/",
-      "destination": "/smm/index.html"
+      "source": "https://striderplays.vercel.app/smm/",
+      "destination": "https://striderplays.vercel.app/smm/index.html"
     }
   ]
 }
