@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Paint the themed background immediately to avoid a white flash on load / navigation -->
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Flavors and combos in Strider657's Milkshake Mania — all 50 flavors across the tiers, flavor slots, and the full list of 25 combos and their bonuses."
+    />
+    <meta property="og:title" content="Flavors & Combos — Milkshake Mania Wiki" />
+    <meta property="og:description" content="All 50 flavors and 25 combos, with multipliers and combo bonuses." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/flavors.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Flavors &amp; Combos — Milkshake Mania Wiki</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html">
+        <img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" />
+        <span>Milkshake Mania <span class="grad">Wiki</span></span>
+      </a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation">
+        <nav class="wk-nav">
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Overview</span>
+            <a href="index.html" data-page="index"><i data-lucide="home"></i> Home</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Core gameplay</span>
+            <a href="blending.html" data-page="blending"><i data-lucide="blend"></i> Blending &amp; specials</a>
+            <a href="flavors.html" data-page="flavors"><i data-lucide="ice-cream-cone"></i> Flavors &amp; combos</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Your business</span>
+            <a href="economy.html" data-page="economy"><i data-lucide="store"></i> Shops &amp; upgrades</a>
+            <a href="world.html" data-page="world"><i data-lucide="globe"></i> Locations &amp; world</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Progression</span>
+            <a href="progression.html" data-page="progression"><i data-lucide="trending-up"></i> Levels &amp; activities</a>
+            <a href="achievements.html" data-page="achievements"><i data-lucide="trophy"></i> Achievements &amp; stats</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Reference</span>
+            <a href="settings.html" data-page="settings"><i data-lucide="settings"></i> Settings &amp; saves</a>
+            <a href="tips.html" data-page="tips"><i data-lucide="lightbulb"></i> Tips &amp; strategy</a>
+            <a href="faq.html" data-page="faq"><i data-lucide="circle-help"></i> FAQ</a>
+          </div>
+        </nav>
+      </aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Flavors &amp; combos</span></nav>
+          <h1 class="wk-page__title">Flavors &amp; combos</h1>
+          <p class="wk-page__lead">
+            50 flavors to unlock and 25 combos to discover. Flavors set your income
+            ceiling; combos reward you for loading the right ones together.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">The menu</span>
+          <h2 class="section__title">Flavors</h2>
+          <p class="section__lead">
+            There are <strong>50 flavors</strong> (46 standard + 4 seasonal). Each
+            has an income multiplier, an unlock cost, and a color. Flavor unlocking
+            opens at <strong>Level 1</strong>; costs and multipliers climb steeply
+            as you move up the tiers.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Tier</th><th>Example flavors</th><th>Multiplier range</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Starter</td><td>Chocolate, Vanilla, Strawberry, Blueberry, Banana, Peach</td><td class="wk-num">×1 – ×2.2</td></tr>
+                <tr><td>Early</td><td>Cherry, Watermelon, Pineapple, Matcha, Mint, Caramel</td><td class="wk-num">×4.7 – ×16</td></tr>
+                <tr><td>Mid</td><td>Melon, Coffee, Bubblegum, Cheesecake, Hazelnut, Cookies</td><td class="wk-num">×25 – ×70</td></tr>
+                <tr><td>Late</td><td>Tiramisu, Lava, Stardust, Galaxy, Dragon, Phantom</td><td class="wk-num">×100 – ×600+</td></tr>
+                <tr><td>Cosmic</td><td>Rainbow, Void, Celestial, Phoenix, Cosmic, Eternal</td><td class="wk-num">huge</td></tr>
+                <tr><td>Seasonal</td><td>Rose Cream, Tropical Mango, Pumpkin Spice, Candy Cane</td><td class="wk-num">event-only</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="layers"></i>
+            <p>
+              <strong>Flavor slots:</strong> you can keep several flavors active at
+              once. The <strong>Flavor Slots</strong> upgrade expands you to a
+              maximum of <strong>5 active flavors</strong> — enough to chase the
+              biggest combos.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Synergy</span>
+          <h2 class="section__title">All 25 combos</h2>
+          <p class="section__lead">
+            When the listed flavors are <em>all active in the blender together</em>,
+            the combo applies a flat income bonus. 21 are permanent; 4 are seasonal.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Combo</th><th>Flavors</th><th>Bonus</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Classic Blend</td><td>Chocolate + Vanilla</td><td class="wk-num">+10%</td></tr>
+                <tr><td>Zen Garden</td><td>Matcha + Mint</td><td class="wk-num">+14%</td></tr>
+                <tr><td>Tropical Zen</td><td>Pineapple + Matcha</td><td class="wk-num">+14%</td></tr>
+                <tr><td>Peach &amp; Lavender</td><td>Peach + Lavender</td><td class="wk-num">+16%</td></tr>
+                <tr><td>Turtle Swirl</td><td>Chocolate + Caramel</td><td class="wk-num">+18%</td></tr>
+                <tr><td>Neapolitan Supreme</td><td>Chocolate + Vanilla + Strawberry</td><td class="wk-num">+20%</td></tr>
+                <tr><td>Spicy Caramel</td><td>Lava + Caramel</td><td class="wk-num">+20%</td></tr>
+                <tr><td>Bubblegum Bliss</td><td>Bubblegum + Cheesecake</td><td class="wk-num">+20%</td></tr>
+                <tr><td>Mixed Berry Medley</td><td>Blueberry + Cherry + Strawberry</td><td class="wk-num">+22%</td></tr>
+                <tr><td>Caramel Macchiato</td><td>Caramel + Coffee</td><td class="wk-num">+25%</td></tr>
+                <tr><td>Cookies &amp; Coffee</td><td>Cookies + Coffee</td><td class="wk-num">+25%</td></tr>
+                <tr><td>Tropical Paradise</td><td>Banana + Watermelon + Peach</td><td class="wk-num">+26%</td></tr>
+                <tr><td>Salted Caramel Crunch</td><td>Salted Caramel + Cookies</td><td class="wk-num">+28%</td></tr>
+                <tr><td>Shadow Blend</td><td>Void + Phantom</td><td class="wk-num">+32%</td></tr>
+                <tr><td>Café Special</td><td>Tiramisu + Hazelnut + Coffee</td><td class="wk-num">+35%</td></tr>
+                <tr><td>Dragon Inferno</td><td>Lava + Dragon</td><td class="wk-num">+38%</td></tr>
+                <tr><td>Cosmic Frost</td><td>Stardust + Galaxy + Phantom</td><td class="wk-num">+48%</td></tr>
+                <tr><td>Nebula Dream</td><td>Rainbow + Stardust + Galaxy</td><td class="wk-num">+55%</td></tr>
+                <tr><td>Void Static</td><td>Void + Neon + Phantom</td><td class="wk-num">+62%</td></tr>
+                <tr><td>Divine Blend</td><td>Ultimate + Celestial</td><td class="wk-num">+78%</td></tr>
+                <tr><td>Phoenix Cosmos</td><td>Phoenix + Cosmic</td><td class="wk-num">+100%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3 style="margin-top: 1.25rem">Seasonal combos</h3>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Combo</th><th>Flavors</th><th>Bonus</th><th>Season</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Love Potion</td><td>Rose Cream + Strawberry</td><td class="wk-num">+25%</td><td>Valentine</td></tr>
+                <tr><td>Summer Rush</td><td>Tropical Mango + Pineapple</td><td class="wk-num">+25%</td><td>Summer</td></tr>
+                <tr><td>Haunted Harvest</td><td>Pumpkin Spice + Void</td><td class="wk-num">+30%</td><td>Halloween</td></tr>
+                <tr><td>Winter Wondershake</td><td>Candy Cane + Marshmallow</td><td class="wk-num">+30%</td><td>Christmas</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">Rotation</span>
+          <h2 class="section__title">Featured combo &amp; seasonal flavors</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="star"></i></span>
+              <h3>Featured combo</h3>
+              <p>
+                A spotlighted combo rotates every <strong>50 game-days</strong>,
+                granting a temporary <strong>+30%</strong> income bonus while it's
+                featured. Keep its flavors loaded to cash in.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="snowflake"></i></span>
+              <h3>Seasonal flavors</h3>
+              <p>
+                Four seasonal events unlock a special flavor + combo during their
+                real-world window: <strong>Rose Cream</strong> (Valentine),
+                <strong>Tropical Mango</strong> (Summer),
+                <strong>Pumpkin Spice</strong> (Halloween), and
+                <strong>Candy Cane</strong> (Christmas). Once unlocked they're yours
+                permanently.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="target"></i></span>
+              <h3>Combo strategy</h3>
+              <p>
+                With 5 slots you can often satisfy a 2-flavor and a 3-flavor combo
+                at once, and even overlap flavors between them. High-tier combos
+                also need high-tier flavors — so combos give your cosmic flavors a
+                second payoff.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="blending.html"><i data-lucide="arrow-left"></i><span>Blending &amp; specials<small>How shakes earn</small></span></a>
+          <a href="economy.html"><i data-lucide="arrow-right"></i><span>Shops &amp; upgrades<small>Automate the income</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
