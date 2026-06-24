@@ -210,6 +210,12 @@ h4,
 .wk-table.wk-table--wide {
   min-width: 34rem;
 }
+/* Tall reference tables scroll internally so they don't dominate the page;
+   the sticky header keeps the column labels visible while you scroll. */
+.wk-scroll--tall {
+  max-height: 30rem;
+  overflow-y: auto;
+}
 .wk-table th,
 .wk-table td {
   text-align: left;
@@ -533,10 +539,172 @@ h4,
   font-size: 0.82rem;
 }
 
+/* ── Per-section version badges (added by JS) ──────────────────────────────
+   Every documented section shows the game version(s) it applies to. Defaults to
+   the version the wiki currently documents; a <section> can override or extend
+   with data-versions="1.2-2,1.3". */
+.wk-vers {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-left: 0.55rem;
+  vertical-align: middle;
+}
+.wk-ver {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent-2);
+  font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  font-size: 0.6em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+/* The newest version on a section reads as "current". */
+.wk-ver--latest {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── Sidebar filter box (added by JS) ──────────────────────────────────── */
+.wk-search {
+  width: 100%;
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.wk-search::placeholder {
+  color: var(--muted);
+}
+.wk-search:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+.wk-nav__empty {
+  padding: 0.5rem 0.7rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* ── Hover anchor links on headings (added by JS) ──────────────────────── */
+.wk-anchor {
+  margin-left: 0.4rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease;
+}
+.wk-main h2:hover .wk-anchor,
+.wk-main h3:hover .wk-anchor {
+  opacity: 0.55;
+}
+.wk-anchor:hover,
+.wk-anchor:focus-visible {
+  opacity: 1;
+  color: var(--accent-2);
+}
+
 /* ── Reduced motion: kill the reveal offset ────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* ── Smooth, flicker-free inter-page transitions ────────────────────────────
+   Keep cross-document (MPA) View Transitions ON, but give the persistent chrome
+   its own view-transition-names so the top bar and sidebar are matched between
+   pages and stay perfectly still — instead of being swept into the root
+   cross-fade, which is what made navigation flicker. Only `.wk-main` animates
+   (its keyframes are defined near the top of this file). */
+@view-transition {
+  navigation: auto;
+}
+.nav {
+  view-transition-name: wk-topbar;
+}
+.wk-sidebar {
+  view-transition-name: wk-sidebar;
+}
+/* The chrome is identical on every page — hold it still (no cross-fade). */
+::view-transition-group(wk-topbar),
+::view-transition-group(wk-sidebar) {
+  animation: none;
+}
+/* The content's entrance is owned by the View Transition, so drop the homepage's
+   generic main fade-in here to avoid a double animation. */
+.wk-main {
+  animation: none;
+}
+
+/* ── Theme-aware scrollbars ─────────────────────────────────────────────────
+   Inner scroll areas live inside <body> (which carries `.theme-light`), so they
+   read the live theme tokens. The viewport scrollbar belongs to <html>, which
+   only receives the `wk-pre-light` flag, so it is themed explicitly. */
+.wk-sidebar,
+.wk-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--muted) 45%, transparent) transparent;
+}
+.wk-sidebar::-webkit-scrollbar,
+.wk-scroll::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+.wk-sidebar::-webkit-scrollbar-track,
+.wk-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.wk-sidebar::-webkit-scrollbar-thumb,
+.wk-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 38%, transparent);
+  border-radius: 999px;
+}
+.wk-sidebar:hover::-webkit-scrollbar-thumb,
+.wk-scroll:hover::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 60%, transparent);
+}
+
+/* Viewport (page) scrollbar — dark by default, light when the theme is light. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(154, 163, 173, 0.4) #0b0d11;
+}
+html.wk-pre-light {
+  scrollbar-color: rgba(91, 107, 122, 0.45) #eef2f7;
+}
+html::-webkit-scrollbar {
+  width: 0.85rem;
+}
+html::-webkit-scrollbar-track {
+  background: #0b0d11;
+}
+html::-webkit-scrollbar-thumb {
+  background: rgba(154, 163, 173, 0.35);
+  border-radius: 999px;
+  border: 2px solid #0b0d11;
+}
+html.wk-pre-light::-webkit-scrollbar-track {
+  background: #eef2f7;
+}
+html.wk-pre-light::-webkit-scrollbar-thumb {
+  background: rgba(91, 107, 122, 0.45);
+  border: 2px solid #eef2f7;
 }

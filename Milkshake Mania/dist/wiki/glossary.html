@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Glossary of terms for Strider657's Milkshake Mania — blends, combos, the global multiplier, passive income, buffs, and more, defined."
+    />
+    <meta property="og:title" content="Glossary — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Key terms in Milkshake Mania, defined." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/glossary.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Glossary — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Glossary</span></nav>
+          <h1 class="wk-page__title">Glossary</h1>
+          <p class="wk-page__lead">Quick definitions for the terms used across the game and this wiki.</p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">Core</span>
+          <h2 class="section__title">Blending &amp; income</h2>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Term</th><th>Meaning</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Blend</td><td>One milkshake made in the blender. Manual blends are clicked; auto-blend makes them for you.</td></tr>
+                <tr><td>Manual blend</td><td>A shake you trigger yourself. Pays slightly more per shake than passive output and earns more XP.</td></tr>
+                <tr><td>Passive income ($/s)</td><td>Cash earned every second from employees and locations, without clicking.</td></tr>
+                <tr><td>Global multiplier</td><td>The master multiplier on income — built from active flavors, countries, recipe development, and quality/marketing upgrades.</td></tr>
+                <tr><td>Mix multiplier</td><td>The part of the global multiplier that sums your active flavors' multipliers.</td></tr>
+                <tr><td>Special outcome</td><td>A bonus result on a blend (Crusty, Baked, Swirled, Golden, Fan Favorite, Creamy, Decorated) — they stack.</td></tr>
+                <tr><td>Combo</td><td>A bonus that triggers when a specific set of flavors is active together.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Systems</span>
+          <h2 class="section__title">Economy &amp; progression</h2>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Term</th><th>Meaning</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>XP / Level</td><td>Experience from active play. Your level (from lifetime XP) gates features and pays cash rewards.</td></tr>
+                <tr><td>Payroll</td><td>The monthly wage cost of all your employees, deducted periodically.</td></tr>
+                <tr><td>Tax</td><td>A cut taken from passive income; reduced by Tax Optimization research.</td></tr>
+                <tr><td>Automation factor</td><td>A small reduction applied to passive income versus manual blends, so clicking is always worth a bit more.</td></tr>
+                <tr><td>Buff</td><td>A timed income multiplier from a power-up, goal, achievement, VIP, or event. Buffs stack multiplicatively.</td></tr>
+                <tr><td>Featured combo</td><td>A spotlighted combo that rotates every 50 game-days for a temporary +30% bonus.</td></tr>
+                <tr><td>VIP customer</td><td>A random visitor who pays a cash + buff reward for completing a requested combo.</td></tr>
+                <tr><td>Contract</td><td>A timed catering order: blend a target before the deadline for cash + XP.</td></tr>
+                <tr><td>Game day</td><td>The in-game time unit that drives rent, payroll, contracts, and combo rotation.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="shortcuts.html"><i data-lucide="arrow-left"></i><span>Controls &amp; notation<small>Shortcuts</small></span></a>
+          <a href="faq.html"><i data-lucide="arrow-right"></i><span>FAQ<small>Common questions</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

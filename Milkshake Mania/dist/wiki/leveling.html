@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Leveling and XP in Strider657's Milkshake Mania — how much XP each action grants, what each level unlocks, and the XP and reward formulas."
+    />
+    <meta property="og:title" content="Leveling & XP — Milkshake Mania Wiki" />
+    <meta property="og:description" content="XP sources, level unlocks, and the leveling formulas." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/leveling.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Leveling &amp; XP — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Leveling &amp; XP</span></nav>
+          <h1 class="wk-page__title">Leveling &amp; XP</h1>
+          <p class="wk-page__lead">
+            You start at <strong>Level 0</strong>. Active play earns XP, and your
+            level (derived from <em>lifetime</em> XP) gates major features and hands
+            out cash rewards. Spending XP on research or training never lowers it.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">Earning XP</span>
+          <h2 class="section__title">XP per action</h2>
+          <p class="section__lead">Auto-blends earn the least, so AFK play can't shortcut the curve.</p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Action</th><th>XP</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Unlock a country</td><td class="wk-num">+30</td></tr>
+                <tr><td>Unlock a flavor</td><td class="wk-num">+18</td></tr>
+                <tr><td>Money milestone (per new order of magnitude held)</td><td class="wk-num">+35</td></tr>
+                <tr><td>Earn an achievement</td><td class="wk-num">+12</td></tr>
+                <tr><td>Buy an upgrade</td><td class="wk-num">+10</td></tr>
+                <tr><td>Buy a shop</td><td class="wk-num">+8</td></tr>
+                <tr><td>Hire an employee</td><td class="wk-num">+5</td></tr>
+                <tr><td>Manual blend</td><td class="wk-num">+3</td></tr>
+                <tr><td>Auto blend</td><td class="wk-num">+1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Milestones</span>
+          <h2 class="section__title">Level unlocks</h2>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Level</th><th>Unlocks</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="wk-num">1</td><td>Flavor unlocking</td></tr>
+                <tr><td class="wk-num">3</td><td>Shop Extensions</td></tr>
+                <tr><td class="wk-num">5</td><td>Employee hiring</td></tr>
+                <tr><td class="wk-num">6</td><td>Research Lab</td></tr>
+                <tr><td class="wk-num">7</td><td>Shake Price control</td></tr>
+                <tr><td class="wk-num">8</td><td>Special Upgrades</td></tr>
+                <tr><td class="wk-num">10</td><td>Wage management (also needs 10+ employees)</td></tr>
+                <tr><td class="wk-num">15</td><td>Global Expansion (countries)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top: 0.75rem">
+            Backgrounds are available from the very start (Level 0).
+          </p>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">The math</span>
+          <h2 class="section__title">Formulas</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="arrow-up-narrow-wide"></i></span>
+              <h3>XP to level up</h3>
+              <p>The XP needed to go from level <em>L</em> to <em>L+1</em> is <strong>floor(50 × (L+1)<sup>1.25</sup>)</strong> — each level costs progressively more.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="gift"></i></span>
+              <h3>Level-up reward</h3>
+              <p>Reaching a level pays <strong>floor(150 × L<sup>1.5</sup>)</strong> in cash, scaling gently as you climb.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="infinity"></i></span>
+              <h3>Max level</h3>
+              <p>The cap is effectively unreachable at <strong>2,147,483,647</strong> — you'll never run out of levels.</p>
+            </article>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="shield-check"></i>
+            <p>
+              Your level is computed from <strong>total lifetime XP</strong>. Your
+              spendable XP balance funds research and staff training, but spending
+              it leaves your level untouched.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="progression.html"><i data-lucide="arrow-left"></i><span>Progression<small>The overview</small></span></a>
+          <a href="research.html"><i data-lucide="arrow-right"></i><span>Research<small>Spend your XP</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

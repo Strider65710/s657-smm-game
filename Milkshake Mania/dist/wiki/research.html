@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="The complete 15-node research tree in Strider657's Milkshake Mania — Production, Marketing, and Operations tracks with every effect and XP cost."
+    />
+    <meta property="og:title" content="Research — Milkshake Mania Wiki" />
+    <meta property="og:description" content="All 15 research nodes across three tracks, with effects and XP costs." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/research.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Research — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Research</span></nav>
+          <h1 class="wk-page__title">Research tree</h1>
+          <p class="wk-page__lead">
+            The Research Lab opens at <strong>Level 6</strong>. Spend <em>XP</em> to
+            level <strong>15 nodes</strong> (each up to <strong>Level 3</strong>)
+            across three tracks. There are no prerequisites — level nodes in any
+            order. Bonuses compound with all your other multipliers.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">Track 1</span>
+          <h2 class="section__title">Production</h2>
+          <p class="section__lead">Faster blends, bigger yields, more specials, cheaper bulk.</p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Node</th><th>Effect (L1 / L2 / L3)</th><th>XP cost</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Blend Optimization</td><td>−8% / −15% / −22% blend time</td><td class="wk-num">60 · 140 · 280</td></tr>
+                <tr><td>Yield Boost</td><td>+10% / +20% / +30% manual income</td><td class="wk-num">60 · 140 · 280</td></tr>
+                <tr><td>Special Batches</td><td>+5% / +10% / +15% special chance</td><td class="wk-num">80 · 180 · 360</td></tr>
+                <tr><td>Workforce Efficiency</td><td>+5% / +10% / +15% passive income</td><td class="wk-num">80 · 180 · 360</td></tr>
+                <tr><td>Bulk Procurement</td><td>+3% / +6% / +10% bulk discount</td><td class="wk-num">50 · 120 · 240</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Track 2</span>
+          <h2 class="section__title">Marketing</h2>
+          <p class="section__lead">More fan favorites and goldens, bigger combo &amp; country multipliers, faster XP.</p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Node</th><th>Effect (L1 / L2 / L3)</th><th>XP cost</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Fan Favorite Push</td><td>+4% / +8% / +12% fan-favorite rate</td><td class="wk-num">60 · 140 · 280</td></tr>
+                <tr><td>Golden Formula</td><td>+2% / +4% / +6% golden chance</td><td class="wk-num">80 · 180 · 360</td></tr>
+                <tr><td>Combo Mastery</td><td>×1.05 / ×1.10 / ×1.15 combo bonus</td><td class="wk-num">70 · 160 · 320</td></tr>
+                <tr><td>Global Outreach</td><td>×1.03 / ×1.06 / ×1.10 country multiplier</td><td class="wk-num">70 · 160 · 320</td></tr>
+                <tr><td>Staff Development</td><td>+10% / +20% / +30% XP gains</td><td class="wk-num">50 · 120 · 240</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">Track 3</span>
+          <h2 class="section__title">Operations</h2>
+          <p class="section__lead">Cheaper hires &amp; upgrades, bigger event &amp; contract rewards, lower tax.</p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Node</th><th>Effect (L1 / L2 / L3)</th><th>XP cost</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Hiring Pipeline</td><td>−8% / −16% / −24% hire cost</td><td class="wk-num">60 · 140 · 280</td></tr>
+                <tr><td>Crisis Management</td><td>+10% / +20% / +30% event rewards</td><td class="wk-num">60 · 140 · 280</td></tr>
+                <tr><td>Catering Expertise</td><td>+15% / +30% / +50% contract reward</td><td class="wk-num">80 · 180 · 360</td></tr>
+                <tr><td>Cost Reduction</td><td>−5% / −10% / −15% upgrade cost</td><td class="wk-num">70 · 160 · 320</td></tr>
+                <tr><td>Tax Optimization</td><td>−3% / −6% / −9% tax rate</td><td class="wk-num">80 · 180 · 360</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="coins"></i>
+            <p>
+              Research is paid in <strong>XP</strong>, the same currency that drives
+              your level — but spending it never lowers your level (level tracks
+              <em>lifetime</em> XP). Plan around which bonuses move your numbers most.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="leveling.html"><i data-lucide="arrow-left"></i><span>Leveling &amp; XP<small>Where XP comes from</small></span></a>
+          <a href="economy.html"><i data-lucide="arrow-right"></i><span>Shops &amp; upgrades<small>Money upgrades</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Power-ups and buffs in Strider657's Milkshake Mania — all 4 power-ups with their multipliers, durations, and costs, plus how buffs stack."
+    />
+    <meta property="og:title" content="Power-ups — Milkshake Mania Wiki" />
+    <meta property="og:description" content="All 4 power-ups with multipliers, durations, and costs." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/powerups.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Power-ups — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Power-ups</span></nav>
+          <h1 class="wk-page__title">Power-ups &amp; buffs</h1>
+          <p class="wk-page__lead">
+            Power-ups are consumables you buy with cash and activate for a timed
+            income multiplier. They're the best way to boost a contract push
+            or a goal sprint.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">Reference</span>
+          <h2 class="section__title">All 4 power-ups</h2>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Power-up</th><th>Effect</th><th>Duration</th><th>Base cost</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sugar Rush</td><td class="wk-num">×2 income</td><td class="wk-num">3 min</td><td class="wk-num">$250</td></tr>
+                <tr><td>Blender Fury</td><td class="wk-num">×3 income</td><td class="wk-num">5 min</td><td class="wk-num">$500</td></tr>
+                <tr><td>Employee Overtime</td><td class="wk-num">×4 income</td><td class="wk-num">10 min</td><td class="wk-num">$1,000</td></tr>
+                <tr><td>Lucky Batch</td><td class="wk-num">×5 income</td><td class="wk-num">2 min</td><td class="wk-num">$2,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top: 0.75rem">
+            The multiplier applies to <strong>all</strong> income — manual blends
+            and passive. Power-ups are bought as stock and then activated when you
+            want them.
+          </p>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Buffs</span>
+          <h2 class="section__title">How buffs stack</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="layers"></i></span>
+              <h3>They multiply together</h3>
+              <p>Active buffs stack <strong>multiplicatively</strong>: a ×2 and a ×3 running together give ×6 total income.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="boxes"></i></span>
+              <h3>Many sources</h3>
+              <p>Buffs come from power-ups, goal rewards, achievement rewards, VIP customers, and timed events — all share the same buff tray.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="hourglass"></i></span>
+              <h3>Timed</h3>
+              <p>Each buff counts down and expires on its own; the income-modifiers panel shows what's active and how long is left.</p>
+            </article>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="zap"></i>
+            <p>
+              Stack <strong>Lucky Batch</strong> (×5) with a contract and fast
+              blending for a huge two-minute burst — or layer multiple power-ups for
+              an even bigger window.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="goals.html"><i data-lucide="arrow-left"></i><span>Goals<small>Earn buffs</small></span></a>
+          <a href="progression.html"><i data-lucide="arrow-right"></i><span>Progression<small>Events &amp; more</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

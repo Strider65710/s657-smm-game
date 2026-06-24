@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Catering contracts in Strider657's Milkshake Mania — all 6 contract templates, their blend targets, rewards, and how the order system works."
+    />
+    <meta property="og:title" content="Contracts — Milkshake Mania Wiki" />
+    <meta property="og:description" content="All 6 catering contracts with targets, rewards, and deadlines." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/contracts.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Contracts — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Contracts</span></nav>
+          <h1 class="wk-page__title">Catering contracts</h1>
+          <p class="wk-page__lead">
+            Contracts are timed catering orders: blend a target number of shakes
+            before the deadline for a cash + XP payout. They're a great burst of
+            income for active play.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">How they work</span>
+          <h2 class="section__title">The order system</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="hand"></i></span>
+              <h3>Blend manually</h3>
+              <p>Contracts track your <strong>manual blends</strong> — keep clicking to fill the order before time runs out.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="layers-3"></i></span>
+              <h3>Up to 3 at once</h3>
+              <p>New contracts appear periodically (you'll want to be around Level 8+), and you can juggle up to three active at a time.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="banknote"></i></span>
+              <h3>Income-scaled reward</h3>
+              <p>The cash payout scales with the target size, the contract's reward factor, and your current income — so contracts stay relevant as you grow.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="flask-conical"></i></span>
+              <h3>Catering Expertise</h3>
+              <p>Operations research boosts contract payouts by <strong>+15% / +30% / +50%</strong>.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Reference</span>
+          <h2 class="section__title">All 6 contracts</h2>
+          <p class="section__lead">
+            "Reward ×" is the factor that multiplies into the cash payout; "From day"
+            is the earliest in-game day the contract can appear.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Contract</th><th>Target</th><th>Reward ×</th><th>XP</th><th>Time</th><th>From day</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Birthday Party Catering</td><td class="wk-num">30</td><td class="wk-num">×3</td><td class="wk-num">60</td><td class="wk-num">8 min</td><td class="wk-num">1</td></tr>
+                <tr><td>School Fair Booth</td><td class="wk-num">50</td><td class="wk-num">×4</td><td class="wk-num">90</td><td class="wk-num">10 min</td><td class="wk-num">5</td></tr>
+                <tr><td>Wedding Reception</td><td class="wk-num">100</td><td class="wk-num">×7</td><td class="wk-num">180</td><td class="wk-num">12 min</td><td class="wk-num">10</td></tr>
+                <tr><td>Corporate Event</td><td class="wk-num">150</td><td class="wk-num">×8</td><td class="wk-num">220</td><td class="wk-num">12 min</td><td class="wk-num">15</td></tr>
+                <tr><td>Food Festival Booth</td><td class="wk-num">250</td><td class="wk-num">×14</td><td class="wk-num">380</td><td class="wk-num">15 min</td><td class="wk-num">20</td></tr>
+                <tr><td>Stadium Concession</td><td class="wk-num">400</td><td class="wk-num">×20</td><td class="wk-num">550</td><td class="wk-num">15 min</td><td class="wk-num">30</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="timer"></i>
+            <p>
+              Deadlines run on <strong>in-game time</strong>, not real time. Pair a
+              contract with a <a href="powerups.html">power-up</a> and a fast blend
+              setup to clear the big ones comfortably.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="goals.html"><i data-lucide="arrow-left"></i><span>Goals<small>Daily &amp; hourly</small></span></a>
+          <a href="powerups.html"><i data-lucide="arrow-right"></i><span>Power-ups<small>Burst income</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

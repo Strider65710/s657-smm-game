@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="All 35 countries in Strider657's Milkshake Mania, with their income multipliers and unlock costs, plus how global expansion works."
+    />
+    <meta property="og:title" content="Countries — Milkshake Mania Wiki" />
+    <meta property="og:description" content="All 35 countries with multipliers and unlock costs." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/countries.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Countries — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Countries</span></nav>
+          <h1 class="wk-page__title">Countries</h1>
+          <p class="wk-page__lead">
+            Global expansion is the single biggest income lever in the game. Every
+            country you unlock multiplies <em>all</em> of your income at once.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">How it works</span>
+          <h2 class="section__title">Global expansion</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="lock-open"></i></span>
+              <h3>Unlocks at Level 15</h3>
+              <p>Global Expansion opens at <strong>Level 15</strong>. Each country is then bought with cash.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="x"></i></span>
+              <h3>Multiplies everything</h3>
+              <p>Country bonuses apply to <strong>all</strong> income — manual blends and passive alike.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="trending-down"></i></span>
+              <h3>Diminishing returns</h3>
+              <p>The combined country multiplier is scaled down slightly as it grows, so you can't stack them to infinity — but more is always better.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="flask-conical"></i></span>
+              <h3>Global Outreach</h3>
+              <p>Marketing research adds <strong>×1.03 / ×1.06 / ×1.10</strong> on top of your country multiplier.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Reference</span>
+          <h2 class="section__title">All 35 countries</h2>
+          <p class="section__lead">In ascending unlock cost.</p>
+          <div class="wk-scroll wk-scroll--tall">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>#</th><th>Country</th><th>Multiplier</th><th>Unlock cost</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="wk-num">1</td><td>USA</td><td class="wk-num">×1.08</td><td class="wk-num">$50K</td></tr>
+                <tr><td class="wk-num">2</td><td>Chile</td><td class="wk-num">×1.10</td><td class="wk-num">$80K</td></tr>
+                <tr><td class="wk-num">3</td><td>Canada</td><td class="wk-num">×1.12</td><td class="wk-num">$150K</td></tr>
+                <tr><td class="wk-num">4</td><td>Netherlands</td><td class="wk-num">×1.15</td><td class="wk-num">$200K</td></tr>
+                <tr><td class="wk-num">5</td><td>Mexico</td><td class="wk-num">×1.18</td><td class="wk-num">$500K</td></tr>
+                <tr><td class="wk-num">6</td><td>Argentina</td><td class="wk-num">×1.22</td><td class="wk-num">$600K</td></tr>
+                <tr><td class="wk-num">7</td><td>Japan</td><td class="wk-num">×1.35</td><td class="wk-num">$2M</td></tr>
+                <tr><td class="wk-num">8</td><td>Taiwan</td><td class="wk-num">×1.45</td><td class="wk-num">$7M</td></tr>
+                <tr><td class="wk-num">9</td><td>South Korea</td><td class="wk-num">×1.55</td><td class="wk-num">$10M</td></tr>
+                <tr><td class="wk-num">10</td><td>Thailand</td><td class="wk-num">×1.65</td><td class="wk-num">$15M</td></tr>
+                <tr><td class="wk-num">11</td><td>France</td><td class="wk-num">×1.80</td><td class="wk-num">$50M</td></tr>
+                <tr><td class="wk-num">12</td><td>Portugal</td><td class="wk-num">×1.90</td><td class="wk-num">$70M</td></tr>
+                <tr><td class="wk-num">13</td><td>Germany</td><td class="wk-num">×2.0</td><td class="wk-num">$120M</td></tr>
+                <tr><td class="wk-num">14</td><td>Spain</td><td class="wk-num">×2.15</td><td class="wk-num">$180M</td></tr>
+                <tr><td class="wk-num">15</td><td>Italy</td><td class="wk-num">×2.3</td><td class="wk-num">$250M</td></tr>
+                <tr><td class="wk-num">16</td><td>Sweden</td><td class="wk-num">×2.6</td><td class="wk-num">$600M</td></tr>
+                <tr><td class="wk-num">17</td><td>Norway</td><td class="wk-num">×2.8</td><td class="wk-num">$800M</td></tr>
+                <tr><td class="wk-num">18</td><td>Brazil</td><td class="wk-num">×3.0</td><td class="wk-num">$1B</td></tr>
+                <tr><td class="wk-num">19</td><td>United Arab Emirates</td><td class="wk-num">×3.5</td><td class="wk-num">$4B</td></tr>
+                <tr><td class="wk-num">20</td><td>Turkey</td><td class="wk-num">×4.0</td><td class="wk-num">$6B</td></tr>
+                <tr><td class="wk-num">21</td><td>Egypt</td><td class="wk-num">×4.5</td><td class="wk-num">$10B</td></tr>
+                <tr><td class="wk-num">22</td><td>Singapore</td><td class="wk-num">×5.0</td><td class="wk-num">$30B</td></tr>
+                <tr><td class="wk-num">23</td><td>Russia</td><td class="wk-num">×5.5</td><td class="wk-num">$40B</td></tr>
+                <tr><td class="wk-num">24</td><td>South Africa</td><td class="wk-num">×6.0</td><td class="wk-num">$100B</td></tr>
+                <tr><td class="wk-num">25</td><td>Nigeria</td><td class="wk-num">×7.0</td><td class="wk-num">$400B</td></tr>
+                <tr><td class="wk-num">26</td><td>United Kingdom</td><td class="wk-num">×8.5</td><td class="wk-num">$1T</td></tr>
+                <tr><td class="wk-num">27</td><td>Switzerland</td><td class="wk-num">×10</td><td class="wk-num">$5T</td></tr>
+                <tr><td class="wk-num">28</td><td>Australia</td><td class="wk-num">×12</td><td class="wk-num">$10T</td></tr>
+                <tr><td class="wk-num">29</td><td>New Zealand</td><td class="wk-num">×15</td><td class="wk-num">$50T</td></tr>
+                <tr><td class="wk-num">30</td><td>Ireland</td><td class="wk-num">×18</td><td class="wk-num">$75T</td></tr>
+                <tr><td class="wk-num">31</td><td>India</td><td class="wk-num">×22</td><td class="wk-num">$100T</td></tr>
+                <tr><td class="wk-num">32</td><td>Indonesia</td><td class="wk-num">×28</td><td class="wk-num">$500T</td></tr>
+                <tr><td class="wk-num">33</td><td>China</td><td class="wk-num">×38</td><td class="wk-num">$1e15</td></tr>
+                <tr><td class="wk-num">34</td><td>The Moon</td><td class="wk-num">×80</td><td class="wk-num">$1e16</td></tr>
+                <tr><td class="wk-num">35</td><td>Mars</td><td class="wk-num">×120</td><td class="wk-num">$5e16</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="lightbulb"></i>
+            <p>
+              Unlocking a country also grants <strong>+30 XP</strong> — the
+              single largest per-action XP source in the game.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="world.html"><i data-lucide="arrow-left"></i><span>Locations &amp; world<small>The overview</small></span></a>
+          <a href="research.html"><i data-lucide="arrow-right"></i><span>Research<small>Compounding bonuses</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

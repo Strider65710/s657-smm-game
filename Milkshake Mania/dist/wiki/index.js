@@ -1,12 +1,101 @@
 /*
  * Strider657's Milkshake Mania — Wiki
  * Progressive-enhancement behaviour shared by every page. The wiki is fully
- * readable without JS; this adds the theme toggle, the mobile sidebar drawer,
- * active-link highlighting, reveal-on-scroll, back-to-top, and renders the
- * Lucide icons. (The FAQ uses native <details> — no JS needed.)
+ * readable without JS; this renders the shared sidebar, the theme toggle, the
+ * mobile drawer, active-link highlighting, a per-page table of contents,
+ * reveal-on-scroll, back-to-top, and the Lucide icons. (The FAQ uses native
+ * <details> — no JS needed.)
+ *
+ * The sidebar is defined ONCE here, so adding a page only means adding a line to
+ * NAV below — every page renders the full, current navigation automatically.
  */
 (function () {
   "use strict";
+
+  /* ── Navigation model (single source of truth) ─────────────────────── */
+  var NAV = [
+    { label: "Overview", items: [["index", "Home", "home"]] },
+    {
+      label: "Core gameplay",
+      items: [
+        ["blending", "Blending & specials", "blend"],
+        ["special-outcomes", "Special outcomes", "sparkles"],
+        ["flavors", "Flavors & combos", "ice-cream-cone"],
+      ],
+    },
+    {
+      label: "Your business",
+      items: [
+        ["economy", "Shops & upgrades", "store"],
+        ["world", "Locations & world", "globe"],
+        ["countries", "Countries", "flag"],
+        ["research", "Research", "flask-conical"],
+      ],
+    },
+    {
+      label: "Progression",
+      items: [
+        ["progression", "Levels & activities", "trending-up"],
+        ["leveling", "Leveling & XP", "medal"],
+        ["achievements", "Achievements & stats", "trophy"],
+        ["contracts", "Contracts", "clipboard-list"],
+        ["goals", "Goals", "target"],
+        ["powerups", "Power-ups", "zap"],
+      ],
+    },
+    {
+      label: "Reference",
+      items: [
+        ["settings", "Settings & saves", "settings"],
+        ["tips", "Tips & strategy", "lightbulb"],
+        ["shortcuts", "Controls & notation", "keyboard"],
+        ["glossary", "Glossary", "book-open"],
+        ["faq", "FAQ", "circle-help"],
+        ["credits", "Credits", "heart"],
+      ],
+    },
+  ];
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  }
+
+  /* current page key from the filename */
+  var path = location.pathname.split("/").pop() || "index.html";
+  if (path === "") path = "index.html";
+  var current = path.replace(/\.html$/, "") || "index";
+
+  /* ── Render the sidebar ────────────────────────────────────────────── */
+  var sidebar = document.getElementById("sidebar");
+  if (sidebar) {
+    var html = '<nav class="wk-nav">';
+    NAV.forEach(function (group) {
+      html += '<div class="wk-nav__group">';
+      html += '<span class="wk-nav__label">' + esc(group.label) + "</span>";
+      group.items.forEach(function (it) {
+        var page = it[0],
+          text = it[1],
+          icon = it[2];
+        var active =
+          page === current ? ' class="is-active" aria-current="page"' : "";
+        html +=
+          '<a href="' +
+          page +
+          '.html" data-page="' +
+          page +
+          '"' +
+          active +
+          '><i data-lucide="' +
+          icon +
+          '"></i> ' +
+          esc(text) +
+          "</a>";
+      });
+      html += "</div>";
+    });
+    html += "</nav>";
+    sidebar.innerHTML = html;
+  }
 
   /* ── Lucide icons ──────────────────────────────────────────────────── */
   function renderIcons() {
@@ -24,6 +113,7 @@
   function applyTheme(theme) {
     var light = theme === "light";
     document.body.classList.toggle("theme-light", light);
+    document.documentElement.classList.toggle("wk-pre-light", light);
     if (themeBtn) {
       var icon = themeBtn.querySelector("i, svg");
       if (icon) icon.setAttribute("data-lucide", light ? "sun" : "moon");
@@ -75,17 +165,9 @@
     if (e.key === "Escape") closeSidebar();
   });
 
-  /* ── Active sidebar link (by current filename) ─────────────────────── */
-  var path = location.pathname.split("/").pop() || "index.html";
-  if (path === "") path = "index.html";
-  var current = path.replace(/\.html$/, "") || "index";
+  /* close the drawer when a destination is chosen */
   var navLinks = document.querySelectorAll(".wk-nav a[data-page]");
   Array.prototype.forEach.call(navLinks, function (a) {
-    if (a.getAttribute("data-page") === current) {
-      a.classList.add("is-active");
-      a.setAttribute("aria-current", "page");
-    }
-    // close the drawer when a destination is chosen
     a.addEventListener("click", closeSidebar);
   });
 
@@ -201,5 +283,95 @@
         spy.observe(it.el);
       });
     }
+  })();
+
+  /* ── Per-section version badges ────────────────────────────────────────
+     Every documented section shows the game version(s) it applies to. The
+     default is the version the wiki currently documents. To record that a
+     future version changed a section, add (in the page HTML):
+        <section data-versions="1.2-2,1.3"> … </section>
+     The newest entry is highlighted as "current". */
+  var WIKI_VERSION = "1.2-2";
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".wk-main section > h2"),
+    function (h2) {
+      if (h2.querySelector(".wk-vers")) return;
+      var section = h2.closest("section");
+      var raw = (section && section.getAttribute("data-versions")) || WIKI_VERSION;
+      var list = raw
+        .split(",")
+        .map(function (s) {
+          return s.trim();
+        })
+        .filter(Boolean);
+      if (!list.length) return;
+      var wrap = document.createElement("span");
+      wrap.className = "wk-vers";
+      list.forEach(function (v, i) {
+        var b = document.createElement("span");
+        var latest = i === list.length - 1;
+        b.className = "wk-ver" + (latest ? " wk-ver--latest" : "");
+        b.textContent = "v" + v;
+        b.title = latest ? "Current as of v" + v : "Documented since v" + v;
+        wrap.appendChild(b);
+      });
+      h2.appendChild(wrap);
+    },
+  );
+
+  /* ── Hover anchor links on section headings ────────────────────────── */
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".wk-main h2[id], .wk-main h3[id]"),
+    function (h) {
+      if (h.querySelector(".wk-anchor")) return;
+      var a = document.createElement("a");
+      a.className = "wk-anchor";
+      a.href = "#" + h.id;
+      a.setAttribute("aria-label", "Link to this section");
+      a.textContent = "#";
+      h.appendChild(a);
+    },
+  );
+
+  /* ── Sidebar filter ────────────────────────────────────────────────── */
+  (function sidebarFilter() {
+    var nav = document.querySelector(".wk-nav");
+    if (!nav) return;
+    var box = document.createElement("input");
+    box.type = "search";
+    box.className = "wk-search";
+    box.placeholder = "Filter pages…";
+    box.setAttribute("aria-label", "Filter wiki pages");
+    nav.parentNode.insertBefore(box, nav);
+
+    var empty = document.createElement("div");
+    empty.className = "wk-nav__empty";
+    empty.textContent = "No pages match.";
+    empty.style.display = "none";
+    nav.appendChild(empty);
+
+    box.addEventListener("input", function () {
+      var q = box.value.trim().toLowerCase();
+      var hits = 0;
+      Array.prototype.forEach.call(
+        nav.querySelectorAll(".wk-nav__group"),
+        function (group) {
+          var any = false;
+          Array.prototype.forEach.call(
+            group.querySelectorAll(":scope > a"),
+            function (a) {
+              var match = a.textContent.toLowerCase().indexOf(q) !== -1;
+              a.style.display = match ? "" : "none";
+              if (match) {
+                any = true;
+                hits++;
+              }
+            },
+          );
+          group.style.display = any ? "" : "none";
+        },
+      );
+      empty.style.display = hits ? "none" : "";
+    });
   })();
 })();

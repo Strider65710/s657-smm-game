@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Controls and number notation in Strider657's Milkshake Mania — keyboard shortcuts and the available number formats."
+    />
+    <meta property="og:title" content="Controls & Notation — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Keyboard shortcuts and number-format options." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/shortcuts.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Controls &amp; Notation — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Controls &amp; notation</span></nav>
+          <h1 class="wk-page__title">Controls &amp; number notation</h1>
+          <p class="wk-page__lead">
+            Keyboard shortcuts for quick play, and the number-format options that
+            control how those huge late-game figures are displayed.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">Keyboard</span>
+          <h2 class="section__title">Shortcuts</h2>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Key</th><th>Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Space / Esc</td><td>Pause &amp; resume</td></tr>
+                <tr><td>Ctrl + S</td><td>Save now</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="mouse-pointer-click"></i>
+            <p>
+              On touch devices, everything works by tapping — tap the blender to
+              blend, just like clicking on desktop. There's also an Auto-Blend
+              toggle if you'd rather not click.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Display</span>
+          <h2 class="section__title">Number formats</h2>
+          <p class="section__lead">
+            Pick how large numbers are written in <strong>Settings → Accessibility</strong>.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Format</th><th>Looks like</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Compact</td><td class="wk-num">1.23K, 4.5M, 6.7B…</td></tr>
+                <tr><td>Compact (custom)</td><td class="wk-num">1.23k, 4.5m, 6.7b… (lowercase)</td></tr>
+                <tr><td>Worded</td><td>1.23 Million, 4.5 Billion (short scale)</td></tr>
+                <tr><td>Worded (European)</td><td>Milliard, Billiard… (long scale)</td></tr>
+                <tr><td>Full digits</td><td class="wk-num">1,234,567</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top: 0.75rem">
+            The Help panel in-game includes a notation reference that updates to
+            match whichever format you've chosen.
+          </p>
+        </section>
+
+        <div class="wk-next">
+          <a href="settings.html"><i data-lucide="arrow-left"></i><span>Settings &amp; saves<small>All options</small></span></a>
+          <a href="glossary.html"><i data-lucide="arrow-right"></i><span>Glossary<small>Key terms</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

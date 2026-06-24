@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Credits and about for Strider657's Milkshake Mania — the team behind the game and a summary of the license."
+    />
+    <meta property="og:title" content="Credits — Milkshake Mania Wiki" />
+    <meta property="og:description" content="The team behind Strider657's Milkshake Mania." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/credits.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Credits — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Credits</span></nav>
+          <h1 class="wk-page__title">Credits &amp; about</h1>
+          <p class="wk-page__lead">
+            Strider657's Milkshake Mania is an indie incremental clicker built with
+            React + Vite. Here's the team behind it.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">The team</span>
+          <h2 class="section__title">Credits</h2>
+          <div class="credits">
+            <div class="credit">
+              <b>Strider657</b>
+              <small>Lead developer, solo composer &amp; first playtester</small>
+            </div>
+            <div class="credit">
+              <b>Oliver382</b>
+              <small>Lead concept designer &amp; second playtester</small>
+            </div>
+            <div class="credit">
+              <b>Reuben G.</b>
+              <small>Playtester — balancing &amp; GUI feedback</small>
+            </div>
+            <div class="credit">
+              <b>Max L.</b>
+              <small>Playtester — gameplay feedback</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">About</span>
+          <h2 class="section__title">The game</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="gamepad-2"></i></span>
+              <h3>What it is</h3>
+              <p>An idle / incremental clicker: blend milkshakes, unlock flavors, hire staff, buy upgrades, expand worldwide, and grow a tiny shop into a milkshake empire.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="globe"></i></span>
+              <h3>Where to play</h3>
+              <p>Free in any modern browser on desktop or mobile. An optional Windows launcher adds offline play, version management, and auto-updates.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="scale"></i></span>
+              <h3>License</h3>
+              <p>© 2026 Strider657. All rights reserved. Free to play with no ads and no purchases; redistribution, reverse engineering, and reuse of assets are not permitted. The in-game About panel has the full EULA.</p>
+            </article>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="bug"></i>
+            <p>
+              Found a bug or have an idea? Open an issue on the project's GitHub
+              releases/repo — reproduction steps and screenshots help a lot.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="faq.html"><i data-lucide="arrow-left"></i><span>FAQ<small>Common questions</small></span></a>
+          <a href="index.html"><i data-lucide="home"></i><span>Wiki home<small>Back to start</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

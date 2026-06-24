@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Special blend outcomes in Strider657's Milkshake Mania — Crusty, Baked, Swirled, Golden and more, their odds, how they stack, and how to boost them."
+    />
+    <meta property="og:title" content="Special Outcomes — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Every special blend outcome, its odds, stacking, and how to boost it." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/special-outcomes.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Special Outcomes — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Special outcomes</span></nav>
+          <h1 class="wk-page__title">Special blend outcomes</h1>
+          <p class="wk-page__lead">
+            Every milkshake you blend has a chance to come out "special" — paying
+            bonus cash and counting toward achievements and your reviews. Best of
+            all, the outcomes <em>stack</em> on a single shake.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">The rolls</span>
+          <h2 class="section__title">Bonus-cash outcomes</h2>
+          <p class="section__lead">
+            These four are rolled on every blend. Rarer ones pay far more.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Outcome</th><th>Approx. chance</th><th>Bonus</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Crusty</td><td class="wk-num">~10%</td><td class="wk-num">+$10</td></tr>
+                <tr><td>Baked</td><td class="wk-num">~5%</td><td class="wk-num">+$25</td></tr>
+                <tr><td>Swirled</td><td class="wk-num">~1%</td><td class="wk-num">+$100</td></tr>
+                <tr><td>Golden</td><td class="wk-num">~0.1%</td><td class="wk-num">+$1,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="info"></i>
+            <p>
+              These base odds are improved by upgrades and research (see below), so
+              your real rates climb as you progress.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Quality &amp; presentation</span>
+          <h2 class="section__title">The full set of seven</h2>
+          <p class="section__lead">
+            The game tracks <strong>seven</strong> distinct special results. Beyond
+            the four cash outcomes above, three more describe a shake's quality and
+            presentation:
+          </p>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="heart"></i></span>
+              <h3>Fan Favorite</h3>
+              <p>A crowd-pleaser. Feeds your customer rating and reviews, and counts toward the quality-focused achievements.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="droplet"></i></span>
+              <h3>Creamy</h3>
+              <p>A perfectly smooth texture — a quality result tracked in your special-outcome distribution on the Stats panel.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="sparkles"></i></span>
+              <h3>Decorated</h3>
+              <p>A beautifully presented shake. Presentation results lift your reviews' "presentation" aspect.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">Stacking</span>
+          <h2 class="section__title">They stack</h2>
+          <p class="section__lead">
+            Each special result is rolled independently, so a single shake can hit
+            several at once.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="layers"></i>
+            <p>
+              The rarest possible shake is a fully-stacked
+              <strong>Fan Favorite Creamy Crusty Baked Swirled Golden Decorated
+              Blend</strong> — astronomically rare, and a bragging-rights moment
+              when it lands.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Boosting</span>
+          <h2 class="section__title">Raising your odds</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="hand-coins"></i></span>
+              <h3>Golden Touch</h3>
+              <p>A special one-time upgrade (Level 8+) that multiplies your Golden Milkshake chance by <strong>×5</strong>.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="flask-conical"></i></span>
+              <h3>Special Batches</h3>
+              <p>Production research: <strong>+5% / +10% / +15%</strong> to base special chances across the board.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="flask-conical"></i></span>
+              <h3>Golden Formula</h3>
+              <p>Marketing research: <strong>+2% / +4% / +6%</strong> golden chance.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="flask-conical"></i></span>
+              <h3>Fan Favorite Push</h3>
+              <p>Marketing research: <strong>+4% / +8% / +12%</strong> Fan Favorite rate.</p>
+            </article>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="blending.html"><i data-lucide="arrow-left"></i><span>Blending<small>The core loop</small></span></a>
+          <a href="research.html"><i data-lucide="arrow-right"></i><span>Research<small>Boost your odds</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
