@@ -1,4 +1,14 @@
 {
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/:path(wiki|smm)",
+      "destination": "/:path/index.html"
+    },
+    {
+      "source": "/:path(wiki|smm)/",
+      "destination": "/:path/index.html"
+    }
+  ]
 }
