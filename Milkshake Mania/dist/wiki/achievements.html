@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Paint the themed background immediately to avoid a white flash on load / navigation -->
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Achievements, reviews, and stats in Strider657's Milkshake Mania — 195 achievements across 17 categories, the procedural review system, tracked stats and records."
+    />
+    <meta property="og:title" content="Achievements & Stats — Milkshake Mania Wiki" />
+    <meta property="og:description" content="195 achievements across 17 categories, plus reviews, stats, and records." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/achievements.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Achievements &amp; Stats — Milkshake Mania Wiki</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html">
+        <img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" />
+        <span>Milkshake Mania <span class="grad">Wiki</span></span>
+      </a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation">
+        <nav class="wk-nav">
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Overview</span>
+            <a href="index.html" data-page="index"><i data-lucide="home"></i> Home</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Core gameplay</span>
+            <a href="blending.html" data-page="blending"><i data-lucide="blend"></i> Blending &amp; specials</a>
+            <a href="flavors.html" data-page="flavors"><i data-lucide="ice-cream-cone"></i> Flavors &amp; combos</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Your business</span>
+            <a href="economy.html" data-page="economy"><i data-lucide="store"></i> Shops &amp; upgrades</a>
+            <a href="world.html" data-page="world"><i data-lucide="globe"></i> Locations &amp; world</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Progression</span>
+            <a href="progression.html" data-page="progression"><i data-lucide="trending-up"></i> Levels &amp; activities</a>
+            <a href="achievements.html" data-page="achievements"><i data-lucide="trophy"></i> Achievements &amp; stats</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Reference</span>
+            <a href="settings.html" data-page="settings"><i data-lucide="settings"></i> Settings &amp; saves</a>
+            <a href="tips.html" data-page="tips"><i data-lucide="lightbulb"></i> Tips &amp; strategy</a>
+            <a href="faq.html" data-page="faq"><i data-lucide="circle-help"></i> FAQ</a>
+          </div>
+        </nav>
+      </aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Achievements &amp; stats</span></nav>
+          <h1 class="wk-page__title">Achievements, reviews &amp; stats</h1>
+          <p class="wk-page__lead">
+            195 achievements to chase, a procedural review system that reacts to how
+            you run the shop, and a stats panel that tracks your whole empire.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">Completion</span>
+          <h2 class="section__title">195 achievements · 17 categories</h2>
+          <p class="section__lead">
+            Many achievements grant a cash bonus or a temporary income buff on
+            unlock. Here's the full category breakdown.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Category</th><th>Count</th><th>Examples</th></tr></thead>
+              <tbody>
+                <tr><td>Crazy Scenarios</td><td class="wk-num">20</td><td>Offbeat milestone combinations</td></tr>
+                <tr><td>Special Outcomes</td><td class="wk-num">19</td><td>Golden / swirled / decorated counts</td></tr>
+                <tr><td>Shake Milestones</td><td class="wk-num">17</td><td>Novice Blender → Shake Titan</td></tr>
+                <tr><td>Money Milestones</td><td class="wk-num">16</td><td>First C-Note → Billionaire</td></tr>
+                <tr><td>Flavor Combos</td><td class="wk-num">15</td><td>Classic Pairing, Neapolitan Master</td></tr>
+                <tr><td>Hidden Secrets</td><td class="wk-num">12</td><td>Easter-egg discoveries</td></tr>
+                <tr><td>Curious Quirks</td><td class="wk-num">12</td><td>Quirky play patterns</td></tr>
+                <tr><td>Countries</td><td class="wk-num">11</td><td>Going Global → World Domination</td></tr>
+                <tr><td>Legendary Milestones</td><td class="wk-num">10</td><td>Endgame feats (huge buffs)</td></tr>
+                <tr><td>Employees</td><td class="wk-num">10</td><td>Hiring milestones</td></tr>
+                <tr><td>Upgrades &amp; Tech</td><td class="wk-num">10</td><td>Upgrade-level milestones</td></tr>
+                <tr><td>Random Events</td><td class="wk-num">10</td><td>Event participation</td></tr>
+                <tr><td>Flavors</td><td class="wk-num">9</td><td>Flavor Curious → Flavor Legend</td></tr>
+                <tr><td>Shop Extensions</td><td class="wk-num">8</td><td>Extension milestones</td></tr>
+                <tr><td>Time Played</td><td class="wk-num">6</td><td>Days-in-business milestones</td></tr>
+                <tr><td>Player Levels</td><td class="wk-num">6</td><td>Level milestones</td></tr>
+                <tr><td>Customer Ratings</td><td class="wk-num">4</td><td>Reputation milestones</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="pin"></i>
+            <p>
+              You can <strong>pin</strong> a few achievements to keep their progress
+              in view, and the panel has search + category filters to find what's
+              left.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Reputation</span>
+          <h2 class="section__title">Customer reviews</h2>
+          <p class="section__lead">
+            Reviews are <strong>procedurally generated</strong> (no AI) from a seeded
+            RNG, written entirely from your real business metrics — so they shift as
+            your shop changes, and each one keeps a single coherent mood.
+          </p>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="star"></i></span>
+              <h3>How they're scored</h3>
+              <p>
+                Each review judges one or two of <strong>nine aspects</strong> —
+                Overall, Quality, Speed, Friendliness, Variety, Value, Atmosphere,
+                Presentation, Consistency — derived from wages, blend speed, flavor
+                count, quality/presentation ratios, locations, and staff. Output is a
+                whole-number <strong>1–5★</strong> rating.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="search"></i></span>
+              <h3>The reviews panel</h3>
+              <p>
+                Shows your overall rating and a feed of dated reviews you can
+                <strong>search and filter by aspect</strong>. Raise wages, add
+                flavors, speed up blends, and grow locations to lift your scores —
+                low ratings can trigger reputation events.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">By the numbers</span>
+          <h2 class="section__title">Stats &amp; records</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="bar-chart-3"></i></span>
+              <h3>Tracked stats</h3>
+              <ul>
+                <li>Customer-rating gauge &amp; 5-star reputation</li>
+                <li>Lifetime blends · days open · achievements · blend time</li>
+                <li>Special-blend rate &amp; full outcome distribution</li>
+                <li>Empire progress: flavors / countries / locations / employees</li>
+                <li>Choice &amp; auto event counts</li>
+              </ul>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="medal"></i></span>
+              <h3>Personal records</h3>
+              <ul>
+                <li>Peak income / second</li>
+                <li>Peak money held</li>
+                <li>Most blends in a session</li>
+                <li>Best special-blend streak</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="progression.html"><i data-lucide="arrow-left"></i><span>Levels &amp; activities<small>Earn achievements faster</small></span></a>
+          <a href="tips.html"><i data-lucide="arrow-right"></i><span>Tips &amp; strategy<small>Optimize your run</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

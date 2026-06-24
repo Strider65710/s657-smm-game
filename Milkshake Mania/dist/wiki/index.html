@@ -3,10 +3,310 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WIKI - Strider657's Milkshake Mania</title>
+    <!-- Paint the themed background immediately to avoid a white flash on load / navigation -->
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="The official wiki for Strider657's Milkshake Mania — every flavor, combo, upgrade, location, country, research node, achievement, and setting in one place."
+    />
+    <meta
+      name="google-site-verification"
+      content="dVxkao_ZG9GcxsNvednxyy8ajFWcFHCcT-BpaWv46Lg"
+    />
+    <meta
+      name="keywords"
+      content="Strider657, Milkshake Mania, wiki, guide, flavors, combos, upgrades, achievements, idle game, incremental game, clicker game"
+    />
+    <meta property="og:title" content="Strider657's Milkshake Mania — Wiki" />
+    <meta
+      property="og:description"
+      content="The complete guide to Strider657's Milkshake Mania: blending, flavors, combos, upgrades, locations, countries, research, achievements and more."
+    />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki" />
+    <meta
+      property="og:image"
+      content="https://striderplays.vercel.app/banner.png"
+    />
+    <meta name="robots" content="index, follow" />
+    <title>WIKI — Strider657's Milkshake Mania</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://striderplays.vercel.app/favicon.png"
+    />
+
+    <!-- Homepage stylesheet (single source of truth for the theme) -->
     <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <!-- Wiki-specific additions layered on top (relative → works at /wiki/) -->
+    <link rel="stylesheet" href="index.css" />
   </head>
+
   <body>
-    <h1>Sorry, but wiki under construction!</h1>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu">
+        <i data-lucide="menu"></i>
+      </button>
+      <a class="nav__brand" href="index.html">
+        <img
+          class="nav__logo"
+          src="https://striderplays.vercel.app/favicon.png"
+          alt="Milkshake Mania logo"
+        />
+        <span>Milkshake Mania <span class="grad">Wiki</span></span>
+      </a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm"
+          >Play</a
+        >
+        <button
+          class="icon-btn"
+          id="themeToggle"
+          aria-label="Toggle theme"
+          title="Toggle light / dark"
+        >
+          <i data-lucide="moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation">
+        <nav class="wk-nav">
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Overview</span>
+            <a href="index.html" data-page="index"><i data-lucide="home"></i> Home</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Core gameplay</span>
+            <a href="blending.html" data-page="blending"
+              ><i data-lucide="blend"></i> Blending &amp; specials</a
+            >
+            <a href="flavors.html" data-page="flavors"
+              ><i data-lucide="ice-cream-cone"></i> Flavors &amp; combos</a
+            >
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Your business</span>
+            <a href="economy.html" data-page="economy"
+              ><i data-lucide="store"></i> Shops &amp; upgrades</a
+            >
+            <a href="world.html" data-page="world"
+              ><i data-lucide="globe"></i> Locations &amp; world</a
+            >
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Progression</span>
+            <a href="progression.html" data-page="progression"
+              ><i data-lucide="trending-up"></i> Levels &amp; activities</a
+            >
+            <a href="achievements.html" data-page="achievements"
+              ><i data-lucide="trophy"></i> Achievements &amp; stats</a
+            >
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Reference</span>
+            <a href="settings.html" data-page="settings"
+              ><i data-lucide="settings"></i> Settings &amp; saves</a
+            >
+            <a href="tips.html" data-page="tips"
+              ><i data-lucide="lightbulb"></i> Tips &amp; strategy</a
+            >
+            <a href="faq.html" data-page="faq"
+              ><i data-lucide="circle-help"></i> FAQ</a
+            >
+          </div>
+        </nav>
+      </aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <!-- Hero -->
+        <section class="hero" style="padding-inline: 0; padding-block: clamp(1.5rem, 4vw, 3rem)">
+          <div class="hero__copy">
+            <span class="version-pill"
+              ><span class="version-pill__dot"></span
+              ><i data-lucide="book-open"></i> Game Wiki</span
+            >
+            <span class="eyebrow">Strider657's Milkshake Mania</span>
+            <h1 class="hero__title">
+              The complete <span class="grad">Milkshake Mania</span> wiki
+            </h1>
+            <p class="lead">
+              Everything in the game, documented — blending and special outcomes,
+              all 50 flavors and 25 combos, shops and staff, 48 upgrades, 10
+              location types, 35 countries, research, achievements, and every
+              setting. Pick a topic from the sidebar to dive in.
+            </p>
+            <div class="row">
+              <a class="btn btn--primary btn--lg" href="blending.html"
+                ><i data-lucide="rocket"></i> Start reading</a
+              >
+              <a class="btn btn--ghost btn--lg" href="https://striderplays.vercel.app/smm"
+                ><i data-lucide="play"></i> Play now</a
+              >
+            </div>
+          </div>
+
+          <div class="preview" aria-hidden="true">
+            <div class="cup">
+              <div class="cup__straw"></div>
+              <div class="cup__shake"></div>
+              <i data-lucide="ice-cream-cone" class="cup__icon lucide"></i>
+            </div>
+            <div class="preview__stats">
+              <div><b>50</b><small>Flavors</small></div>
+              <div><b>25</b><small>Combos</small></div>
+              <div><b>35</b><small>Countries</small></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- At-a-glance stats -->
+        <div class="wk-stats">
+          <div class="wk-stat"><b>50</b><small>Flavors</small></div>
+          <div class="wk-stat"><b>25</b><small>Combos</small></div>
+          <div class="wk-stat"><b>48</b><small>Upgrades</small></div>
+          <div class="wk-stat"><b>35</b><small>Countries</small></div>
+          <div class="wk-stat"><b>15</b><small>Research nodes</small></div>
+          <div class="wk-stat"><b>195</b><small>Achievements</small></div>
+        </div>
+
+        <!-- Getting started -->
+        <section class="section">
+          <span class="eyebrow">Basics</span>
+          <h2 class="section__title">Getting started</h2>
+          <p class="section__lead">
+            The core loop: blend shakes, reinvest the cash, level up, and automate.
+          </p>
+
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="blend"></i></span>
+              <h3>1 · Blend</h3>
+              <p>
+                Load flavors into the blender and click to blend a milkshake — or
+                flip on <strong>Auto Blend</strong> (top-left button) to let it run
+                hands-free. Add up to <strong>4 blenders</strong> to blend in
+                parallel.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="banknote"></i></span>
+              <h3>2 · Earn</h3>
+              <p>
+                Manual blends pay out instantly;
+                <strong>employees and locations</strong> add
+                <strong>passive income</strong> every second. Passive income is
+                what carries the late game.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="trending-up"></i></span>
+              <h3>3 · Level up</h3>
+              <p>
+                Almost everything you do earns <strong>XP</strong>. Levels unlock
+                new systems — shops, employees, research, price control, special
+                upgrades, and global expansion.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="globe"></i></span>
+              <h3>4 · Expand</h3>
+              <p>
+                Reinvest into upgrades, new flavors, locations, and — from Level 15
+                — <strong>countries</strong>, each multiplying all of your income.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Explore the wiki -->
+        <section class="section">
+          <span class="eyebrow">Browse</span>
+          <h2 class="section__title">Explore the wiki</h2>
+          <div class="wk-next">
+            <a href="blending.html"
+              ><i data-lucide="blend"></i>
+              <span>Blending &amp; specials<small>Mechanics, special outcomes, speed</small></span></a
+            >
+            <a href="flavors.html"
+              ><i data-lucide="ice-cream-cone"></i>
+              <span>Flavors &amp; combos<small>All 50 flavors and 25 combos</small></span></a
+            >
+            <a href="economy.html"
+              ><i data-lucide="store"></i>
+              <span>Shops &amp; upgrades<small>Staff, training, 48 upgrades</small></span></a
+            >
+            <a href="world.html"
+              ><i data-lucide="globe"></i>
+              <span>Locations &amp; world<small>Locations, 35 countries, research</small></span></a
+            >
+            <a href="progression.html"
+              ><i data-lucide="trending-up"></i>
+              <span>Levels &amp; activities<small>XP, contracts, goals, events</small></span></a
+            >
+            <a href="achievements.html"
+              ><i data-lucide="trophy"></i>
+              <span>Achievements &amp; stats<small>195 achievements, reviews</small></span></a
+            >
+            <a href="settings.html"
+              ><i data-lucide="settings"></i>
+              <span>Settings &amp; saves<small>Modes, options, backgrounds</small></span></a
+            >
+            <a href="tips.html"
+              ><i data-lucide="lightbulb"></i>
+              <span>Tips &amp; strategy<small>Early, mid &amp; late game</small></span></a
+            >
+            <a href="faq.html"
+              ><i data-lucide="circle-help"></i>
+              <span>FAQ<small>Common questions answered</small></span></a
+            >
+          </div>
+        </section>
+
+        <footer class="footer">
+          <span class="footer__brand">
+            <img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" />
+            Milkshake Mania
+          </span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal"
+            >Strider657's Milkshake Mania™ — © 2026 Strider657. All rights
+            reserved.</small
+          >
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top">
+      <i data-lucide="arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
   </body>
 </html>

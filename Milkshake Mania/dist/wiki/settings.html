@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Paint the themed background immediately to avoid a white flash on load / navigation -->
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Settings and saves in Strider657's Milkshake Mania — multi-save slots, game modes, display & accessibility options, backgrounds, and the music player."
+    />
+    <meta property="og:title" content="Settings & Saves — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Save slots, game modes, every setting, backgrounds, and music." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/settings.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Settings &amp; Saves — Milkshake Mania Wiki</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html">
+        <img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" />
+        <span>Milkshake Mania <span class="grad">Wiki</span></span>
+      </a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation">
+        <nav class="wk-nav">
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Overview</span>
+            <a href="index.html" data-page="index"><i data-lucide="home"></i> Home</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Core gameplay</span>
+            <a href="blending.html" data-page="blending"><i data-lucide="blend"></i> Blending &amp; specials</a>
+            <a href="flavors.html" data-page="flavors"><i data-lucide="ice-cream-cone"></i> Flavors &amp; combos</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Your business</span>
+            <a href="economy.html" data-page="economy"><i data-lucide="store"></i> Shops &amp; upgrades</a>
+            <a href="world.html" data-page="world"><i data-lucide="globe"></i> Locations &amp; world</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Progression</span>
+            <a href="progression.html" data-page="progression"><i data-lucide="trending-up"></i> Levels &amp; activities</a>
+            <a href="achievements.html" data-page="achievements"><i data-lucide="trophy"></i> Achievements &amp; stats</a>
+          </div>
+          <div class="wk-nav__group">
+            <span class="wk-nav__label">Reference</span>
+            <a href="settings.html" data-page="settings"><i data-lucide="settings"></i> Settings &amp; saves</a>
+            <a href="tips.html" data-page="tips"><i data-lucide="lightbulb"></i> Tips &amp; strategy</a>
+            <a href="faq.html" data-page="faq"><i data-lucide="circle-help"></i> FAQ</a>
+          </div>
+        </nav>
+      </aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Settings &amp; saves</span></nav>
+          <h1 class="wk-page__title">Settings &amp; saves</h1>
+          <p class="wk-page__lead">
+            Multiple save files, three difficulties, and a deep options menu —
+            display scaling, visuals, accessibility, and more.
+          </p>
+        </header>
+
+        <section class="section">
+          <span class="eyebrow">Your files</span>
+          <h2 class="section__title">Multi-save system</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="save"></i></span>
+              <h3>Save slots</h3>
+              <p>
+                Keep <strong>multiple named saves</strong>, each with its own
+                difficulty. The main menu lists them with money, level, days, and
+                achievements; sort by recent or name, and rename or delete any slot.
+                Saves are <strong>encrypted</strong> in your browser.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="clock"></i></span>
+              <h3>Autosave &amp; manual</h3>
+              <p>
+                Autosave runs on your chosen interval (30s, 45s, 60s, 120s, 240s, or
+                Never), and <strong>Ctrl+S</strong> saves on demand. A corrupt save
+                is preserved rather than overwritten.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="file-down"></i></span>
+              <h3>Import / export</h3>
+              <p>
+                Export any save to a <strong>code or file</strong> and re-import it
+                later or on another device. Legacy export codes are supported, and
+                old single-save files migrate automatically.
+              </p>
+            </article>
+          </div>
+          <div class="wk-tip wk-tip--warn">
+            <i data-lucide="triangle-alert"></i>
+            <p>
+              Saves live in your browser, so <strong>clearing site data wipes
+              them</strong>. Export a backup first. To remove a single save, use the
+              <strong>Delete</strong> button next to it in the main-menu list —
+              there's no undo.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Difficulty</span>
+          <h2 class="section__title">Game modes</h2>
+          <p class="section__lead">Chosen when you create a save; it can't be changed later.</p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Mode</th><th>Costs</th><th>Income</th><th>For…</th></tr></thead>
+              <tbody>
+                <tr><td>Easy</td><td class="wk-num">−15%</td><td class="wk-num">+15%</td><td>Newcomers / relaxed play</td></tr>
+                <tr><td>Normal</td><td class="wk-num">baseline</td><td class="wk-num">baseline</td><td>The intended experience</td></tr>
+                <tr><td>Hard</td><td class="wk-num">+50%</td><td class="wk-num">−30%</td><td>Veterans / a challenge</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">Options</span>
+          <h2 class="section__title">Every setting</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="monitor"></i></span>
+              <h3>Display</h3>
+              <ul>
+                <li><strong>GUI scale</strong> — 50–150% with an Auto preset.</li>
+                <li><strong>Text scale</strong> — 70–150% (S / M / L / XL).</li>
+              </ul>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="palette"></i></span>
+              <h3>Visuals</h3>
+              <ul>
+                <li>High Quality FX, Light / Dark theme</li>
+                <li>Floating Shakes, Screen Shake</li>
+                <li>Animate Numbers, Better Animations</li>
+                <li>Atmosphere (background picker)</li>
+              </ul>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="gamepad-2"></i></span>
+              <h3>Gameplay</h3>
+              <ul>
+                <li>Show Passive Income ($/s)</li>
+                <li>Auto-Claim Goals, Tab Badges</li>
+                <li>Auto-Save interval, Notification duration</li>
+                <li>Auto-Pause on idle, Date format</li>
+              </ul>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="accessibility"></i></span>
+              <h3>Accessibility</h3>
+              <ul>
+                <li>Reduce Motion, High Contrast</li>
+                <li>Large Text mode</li>
+                <li>
+                  Number format — compact, custom, worded (short / long scale), or
+                  full digits
+                </li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Atmosphere</span>
+          <h2 class="section__title">14 backgrounds &amp; music</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="image"></i></span>
+              <h3>Backgrounds</h3>
+              <p>
+                Fourteen atmospheres in the picker — including Cozy Cafe, RGB Glow,
+                Sunset City, Winter Landscape, Fall Forest, Beach, Sapphire Waves,
+                Lounge, and Rainforest Cafe. Switching light/dark picks a fitting
+                default automatically.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="music"></i></span>
+              <h3>Music player</h3>
+              <p>
+                A built-in player with <strong>4 tracks</strong> —
+                <em>Afternoon</em>, <em>Milkshakes</em>, <em>Beginning</em>, and
+                <em>Empire</em> — with play/pause, skip, ±10 s seek, volume, and
+                direct track selection.
+              </p>
+            </article>
+            <article class="card reveal">
+              <span class="card__icon"><i data-lucide="circle-help"></i></span>
+              <h3>Help &amp; about</h3>
+              <p>
+                An in-game <strong>Help</strong> panel with replayable tutorials and
+                reference sections, and an <strong>About</strong> panel with version
+                info, credits, and the full EULA.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="achievements.html"><i data-lucide="arrow-left"></i><span>Achievements &amp; stats<small>Track your empire</small></span></a>
+          <a href="tips.html"><i data-lucide="arrow-right"></i><span>Tips &amp; strategy<small>Play smarter</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
