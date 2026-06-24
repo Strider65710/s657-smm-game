@@ -1,23 +1,4 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/wiki",
-      "destination": "/wiki/index.html"
-    },
-    {
-      "source": "/smm",
-      "destination": "/smm/index.html"
-    },
-
-    {
-      "source": "/wiki/:path*",
-      "destination": "/wiki/:path*"
-    },
-    {
-      "source": "/smm/:path*",
-      "destination": "/smm/:path*"
-    }
-  ]
+  "trailingSlash": false
 }
