@@ -260,6 +260,9 @@ Vite note:
 
 - Scripts use `--configLoader native` to avoid permission issues in restricted environments.
 
+**DISCLAIMER**: Don't use my source code! If you do, you are set for a bad time. If I find my
+game, code or assets used without authorization, G.G. 
+
 ---
 
 ## END USER LICENSE AGREEMENT (EULA)
