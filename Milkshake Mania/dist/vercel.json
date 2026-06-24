@@ -1,8 +1,6 @@
 {
-  "rewrites": [
-    { "source": "/wiki", "destination": "/wiki/index.html" },
-    { "source": "/wiki/", "destination": "/wiki/index.html" },
-    { "source": "/smm", "destination": "/smm/index.html" },
-    { "source": "/smm/", "destination": "/smm/index.html" }
+  "redirects": [
+    { "source": "/wiki", "destination": "/wiki/", "permanent": true },
+    { "source": "/smm", "destination": "/smm/", "permanent": true }
   ]
 }
