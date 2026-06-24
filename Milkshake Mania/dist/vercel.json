@@ -1,3 +1,12 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/wiki",
+      "destination": "/wiki/index.html"
+    },
+    {
+      "source": "/wiki/(.*)",
+      "destination": "/wiki/$1"
+    }
+  ]
 }
