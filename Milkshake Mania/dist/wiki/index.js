@@ -1,10 +1,3 @@
-/*
- * Strider657's Milkshake Mania — Wiki
- * Progressive-enhancement behaviour shared by every page. The wiki is fully
- * readable without JS; this adds the theme toggle, the mobile sidebar drawer,
- * active-link highlighting, reveal-on-scroll, back-to-top, and renders the
- * Lucide icons. (The FAQ uses native <details> — no JS needed.)
- */
 (function () {
   "use strict";
 
