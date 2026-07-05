@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="How employee roles work in Strider657's Milkshake Mania v1.3 — Production, Management, and Restock, plus Auto-assign and the Auto Auto-Assign toggle."
+    />
+    <meta property="og:title" content="Employee roles — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Partition your staff into Production, Management, and Restock roles — or let Auto Auto-Assign keep things balanced automatically." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/employee-roles.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Employee roles — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Employee roles</span></nav>
+          <h1 class="wk-page__title">Employee roles</h1>
+          <p class="wk-page__lead">
+            New in <strong>v1.3</strong>, employee roles let you direct your hired
+            staff toward three different jobs — <strong>Production</strong>,
+            <strong>Management</strong>, or <strong>Restock</strong>. The system is
+            fully opt-in: unassigned staff always default to Production, so existing
+            saves keep earning exactly as before until you choose to assign roles.
+          </p>
+        </header>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Overview</span>
+          <h2 class="section__title">Three roles</h2>
+          <p class="section__lead">
+            Every hired employee can be assigned to one of three roles. Any employee
+            you leave unassigned automatically works as Production, so your income
+            is never penalized for ignoring roles. If you assign <em>no</em> roles
+            at all, every employee is fully productive — exactly like they were
+            before v1.3 — making the system safe for pre-update saves.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table">
+              <thead>
+                <tr>
+                  <th>Role</th>
+                  <th>Effect</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Production</strong></td>
+                  <td>Drives passive income. Unassigned staff count as Production automatically.</td>
+                </tr>
+                <tr>
+                  <td><strong>Management</strong></td>
+                  <td>Each manager adds <strong>+1%</strong> to global income, capped at a total bonus of <strong>+50%</strong>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Restock</strong></td>
+                  <td>Each restocking employee regenerates <strong>0.5 units per second</strong> across every supply type. Multiple Restock employees stack.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            The income multiplier from role allocation scales with your
+            Production share. Assigning staff to Management or Restock reduces
+            the raw Production count, but the Management bonus partially offsets
+            that — so a well-balanced split can outperform a pure Production
+            setup once you have enough staff. See the formula in
+            <code>src/game/logic.ts</code> (<code>calcRoleIncomeMult</code>).
+          </p>
+        </section>
+
+        <section class="section section--alt" data-versions="1.3">
+          <span class="eyebrow">Assignment</span>
+          <h2 class="section__title">Assigning roles</h2>
+          <p class="section__lead">
+            Role assignment lives in the <strong>Employees tab</strong>. Each role
+            has a <strong>+</strong> and <strong>−</strong> stepper you can tap to
+            move individual staff between roles. The panel always shows how many
+            employees are assigned versus your total headcount, so you can see at a
+            glance how many are still defaulting to Production.
+          </p>
+          <p>
+            The one-tap <strong>Auto-assign</strong> button applies the standard
+            balancing policy in a single click: roughly
+            <strong>25% Restock</strong>, <strong>10% Management</strong>, and
+            the remainder <strong>Production</strong>. It is useful when you
+            have just hired a batch of new staff and want a sensible split
+            without adjusting each stepper by hand.
+          </p>
+        </section>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Automation</span>
+          <h2 class="section__title">Auto... Auto-Assign</h2>
+          <p class="section__lead">
+            Auto... Auto-Assign is a per-save toggle in the Employees tab. While
+            it is on, your roles are rebalanced automatically every time your
+            headcount changes — new hires, a prestige reset, anything that shifts
+            the total is handled immediately without any manual input.
+          </p>
+          <p>
+            The automatic policy is the same as the one-shot Auto-assign button:
+            approximately <strong>25% Restock</strong>,
+            <strong>10% Management</strong>, and the rest
+            <strong>Production</strong>. While the toggle is active, the manual
+            steppers and the one-shot Auto-assign button are both disabled — all
+            allocation is handled for you.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="sparkles"></i>
+            <p>
+              Turning on Auto... Auto-Assign for the first time unlocks the
+              <strong>"Auto... Auto-Assign"</strong> achievement. You only need to
+              flip it on once per save — the achievement is awarded immediately.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="supplies.html"><i data-lucide="arrow-left"></i><span>Ingredients &amp; supply chain<small>How supplies work</small></span></a>
+          <a href="world.html"><i data-lucide="arrow-right"></i><span>Locations &amp; world<small>Expanding globally</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

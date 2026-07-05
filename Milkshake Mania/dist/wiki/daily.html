@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="How the Daily Special flavor bonus and login streak reward work in Strider657's Milkshake Mania — earn +25% income each day and escalating cash for consecutive visits."
+    />
+    <meta property="og:title" content="Daily special &amp; streak — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Load the Daily Special flavor for +25% global income, and build a login streak for escalating cash rewards — both new in v1.3." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/daily.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Daily special &amp; streak — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Daily special &amp; streak</span></nav>
+          <h1 class="wk-page__title">Daily special &amp; login streak</h1>
+          <p class="wk-page__lead">
+            Both introduced in <strong>v1.3</strong>, the Daily Special and
+            login streak give you a fresh reason to open the game every day.
+            Load the right flavor for a significant income bonus, and visit on
+            consecutive days to collect an escalating cash reward on arrival.
+          </p>
+        </header>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Daily bonus</span>
+          <h2 class="section__title">Daily Special</h2>
+          <p class="section__lead">
+            Each real-world calendar day, one of your unlocked flavors is
+            designated the <strong>Daily Special</strong>. While that flavor is
+            loaded in your blender it applies a <strong>+25% global income
+            multiplier</strong> that stacks with all your other bonuses.
+          </p>
+          <p>
+            The Daily Special is picked deterministically from your unlocked
+            flavor list using the current date as a seed, so it stays the same
+            flavor for the entire day no matter how many times you reload.
+            At midnight (local time) the date changes, a new flavor is chosen,
+            and a toast notification appears on your next load announcing the
+            new pick.
+          </p>
+          <p>
+            The Daily Special is <em>distinct</em> from the
+            <strong>Featured Combo</strong>. The Featured Combo rewards you for
+            having a specific pair of flavors active simultaneously; the Daily
+            Special rewards you for loading a single designated flavor,
+            regardless of what else is in the blender.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="sun"></i>
+            <p>
+              The +25% bonus only applies while the Daily Special flavor is
+              <strong>currently loaded</strong>. If you swap it out for a
+              different flavor, the multiplier drops immediately. Swap it back
+              in and the bonus returns.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.3">
+          <span class="eyebrow">Consecutive visits</span>
+          <h2 class="section__title">Login streak</h2>
+          <p class="section__lead">
+            Visiting on consecutive calendar days builds a login streak.
+            Each time you open the game on a new day your streak advances by
+            one, and you immediately receive a <strong>cash reward</strong>
+            that grows with the streak.
+          </p>
+          <p>
+            The reward is calculated from your current income per second at
+            the moment of login: roughly <strong>one minute of income per
+            streak day</strong>, capped at a maximum of seven days' worth.
+            A minimum of <strong>$100</strong> is guaranteed regardless of
+            how low your income is, so the reward is always meaningful even
+            in the very early game. The exact formula is:
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table">
+              <thead>
+                <tr>
+                  <th>Streak day</th>
+                  <th>Reward (approximate)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Day 1</td><td>~1 minute of income (min $100)</td></tr>
+                <tr><td>Day 2</td><td>~2 minutes of income (min $100)</td></tr>
+                <tr><td>Day 3</td><td>~3 minutes of income (min $100)</td></tr>
+                <tr><td>Day 4</td><td>~4 minutes of income (min $100)</td></tr>
+                <tr><td>Day 5</td><td>~5 minutes of income (min $100)</td></tr>
+                <tr><td>Day 6</td><td>~6 minutes of income (min $100)</td></tr>
+                <tr><td>Day 7+</td><td>~7 minutes of income (min $100) — maximum</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            The reward is added directly to your cash balance. A
+            <strong>welcome-back toast</strong> appears roughly one second
+            after the game loads, showing your current streak day and the
+            exact dollar amount you received.
+          </p>
+          <p>
+            The streak tracks by real-world calendar date, not by hours
+            elapsed. If you visited yesterday and visit again today, your
+            streak advances. If you <strong>miss a day</strong> — meaning
+            the last recorded visit was not yesterday — the streak resets to
+            <strong>day 1</strong> and you receive the day-1 reward only.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="calendar"></i>
+            <p>
+              Because the reward scales with your current income per second,
+              it is worth more the further you have progressed. A run with
+              many employees and upgrades active will earn a much larger
+              streak reward than an early-game run, so the feature stays
+              relevant at every stage.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="prestige.html"><i data-lucide="arrow-left"></i><span>Prestige &amp; eternal upgrades<small>Rebranding and eternal upgrades</small></span></a>
+          <a href="leveling.html"><i data-lucide="arrow-right"></i><span>Leveling &amp; XP<small>Where XP comes from</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -27,6 +27,8 @@
       label: "Your business",
       items: [
         ["economy", "Shops & upgrades", "store"],
+        ["employee-roles", "Employee roles", "users"],
+        ["supplies", "Ingredients & supply chain", "package"],
         ["world", "Locations & world", "globe"],
         ["countries", "Countries", "flag"],
         ["research", "Research", "flask-conical"],
@@ -36,6 +38,8 @@
       label: "Progression",
       items: [
         ["progression", "Levels & activities", "trending-up"],
+        ["prestige", "Prestige & eternal upgrades", "gem"],
+        ["daily", "Daily special & streak", "calendar-days"],
         ["leveling", "Leveling & XP", "medal"],
         ["achievements", "Achievements & stats", "trophy"],
         ["contracts", "Contracts", "clipboard-list"],
@@ -287,11 +291,14 @@
 
   /* ── Per-section version badges ────────────────────────────────────────
      Every documented section shows the game version(s) it applies to. The
-     default is the version the wiki currently documents. To record that a
-     future version changed a section, add (in the page HTML):
-        <section data-versions="1.2-2,1.3"> … </section>
-     The newest entry is highlighted as "current". */
-  var WIKI_VERSION = "1.2-2";
+     DEFAULT baseline is "1.2-2,1.3": content that has existed (unchanged)
+     since v1.2-2 and is still current in v1.3 shows BOTH badges. Override per
+     section in the page HTML:
+        <section data-versions="1.3">        … new in v1.3 only
+        <section data-versions="1.2-2,1.3">  … existed in v1.2-2, changed in v1.3
+        <section data-versions="1.2-2">      … v1.2-2 only (rare)
+     The newest entry in the list is highlighted as "current". */
+  var WIKI_VERSION = "1.2-2,1.3";
   Array.prototype.forEach.call(
     document.querySelectorAll(".wk-main section > h2"),
     function (h2) {

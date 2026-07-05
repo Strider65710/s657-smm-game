@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="How ingredients and the supply chain work in Strider657's Milkshake Mania — per-shake consumption, the hard stop, the Supplies dashboard, and restocking."
+    />
+    <meta property="og:title" content="Ingredients &amp; supply chain — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Per-shake ingredient costs, the hard-stop penalty, the Supplies dashboard, and how to keep your chain healthy." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/supplies.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Ingredients &amp; supply chain — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Ingredients &amp; supply chain</span></nav>
+          <h1 class="wk-page__title">Ingredients &amp; supply chain</h1>
+          <p class="wk-page__lead">
+            Added in <strong>v1.3</strong>, the supply chain turns ingredients into
+            an active resource you manage alongside money. It unlocks at
+            <strong>Level 3</strong> — before that, blends consume nothing. Once
+            unlocked, every blend drains four ingredient types, and running dry on
+            any one of them brings automated income to a complete halt until you
+            restock (manual blending always works).
+          </p>
+        </header>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Ingredients</span>
+          <h2 class="section__title">Four ingredients</h2>
+          <p class="section__lead">
+            Every shake — whether blended manually or produced by your automated
+            staff — draws from four ingredient pools: <strong>Milk</strong>,
+            <strong>Sugar</strong>, <strong>Fruit</strong>, and <strong>Ice</strong>.
+            Each ingredient has its own capacity and drains at a fixed rate per
+            shake blended.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table">
+              <thead>
+                <tr>
+                  <th>Ingredient</th>
+                  <th>Consumed per shake</th>
+                  <th>Base capacity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Milk</td><td class="wk-num">1.3 units</td><td class="wk-num">600</td></tr>
+                <tr><td>Sugar</td><td class="wk-num">1.1 units</td><td class="wk-num">500</td></tr>
+                <tr><td>Fruit</td><td class="wk-num">0.9 units</td><td class="wk-num">450</td></tr>
+                <tr><td>Ice</td><td class="wk-num">1.6 units</td><td class="wk-num">750</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Consumption can be reduced by the <strong>Efficient Kitchen</strong>
+            Eternal upgrade. Capacity can be raised by purchasing capacity upgrades
+            in the Supplies tab — each upgrade level adds <strong>50%</strong> to
+            every ingredient's base cap.
+          </p>
+        </section>
+
+        <section class="section section--alt" data-versions="1.3">
+          <span class="eyebrow">The penalty</span>
+          <h2 class="section__title">Hard stop</h2>
+          <p class="section__lead">
+            If <em>any</em> ingredient reaches zero, all passive and automated
+            income stops entirely — the income multiplier drops to
+            <strong>zero</strong> — until you restock that ingredient. This replaced
+            the earlier soft 40% penalty introduced at the start of v1.3, and it
+            makes the supply chain something you actively monitor rather than
+            occasionally top up.
+          </p>
+          <p>
+            <strong>Manual blending always works</strong>, even with empty supplies.
+            You can still tap the blender and earn income by hand regardless of your
+            stock levels, so you can never be soft-locked. If you run out of both
+            cash and supplies, blend manually to recover — your hand-crafted shakes
+            do not cost ingredients.
+          </p>
+        </section>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Dashboard</span>
+          <h2 class="section__title">The Supplies dashboard</h2>
+          <p class="section__lead">
+            The <strong>Supplies tab</strong> gives you a live view of your entire
+            supply chain from a single screen.
+          </p>
+          <p>At the top, a <strong>supply-chain status banner</strong> shows whether
+          you are currently stocked or running dry, so you can spot trouble at a
+          glance. Below the banner, each ingredient displays:</p>
+          <ul>
+            <li>Its current stock level and capacity.</li>
+            <li>The current <strong>drain rate</strong> (units per second), calculated
+            from how many blends your automated staff are producing.</li>
+            <li>A <strong>time-to-empty</strong> estimate so you know exactly how long
+            you have before the hard stop kicks in.</li>
+          </ul>
+          <p>You can restock a single ingredient at any time by purchasing it
+          individually, or use the <strong>Restock all</strong> one-tap button to
+          top up every ingredient at once. <strong>Capacity upgrades</strong> — also
+          purchasable from this tab — raise the cap for every ingredient type by
+          50% per upgrade level, giving you more headroom between restocks.</p>
+        </section>
+
+        <section class="section section--alt" data-versions="1.3">
+          <span class="eyebrow">Management</span>
+          <h2 class="section__title">Restocking</h2>
+          <p class="section__lead">
+            Because supplies drain faster than they restock passively, the supply
+            chain is something you actively manage. There are two levers: buying
+            stock directly from the Supplies tab, or assigning employees to the
+            <strong>Restock</strong> role.
+          </p>
+          <p>
+            Each employee assigned to the Restock role regenerates
+            <strong>0.5 units per second</strong> across every ingredient type.
+            Multiple Restock employees stack — two assigned workers regenerate
+            1.0 units/sec per ingredient, and so on. There is no automatic restock
+            toggle separate from this: the Restock employee role is the intended
+            hands-off solution, not a hidden setting.
+          </p>
+          <p>
+            Employee role allocation is managed from the
+            <strong>Employees tab</strong>. You can assign roles manually with the
+            steppers, use the one-shot Auto-assign button, or enable the
+            Auto-Auto-Assign toggle to keep roles balanced automatically as
+            your headcount changes (the standard policy targets roughly 25%
+            Restock, 10% Management, and the remainder Production).
+            See <a href="employee-roles.html">Employee roles</a> for the full
+            breakdown.
+          </p>
+        </section>
+
+        <div class="wk-tip" data-versions="1.3">
+          <i data-lucide="sparkles"></i>
+          <p>
+            Two <strong>Eternal upgrades</strong> interact with the supply chain
+            directly. <strong>Efficient Kitchen</strong> reduces ingredient
+            consumption per shake, stretching your stock further. <strong>Stocked
+            Pantry</strong> starts every new run with a full set of supplies so you
+            never begin a rebrand scrambling to restock. Both upgrades are purchased
+            with prestige tokens — see the <a href="prestige.html">Prestige &amp; Eternal upgrades</a>
+            page for details.
+          </p>
+        </div>
+
+        <div class="wk-next">
+          <a href="economy.html"><i data-lucide="arrow-left"></i><span>Shops &amp; upgrades<small>Money upgrades</small></span></a>
+          <a href="employee-roles.html"><i data-lucide="arrow-right"></i><span>Employee roles<small>Production, Management, Restock</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

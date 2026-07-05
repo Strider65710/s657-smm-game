@@ -70,6 +70,7 @@
               <tbody>
                 <tr><td>Space / Esc</td><td>Pause &amp; resume</td></tr>
                 <tr><td>Ctrl + S</td><td>Save now</td></tr>
+                <tr><td>1 – 9</td><td>Jump to a sidebar tab (unlocked ones)</td></tr>
               </tbody>
             </table>
           </div>
@@ -83,11 +84,92 @@
           </div>
         </section>
 
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Music</span>
+          <h2 class="section__title">Music player</h2>
+          <p class="section__lead">
+            The player sits in the bottom-right on desktop. It has its own
+            keyboard shortcuts, an autoplay mode, a collapse toggle, and — new in
+            v1.3 — a little toast whenever a fresh song starts.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Key</th><th>Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>P</td><td>Play / pause</td></tr>
+                <tr><td>[ &nbsp;/&nbsp; ]</td><td>Previous / next track</td></tr>
+                <tr><td>, &nbsp;/&nbsp; .</td><td>Seek back / forward 10s</td></tr>
+                <tr><td>M</td><td>Mute / unmute</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top: 0.75rem">
+            <strong>Autoplay</strong> is a slider with four stops — <em>Off</em>,
+            <em>Periodic</em> (a random song a few minutes after each ends),
+            <em>Frequent</em> (shortly after), and <em>Constant</em> (back-to-back,
+            no gaps). Turning autoplay on starts the music immediately. Prefer
+            quiet? Set it to Off and the music stops after the current track.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="chevron-up"></i>
+            <p>
+              Tight on space? <strong>Collapse the player</strong> with the chevron
+              in its header — it folds down to a slim now-playing bar with a
+              play/pause button, and remembers the choice. Volume and your autoplay
+              mode persist across sessions too.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Developer</span>
+          <h2 class="section__title">Dev Console</h2>
+          <p class="section__lead">
+            Enable <strong>Developer Mode</strong> in Settings → Danger Zone to unlock the
+            command console. Press <kbd>`</kbd> (backtick) or the floating
+            <strong>›_ Console</strong> button to open it. Commands never touch your money,
+            XP, or progress.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Command</th><th>What it does</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>/help</td><td>List all commands with usage hints</td></tr>
+                <tr><td>/trigger &lt;name&gt;</td><td>Fire a visual effect: <code>fireworks</code>, <code>confetti</code>, <code>new-year</code>, <code>prestige</code></td></tr>
+                <tr><td>/notify &lt;msg&gt;</td><td>Send yourself a test toast notification</td></tr>
+                <tr><td>/config &lt;key&gt; &lt;value&gt;</td><td>Flip an option flag (e.g. <code>/config devMode false</code>)</td></tr>
+                <tr><td>/bg &lt;name&gt;</td><td>Switch background by name (e.g. <code>/bg lounge</code>)</td></tr>
+                <tr><td>/theme &lt;dark|light&gt;</td><td>Toggle the color theme</td></tr>
+                <tr><td>/tab &lt;name&gt;</td><td>Jump to a sidebar tab by name</td></tr>
+                <tr><td>/scale &lt;n&gt;</td><td>Set GUI scale (0.5–1.5, or 0 for Auto)</td></tr>
+                <tr><td>/date</td><td>Show the current in-game date</td></tr>
+                <tr><td>/info</td><td>Show save info (level, money, days played)</td></tr>
+                <tr><td>/version</td><td>Print the game version</td></tr>
+                <tr><td>/save</td><td>Trigger an immediate save</td></tr>
+                <tr><td>/pause, /resume</td><td>Pause or resume the game tick</td></tr>
+                <tr><td>/clear</td><td>Clear the console log</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="terminal"></i>
+            <p>
+              <strong>Tab</strong> auto-completes the command you're typing — the first
+              match is highlighted. Use <strong>↑ / ↓</strong> to scroll through your last
+              50 commands. Press <strong>Esc</strong> or backtick again to close.
+            </p>
+          </div>
+        </section>
+
         <section class="section section--alt">
           <span class="eyebrow">Display</span>
           <h2 class="section__title">Number formats</h2>
           <p class="section__lead">
-            Pick how large numbers are written in <strong>Settings → Accessibility</strong>.
+            Pick how large numbers are written in <strong>Settings → General</strong>.
           </p>
           <div class="wk-scroll">
             <table class="wk-table wk-table--wide">

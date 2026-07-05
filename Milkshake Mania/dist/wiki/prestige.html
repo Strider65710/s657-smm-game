@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="How prestige (Rebrand) works in Strider657's Milkshake Mania — permanent income multipliers, prestige tokens, content tier-gating, and the eternal upgrades shop that persists across every run."
+    />
+    <meta property="og:title" content="Prestige — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Rebrand your empire for a permanent income multiplier and prestige tokens. Spend tokens on eternal upgrades that carry over through every rebrand." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/prestige.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Prestige — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Prestige</span></nav>
+          <h1 class="wk-page__title">Prestige &amp; eternal upgrades</h1>
+          <p class="wk-page__lead">
+            Prestige — called <strong>Rebrand</strong> in-game — is the first
+            meta-progression loop in Milkshake Mania, added in <strong>v1.3</strong>.
+            When you meet the requirements you can wipe your current run in exchange
+            for a <strong>permanent income multiplier</strong> and a handful of
+            <strong>prestige tokens</strong>. Tokens fund the <strong>eternal
+            upgrades</strong> shop, a set of perks that carry forward through every
+            future rebrand and compound with each other.
+          </p>
+        </header>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Core mechanic</span>
+          <h2 class="section__title">Prestige (Rebrand)</h2>
+          <p class="section__lead">
+            Reach the required player level and hold the cash cost for your current
+            prestige tier to unlock the Rebrand button. Your first prestige needs
+            <strong>Level 20</strong>, and each rebrand after that asks for
+            <strong>2 more levels</strong> (22, then 24, and so on). The first
+            prestige costs <strong>$100 billion</strong>, and each subsequent
+            prestige costs <strong>100 times</strong> more than the one before it.
+          </p>
+          <p class="section__lead">
+            Confirming a rebrand <strong>wipes</strong> your money, shops, upgrades,
+            flavors, countries, locations, research, and staff — everything you built
+            this run is gone. In return you receive a <strong>permanent +25% income
+            multiplier for each prestige level</strong> and a payout of prestige
+            tokens.
+          </p>
+          <p class="section__lead">
+            The following are <strong>kept</strong> across a rebrand and are never
+            reset:
+          </p>
+          <ul class="section__lead">
+            <li>Achievements and records</li>
+            <li>Lifetime stats and lifetime earnings</li>
+            <li>Player level and XP</li>
+            <li>Options</li>
+            <li>Eternal upgrades (and your token balance)</li>
+          </ul>
+          <div class="wk-tip">
+            <i data-lucide="star"></i>
+            <p>
+              The base prestige multiplier is <strong>+25% per prestige
+              level</strong> — a gentle, steady reward. The real power of prestige
+              is <em>unlocking higher content tiers</em> (see below) and building
+              up eternal upgrades over many runs.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.3">
+          <span class="eyebrow">Currency</span>
+          <h2 class="section__title">Prestige tokens</h2>
+          <p class="section__lead">
+            Each rebrand pays out a number of prestige tokens calculated from your
+            <strong>lifetime gross earnings</strong>. The formula is
+            <strong>logarithmic</strong>: the first prestige (around $100 billion
+            lifetime) yields roughly <strong>6 tokens</strong>, while reaching
+            $1e27 in lifetime earnings yields roughly <strong>54 tokens</strong>.
+          </p>
+          <p class="section__lead">
+            Tokens are awarded against your <strong>lifetime earnings
+            watermark</strong> — the same earnings cannot be re-farmed. Only net
+            new lifetime gross (money you have never earned before) moves the
+            token counter upward. This means farming the same run repeatedly does
+            not generate more tokens; you need to genuinely grow your empire
+            further each time to earn more.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="coins"></i>
+            <p>
+              Your prestige token balance and all purchased eternal upgrades survive
+              every rebrand. Spend freely — you will not lose them.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" data-versions="1.3">
+          <span class="eyebrow">Price caps</span>
+          <h2 class="section__title">Content tier-gating</h2>
+          <p class="section__lead">
+            Prestige does not just reward you — it <strong>unlocks content</strong>.
+            Every item in the game has a base price, and items whose base price
+            exceeds your current <strong>buyable price cap</strong> are locked
+            behind a prestige requirement.
+          </p>
+          <p class="section__lead">
+            For countries and other purchasables, the price cap starts at
+            <strong>$100 billion</strong> (prestige 0) and multiplies by
+            <strong>100</strong> for each prestige level you hold. Items above
+            your cap show a clear <strong>"Requires Prestige N"</strong> label in
+            place of a buy button — they are visible so you can plan, but you
+            cannot purchase them until you reach that prestige level.
+          </p>
+          <p class="section__lead">
+            <strong>Flavors are gated by rank instead:</strong> every prestige
+            level unlocks <strong>exactly 6 new high-tier flavors</strong>
+            (Prestige 1 opens the 6 cheapest gated flavors, Prestige 2 the next
+            6, and so on), ending with the six <strong>mythic-tier flavors</strong>
+            — Meteor Marshmallow, Wormhole Walnut, Pulsar Peppermint, Comet
+            Caramel Crunch, Asteroid Almond Fudge, and Eclipse Espresso — the
+            endgame carrot that keeps pulling you through multiple rebrands.
+          </p>
+          <p class="section__lead">
+            <strong>Eternal upgrades reveal in waves too:</strong> two perks are
+            available from your first rebrand, two more unlock at Prestige 1, and
+            the final two at Prestige 2 — each shown as a locked teaser until
+            then.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="lock"></i>
+            <p>
+              The Prestige tab is always visible and clickable, even before Level
+              20. While locked it shows a clear locked message so you can read
+              your progress toward the requirement without doing anything.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.3">
+          <span class="eyebrow">Token shop</span>
+          <h2 class="section__title">Eternal upgrades</h2>
+          <p class="section__lead">
+            The Prestige tab hosts the <strong>eternal upgrades shop</strong> — a
+            set of six upgrades bought with prestige tokens that <strong>persist
+            across every rebrand</strong>. Invest tokens here and each new run
+            starts stronger than the last.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr>
+                  <th>Upgrade</th>
+                  <th>Effect per level</th>
+                  <th>Max level</th>
+                  <th>Base token cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Prestige Power</td>
+                  <td>+10% permanent income</td>
+                  <td class="wk-num">10</td>
+                  <td class="wk-num">1</td>
+                </tr>
+                <tr>
+                  <td>Eternal Blender</td>
+                  <td>+15% global income (always active)</td>
+                  <td class="wk-num">10</td>
+                  <td class="wk-num">2</td>
+                </tr>
+                <tr>
+                  <td>Head Start</td>
+                  <td>Begin every run with $10,000 extra cash per level</td>
+                  <td class="wk-num">10</td>
+                  <td class="wk-num">1</td>
+                </tr>
+                <tr>
+                  <td>Stocked Pantry</td>
+                  <td>Begin every run with +1 supply capacity level per level</td>
+                  <td class="wk-num">5</td>
+                  <td class="wk-num">1</td>
+                </tr>
+                <tr>
+                  <td>Efficient Kitchen</td>
+                  <td>−5% ingredient consumption per blend per level</td>
+                  <td class="wk-num">5</td>
+                  <td class="wk-num">2</td>
+                </tr>
+                <tr>
+                  <td>Token Tycoon</td>
+                  <td>+10% prestige tokens earned per level</td>
+                  <td class="wk-num">5</td>
+                  <td class="wk-num">2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="trending-up"></i>
+            <p>
+              Each upgrade's token cost <strong>doubles</strong> with each level
+              purchased (Token Tycoon triples instead). Plan your spending: earlier
+              levels of any upgrade are cheap, but the final levels are a
+              significant investment. <strong>Prestige Power</strong> and
+              <strong>Eternal Blender</strong> both raise your income multiplier
+              directly on top of the base +25%/prestige — they stack additively
+              with each other and multiplicatively with everything else.
+            </p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="progression.html"><i data-lucide="arrow-left"></i><span>Levels &amp; activities<small>How XP and levels work</small></span></a>
+          <a href="daily.html"><i data-lucide="arrow-right"></i><span>Daily special &amp; streak<small>Daily special &amp; streak</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania&#8482; &mdash; &copy; 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
