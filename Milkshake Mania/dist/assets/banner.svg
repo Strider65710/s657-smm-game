@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" style="border-radius: 48px; overflow: hidden">
+  <defs>
+    <linearGradient id="bloom_cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" stop-opacity=".4"/>
+      <stop offset="60%" stop-color="#00b8c4" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#00f2fe" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bloom_lime" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38ef7d" stop-opacity=".35"/>
+      <stop offset="70%" stop-color="#11998e" stop-opacity=".05"/>
+      <stop offset="100%" stop-color="#38ef7d" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bloom_grad_cyan_legacy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" stop-opacity=".3"/>
+      <stop offset="100%" stop-color="#00f2fe" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bloom_grad_lime_legacy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38ef7d" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="#38ef7d" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glass_body" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".3"/>
+      <stop offset="25%" stop-color="#fff" stop-opacity=".08"/>
+      <stop offset="80%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity=".2"/>
+    </linearGradient>
+    <linearGradient id="glass_highlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="shake_chocolate" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#543725"/>
+      <stop offset="50%" stop-color="#704d36"/>
+      <stop offset="100%" stop-color="#42291a"/>
+    </linearGradient>
+    <linearGradient id="shake_chocolate_dark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#362013"/>
+      <stop offset="100%" stop-color="#26160c"/>
+    </linearGradient>
+    <linearGradient id="wafer_gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#38ef7d"/>
+    </linearGradient>
+    <linearGradient id="wafer_lines" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00b8c4"/>
+      <stop offset="100%" stop-color="#2abc63"/>
+    </linearGradient>
+    <linearGradient id="straw_grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#38ef7d"/>
+    </linearGradient>
+    <linearGradient id="banner_grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#11998e"/>
+      <stop offset="50%" stop-color="#38ef7d"/>
+      <stop offset="100%" stop-color="#11998e"/>
+    </linearGradient>
+    <filter id="neon_glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+    <filter id="glass_shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="4" dy="12" stdDeviation="8" flood-color="#000" flood-opacity=".6"/>
+    </filter>
+    <radialGradient id="bg_grad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1c2326"/>
+      <stop offset="40%" stop-color="#2a2a2a"/>
+      <stop offset="100%" stop-color="#050014"/>
+    </radialGradient>
+    <radialGradient id="cherry_grad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ff4b72"/>
+      <stop offset="70%" stop-color="#d60036"/>
+      <stop offset="100%" stop-color="#7a001e"/>
+    </radialGradient>
+    <style>
+      @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&amp;display=swap);
+      
+      .title-banner, .title-main {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 900;
+        font-size: 56px;
+      }
+      
+      .title-main {
+        letter-spacing: 4px;
+      }
+      
+      .title-banner {
+        letter-spacing: 2px;
+        font-size: 40px;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+  <path fill="url(#bg_grad)" d="M0 0h800v800H0z"/>
+  <g filter="url(#neon_glow)" opacity=".85">
+    <path d="M100 500C50 300 250 150 400 250s-50 300-150 300-100 150-150-50" fill="url(#bloom_cyan)"/>
+    <path d="M700 300c50 200-150 350-300 250s50-300 150-300 100-150 150 50" fill="url(#bloom_lime)"/>
+    <path d="M300 250c150-150 300-50 250 150S250 500 300 250" fill="url(#bloom_cyan)" opacity=".3"/>
+    <path d="M0 200q150-150 300 0t0 300-300 0Z" fill="url(#bloom_grad_cyan_legacy)" opacity=".4"/>
+    <path d="M800 600q-150 150-300 0t0-300 300 0Z" fill="url(#bloom_grad_lime_legacy)" opacity=".3"/>
+    <path d="M600 450q50-50 100 0t0 100-100 0Z" fill="url(#bloom_grad_cyan_legacy)" opacity=".2"/>
+    <path d="M300 400q100-100 200 0t0 200-200 0Z" fill="none" stroke="#38ef7d" stroke-width="2" opacity=".15"/>
+  </g>
+  <g transform="translate(400 420)">
+    <circle r="260" fill="#090514" opacity=".5"/>
+    <circle r="240" fill="none" stroke="#38ef7d" stroke-width="6" stroke-dasharray="16 12" opacity=".4" filter="url(#neon_glow)"/>
+    <circle r="220" fill="#141923" opacity=".6"/>
+  </g>
+  <g filter="url(#glass_shadow)" transform="translate(0 40)">
+    <path d="m450 150-70 200" stroke="url(#straw_grad)" stroke-width="24" stroke-linecap="round"/>
+    <path d="m450 150-70 200" stroke="#fff" stroke-width="6" stroke-dasharray="20 20" stroke-linecap="round" opacity=".6"/>
+    <path d="M270 300c-20-50 40-70 70-60 30-30 90-20 110 0 40-10 60 30 30 50 30 30-60 50-110 40-50 10-110 0-100-30" fill="#d9c3b0"/>
+    <path d="M310 260q40-40 80-10 40-20 60 20" fill="none" stroke="#ba9e86" stroke-width="5" stroke-linecap="round"/>
+    <path d="m276 320 44 280q5 30 80 30t80-30l44-280Z" fill="url(#shake_chocolate)"/>
+    <path d="M285 370q65 30 115 0 60-30 115 0l-8 50q-57-30-107 0t-107 0Z" fill="url(#shake_chocolate_dark)" opacity=".7"/>
+    <path d="M302 480q58-20 98 10 50 30 98-10l-7 50q-51 30-91 0-50-30-90 0Z" fill="url(#shake_chocolate_dark)" opacity=".5"/>
+    <path d="m270 310 48 290q7 40 82 40t82-40l48-290q5-30-130-30t-130 30" fill="url(#glass_body)"/>
+    <path d="m280 315 44 280q4 30 76 30" fill="none" stroke="url(#glass_highlight)" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+    <path d="M315 600q10 45 85 45t85-45" fill="none" stroke="#fff" stroke-width="4" opacity=".4"/>
+    <path fill="url(#wafer_gradient)" d="m260 260 30-30-80-110-30 30z"/>
+    <path d="m250 250-50-70m40 55-50-70m40 55-50-70m90 100-50-70" stroke="url(#wafer_lines)" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="430" cy="220" r="30" fill="url(#cherry_grad)"/>
+    <ellipse cx="420" cy="210" rx="8" ry="5" transform="rotate(-20 420 210)" fill="#fff" opacity=".75"/>
+    <path d="M435 195q25-55 65-45" fill="none" stroke="#7a6151" stroke-width="4" stroke-linecap="round"/>
+    <g opacity=".9">
+      <rect x="310" y="340" width="8" height="23" rx="4" transform="rotate(30 310 340)" fill="#00f2fe"/>
+      <rect x="450" y="360" width="8" height="23" rx="4" transform="rotate(-45 450 360)" fill="#38ef7d"/>
+      <rect x="380" y="430" width="8" height="23" rx="4" transform="rotate(15 380 430)" fill="#362013"/>
+      <rect x="470" y="460" width="8" height="23" rx="4" transform="rotate(70 470 460)" fill="#38ef7d"/>
+      <rect x="330" y="520" width="8" height="23" rx="4" transform="rotate(-25 330 520)" fill="#00f2fe"/>
+      <rect x="420" y="550" width="8" height="23" rx="4" transform="rotate(40 420 550)" fill="#362013"/>
+    </g>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M220 70h360l-20 45H240Z" fill="#0b0f19" stroke="#00f2fe" stroke-width="1.5"/>
+    <text x="400" y="99" font-size="21" text-anchor="middle" style="font-family:&quot;Montserrat&quot;,sans-serif;font-weight:800;letter-spacing:5px;fill:#fff">STRIDER657&apos;S</text>
+  </g>
+  <g filter="url(#shadow)">
+    <text x="400" y="205" class="title-main" font-size="92" fill="#052d29" text-anchor="middle" stroke="#fff" stroke-width="22" stroke-linejoin="round">MILKSHAKE</text>
+    <text x="400" y="205" class="title-main" font-size="92" fill="#38ef7d" text-anchor="middle">MILKSHAKE</text>
+    <text x="400" y="202" class="title-main" font-size="92" fill="#fff" text-anchor="middle" opacity=".3" filter="url(#neon_glow)">MILKSHAKE</text>
+  </g>
+  <g transform="translate(400 720)" filter="url(#shadow)">
+    <path d="m-230-10-20-25 20-25-20 50Zm460 0 20-25-20-25 20 50Z" fill="#0b7a6f"/>
+    <path d="M-240-60h480L220 0h-440Z" fill="url(#banner_grad)"/>
+    <text y="-19" class="title-banner" fill="#050014">— MANIA —</text>
+    <text y="-21" class="title-banner" fill="#fff">— MANIA —</text>
+  </g>
+</svg>
