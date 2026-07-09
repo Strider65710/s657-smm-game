@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <meta
       name="description"
       content="Strider657's Milkshake Mania is an idle clicker game where you blend flavors, hire staff, and buy upgrades to turn a tiny shop into a massive milkshake empire."
@@ -21,14 +24,17 @@
       property="og:description"
       content="Mix, upgrade, and build your empire in this fast-paced incremental clicker web game."
     />
-    <meta property="og:url" content="https://striderplays-smm.vercel.app" />
+    <meta property="og:url" content="https://striderplays.vercel.app" />
     <meta
       property="og:image"
-      content="https://striderplays-smm.vercel.app/banner.png"
+      content="https://striderplays.vercel.app/banner.png"
     />
+    <meta property="og:type" content="website" />
+
+    <meta name="theme-color" content="#0a0a0a" />
 
     <meta name="robots" content="index, follow" />
-    <title>Strider657's Milkshake Mania 1.3</title>
+    <title>Strider657's Milkshake Mania 1.4</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -43,35 +49,95 @@
        * unprefixed `backdrop-filter` and keeps only `-webkit-`, which Firefox /
        * Gecko ignores — so the build looked transparent while dev did not.
        * Both prefixes + !important guarantee the frosted glass survives the build.
-       */ 
+       */
       .glass-panel {
         -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
         backdrop-filter: blur(18px) saturate(160%) !important;
       }
+
+      /*
+       * Pre-hydration boot spinner. Lives inside #root so React's
+       * createRoot(...).render() wipes it automatically on first paint -
+       * no JS teardown needed. Covers the ~1-2s bundle parse/init gap that
+       * otherwise showed a blank page. Styled to match the in-app
+       * "Loading save..." spinner (App.tsx) so the two never look different.
+       */
+      #boot-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        background: #0a0a0a; /* neutral-950 */
+        font-family: "Inter", system-ui, sans-serif;
+        z-index: 9999;
+      }
+      #boot-loader .boot-ring {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.15);
+        border-top-color: #22d3ee; /* cyan-400 */
+        animation: boot-spin 0.7s linear infinite;
+      }
+      #boot-loader .boot-title {
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        animation: boot-pulse 2s ease-in-out infinite;
+      }
+      @keyframes boot-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes boot-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #boot-loader .boot-ring {
+          animation-duration: 2.4s;
+        }
+        #boot-loader .boot-title {
+          animation: none;
+        }
+      }
     </style>
-    <script type="module" crossorigin src="./assets/index-B9-WSKgd.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-C4s-Xyos.css">
+    <script type="module" crossorigin src="./assets/index-DkzwDIoR.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CtHGOaCd.css">
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="boot-loader">
+        <div class="boot-ring"></div>
+        <div class="boot-title">Loading...</div>
+      </div>
+    </div>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "VideoGame",
         "name": "Strider657's Milkshake Mania",
         "genre": "Incremental, Clicker, Idle",
-        "url": "https://striderplays-smm.vercel.app",
-        "author": {
-          "@type": "Person",
-          "name": "Strider657"
-        },
+        "url": "https://striderplays.vercel.app",
+        "author": { "@type": "Person", "name": "Strider657" },
         "gamePlatform": "Web Browser",
         "hasPart": [
           {
             "@type": "WebPage",
             "name": "Play Strider657's Milkshake Mania",
-            "url": "https://striderplays-smm.vercel.app/smm",
+            "url": "https://striderplays.vercel.app/smm",
             "description": "Launch the web app version of the game directly in your browser."
           },
           {
@@ -81,7 +147,8 @@
             "description": "Download the official Strider657's Milkshake Mania desktop client launchers."
           }
         ]
-      }make
+      }
     </script>
   </body>
 </html>
+
