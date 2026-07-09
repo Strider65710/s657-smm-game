@@ -41,23 +41,26 @@ h4,
   view-transition-name: wk-main;
 }
 @media (prefers-reduced-motion: no-preference) {
+  /* Kept intentionally short so clicking a sidebar link feels instant. The
+     old page barely fades so the new content paints right away; the new page
+     gets a quick, subtle slide. (Was 0.16s + 0.3s ≈ half a second.) */
   ::view-transition-old(wk-main) {
-    animation: wk-fade-out 0.16s ease both;
+    animation: wk-fade-out 0.06s linear both;
   }
   ::view-transition-new(wk-main) {
-    animation: wk-slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: wk-slide-in 0.13s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
 @keyframes wk-fade-out {
   to {
     opacity: 0;
-    transform: translateY(-0.4rem);
+    transform: translateY(-0.2rem);
   }
 }
 @keyframes wk-slide-in {
   from {
     opacity: 0;
-    transform: translateY(0.75rem);
+    transform: translateY(0.4rem);
   }
 }
 

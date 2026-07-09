@@ -54,71 +54,142 @@
           <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Research</span></nav>
           <h1 class="wk-page__title">Research tree</h1>
           <p class="wk-page__lead">
-            The Research Lab opens at <strong>Level 6</strong>. Spend <em>XP</em> to
-            level <strong>15 nodes</strong> (each up to <strong>Level 3</strong>)
-            across three tracks. There are no prerequisites — level nodes in any
-            order. Bonuses compound with all your other multipliers.
+            The Research Lab holds two things. The <strong>XP tracks</strong>
+            (Production, Marketing, Operations) open at <strong>Level 6</strong>:
+            spend <em>XP</em> across <strong>88 nodes</strong>, each a
+            <strong>one-time unlock</strong>. The money-funded
+            <strong>Flavor Lab</strong> opens right away at <strong>Level 1</strong>
+            with <strong>37</strong> more. Bonuses compound with all your other
+            multipliers. Research is <strong>not instant</strong> — each unlock
+            takes a number of in-game days, and each lab runs one project at a
+            time.
           </p>
+          <p class="wk-page__lead">
+            <strong>New in v1.4:</strong> each track holds a <strong>different
+            number of skill trees</strong>, all shown together in one frame —
+            <strong>Production has 2</strong> (25 nodes), <strong>Marketing 3</strong>
+            (30), <strong>Operations 4</strong> (33). Trees flow left → right by
+            tier and stack as bands on desktop; on phones in portrait they sit
+            side by side and flow top → bottom. On desktop a
+            <strong>full-screen button</strong> opens the whole tree with room to
+            breathe. The trees are deliberately <strong>irregular</strong>: tiers
+            vary in width, whole trees can <strong>start mid-way</strong> (the
+            Digital tree starts at tier 2, Innovation at tier 3), lineages merge
+            within a tree, and edges can even <strong>cross trees</strong> (dashed
+            connectors) — e.g. <em>Factory Planet</em> needs the finales of BOTH
+            production trees. The shapes are organic, not symmetric — long
+            spines with offshoots and <strong>dead-end side branches</strong>,
+            with only the occasional convergence. There's a light <strong>fog of
+            war</strong>: you can see <strong>5 tiers ahead</strong>, but only the
+            next <strong>2 are named</strong> — the three beyond show as
+            <strong>“?”</strong> nodes, and deeper ones reveal as you progress.
+          </p>
+          <ul class="wk-list">
+            <li><strong>Production (2 trees):</strong> Precision (blend speed → … → <em>Nano-Blenders</em> → Perfect Pour → <em>Factory Planet</em>) &amp; Supply Chain (workforce → … → <em>Assembly Line</em> → Supply Singularity). Factory Planet merges both trees.</li>
+            <li><strong>Marketing (3 trees):</strong> Growth (fan favorites → … → <em>Viral Loop</em> → Cultural Phenomenon), Reach (goldens → … → <em>Brand Empire</em> → Household Name) &amp; Digital (Shake App → analytics/streamers → AI targeting → Virtual Shakes → <em>Omnichannel</em>, which also needs Viral Loop).</li>
+            <li><strong>Operations (4 trees):</strong> Cost Control (hiring → … → <em>Franchising</em> → Operational Perfection), Scale (catering → … → <em>Megacorp</em> → Milkshake Monopoly), Automation (kiosks → robo-baristas/IoT → self-healing → <em>Lights-Out Shops</em>, which also needs Staff Scheduling) &amp; Innovation (Skunkworks Lab → patents/moonshots → <em>Breakthrough</em>, which also needs Megacorp).</li>
+          </ul>
         </header>
 
-        <section class="section">
-          <span class="eyebrow">Track 1</span>
-          <h2 class="section__title">Production</h2>
-          <p class="section__lead">Faster blends, bigger yields, more specials, cheaper bulk.</p>
+        <section class="section" id="flavor-lab" data-versions="1.4">
+          <span class="eyebrow">Flavor Lab · New in v1.4</span>
+          <h2 class="section__title">Flavor Development</h2>
+          <p class="section__lead">
+            A fourth tab in the Research Lab, funded with <strong>money</strong>
+            instead of XP and <strong>open from Level 1</strong>. It upgrades the
+            flavor <em>system</em> itself — not which flavors you own — and runs
+            on its own project queue, so it can develop alongside the XP tracks.
+            <strong>Four interacting trees, 37 one-time unlocks</strong>, same
+            tree UI, fog of war and full-screen view as the XP tracks.
+          </p>
           <div class="wk-scroll">
             <table class="wk-table wk-table--wide">
-              <thead>
-                <tr><th>Node</th><th>Effect (L1 / L2 / L3)</th><th>XP cost</th></tr>
-              </thead>
+              <thead><tr><th>Tree</th><th>What it does</th><th>Signature node</th></tr></thead>
               <tbody>
-                <tr><td>Blend Optimization</td><td>−8% / −15% / −22% blend time</td><td class="wk-num">60 · 140 · 280</td></tr>
-                <tr><td>Yield Boost</td><td>+10% / +20% / +30% manual income</td><td class="wk-num">60 · 140 · 280</td></tr>
-                <tr><td>Special Batches</td><td>+5% / +10% / +15% special chance</td><td class="wk-num">80 · 180 · 360</td></tr>
-                <tr><td>Workforce Efficiency</td><td>+5% / +10% / +15% passive income</td><td class="wk-num">80 · 180 · 360</td></tr>
-                <tr><td>Bulk Procurement</td><td>+3% / +6% / +10% bulk discount</td><td class="wk-num">50 · 120 · 240</td></tr>
+                <tr><td><strong>Blender Engineering</strong></td><td>Mix <em>more flavors at once</em> (slot ceiling 5 → 7); <em>Full-Blender Harmonics</em> pays out per active flavor.</td><td>Dual-Chamber Blending (+2 slots)</td></tr>
+                <tr><td><strong>Ingredient Science</strong></td><td>Make every flavor hit harder — and <em>Hyper-Concentration</em> eases the diminishing-returns penalty on a stacked lineup.</td><td>Molecular Emulsification (+15% flavor power)</td></tr>
+                <tr><td><strong>Customer Psychology</strong></td><td>Make flavors <em>sell</em> for more; <em>Flavor Mastery</em> rewards your whole collection (+income per unlocked flavor).</td><td>Flavor Mastery, Scent Priming, Desire Engine</td></tr>
+                <tr><td><strong>Flavor Synergy</strong></td><td>Amplify combos and unlock cross-flavor bonuses.</td><td>Synergistic Pairing (Combos +10%)</td></tr>
               </tbody>
             </table>
           </div>
+          <div class="wk-tip">
+            <i data-lucide="blocks"></i>
+            <p>
+              <strong>Mod synergy.</strong> Two nodes reward installed flavor
+              mods directly: <em>Open Flavor Chemistry</em> makes <strong>modded
+              flavors</strong> far more potent, and the <em>Open Recipe API</em>
+              pays an income dividend for <strong>every modded flavor you
+              serve</strong>. Flavor Development also adds three new
+              <a href="modding-reference.html#top">modding hook points</a>.
+            </p>
+          </div>
+          <p class="section__lead">
+            Most other nodes give <strong>+flavor income</strong> that pools into
+            your overall multiplier. It opens at level 1, so costs start around
+            <strong>$150</strong> at the roots — affordable within a few blends —
+            and climb into the tens of millions on the deepest nodes, so there's
+            always a next project no matter your bankroll.
+          </p>
         </section>
 
         <section class="section section--alt">
-          <span class="eyebrow">Track 2</span>
-          <h2 class="section__title">Marketing</h2>
-          <p class="section__lead">More fan favorites and goldens, bigger combo &amp; country multipliers, faster XP.</p>
+          <span class="eyebrow">Track 1</span>
+          <h2 class="section__title">Production</h2>
+          <p class="section__lead">Faster blends, bigger yields, more specials, leaner supply. <strong>2 trees, 25 nodes</strong> — <strong>Precision</strong> and <strong>Supply Chain</strong> — ending in the <em>Nano-Blenders</em> / <em>Assembly Line</em> capstones, deep tails (Perfect Pour / Supply Singularity), and one final <strong>cross-tree merge</strong>: <em>Factory Planet</em> requires the finale of both trees.</p>
           <div class="wk-scroll">
             <table class="wk-table wk-table--wide">
-              <thead>
-                <tr><th>Node</th><th>Effect (L1 / L2 / L3)</th><th>XP cost</th></tr>
-              </thead>
+              <thead><tr><th>Signature node</th><th>Branch</th><th>Effect (L1 / L2)</th></tr></thead>
               <tbody>
-                <tr><td>Fan Favorite Push</td><td>+4% / +8% / +12% fan-favorite rate</td><td class="wk-num">60 · 140 · 280</td></tr>
-                <tr><td>Golden Formula</td><td>+2% / +4% / +6% golden chance</td><td class="wk-num">80 · 180 · 360</td></tr>
-                <tr><td>Combo Mastery</td><td>×1.05 / ×1.10 / ×1.15 combo bonus</td><td class="wk-num">70 · 160 · 320</td></tr>
-                <tr><td>Global Outreach</td><td>×1.03 / ×1.06 / ×1.10 country multiplier</td><td class="wk-num">70 · 160 · 320</td></tr>
-                <tr><td>Staff Development</td><td>+10% / +20% / +30% XP gains</td><td class="wk-num">50 · 120 · 240</td></tr>
+                <tr><td>Blend Optimization</td><td>Precision</td><td>−10% / −18% blend time</td></tr>
+                <tr><td>Yield Boost</td><td>Precision</td><td>+15% / +28% manual income</td></tr>
+                <tr><td>Special Batches</td><td>Precision</td><td>+8% / +15% special chance</td></tr>
+                <tr><td>Workforce Efficiency</td><td>Supply Chain</td><td>+8% / +15% passive income</td></tr>
+                <tr><td>Bulk Procurement</td><td>Supply Chain</td><td>+5% / +10% bulk discount</td></tr>
               </tbody>
             </table>
           </div>
+          <p class="section__lead">Every other node is a one-time <strong>+global income</strong> unlock (from ~+2% at the roots up to ~+10% on the deepest nodes). XP cost and research time scale with tier depth — roughly 150&nbsp;XP / 10 days at the roots up to ~12,000&nbsp;XP / 50 days on the final tail.</p>
         </section>
 
         <section class="section">
-          <span class="eyebrow">Track 3</span>
-          <h2 class="section__title">Operations</h2>
-          <p class="section__lead">Cheaper hires &amp; upgrades, bigger event &amp; contract rewards, lower tax.</p>
+          <span class="eyebrow">Track 2</span>
+          <h2 class="section__title">Marketing</h2>
+          <p class="section__lead">More fan favorites and goldens, bigger combo &amp; country multipliers, faster XP.</p>
+          <p class="section__lead"><strong>3 trees, 30 nodes</strong> — <strong>Growth</strong> and <strong>Reach</strong> (12 each, ending in <em>Viral Loop</em> → Cultural Phenomenon and <em>Brand Empire</em> → Household Name) plus the staggered <strong>Digital</strong> tree (6 nodes, starts at tier 2: Shake App → … → <em>Omnichannel</em>, a cross-tree merge that also needs Viral Loop).</p>
           <div class="wk-scroll">
             <table class="wk-table wk-table--wide">
-              <thead>
-                <tr><th>Node</th><th>Effect (L1 / L2 / L3)</th><th>XP cost</th></tr>
-              </thead>
+              <thead><tr><th>Signature node</th><th>Branch</th><th>Effect (L1 / L2)</th></tr></thead>
               <tbody>
-                <tr><td>Hiring Pipeline</td><td>−8% / −16% / −24% hire cost</td><td class="wk-num">60 · 140 · 280</td></tr>
-                <tr><td>Crisis Management</td><td>+10% / +20% / +30% event rewards</td><td class="wk-num">60 · 140 · 280</td></tr>
-                <tr><td>Catering Expertise</td><td>+15% / +30% / +50% contract reward</td><td class="wk-num">80 · 180 · 360</td></tr>
-                <tr><td>Cost Reduction</td><td>−5% / −10% / −15% upgrade cost</td><td class="wk-num">70 · 160 · 320</td></tr>
-                <tr><td>Tax Optimization</td><td>−3% / −6% / −9% tax rate</td><td class="wk-num">80 · 180 · 360</td></tr>
+                <tr><td>Fan Favorite Push</td><td>Growth</td><td>+6% / +12% fan-favorite rate</td></tr>
+                <tr><td>Staff Development</td><td>Growth</td><td>+15% / +30% XP gains</td></tr>
+                <tr><td>Combo Mastery</td><td>Growth</td><td>Combos +8% / +15%</td></tr>
+                <tr><td>Golden Formula</td><td>Reach</td><td>+3% / +6% golden chance</td></tr>
+                <tr><td>Global Outreach</td><td>Reach</td><td>Country mult +5% / +10%</td></tr>
               </tbody>
             </table>
           </div>
+          <p class="section__lead">Every other node is a one-time <strong>+global income</strong> unlock (up to ~+10% on the deepest nodes), with XP cost and research time rising by tier depth.</p>
+        </section>
+
+        <section class="section section--alt">
+          <span class="eyebrow">Track 3</span>
+          <h2 class="section__title">Operations</h2>
+          <p class="section__lead">Cheaper hires &amp; upgrades, bigger event &amp; contract rewards, lower tax.</p>
+          <p class="section__lead"><strong>4 trees, 33 nodes</strong> — <strong>Cost Control</strong> and <strong>Scale</strong> (12 each, ending in <em>Franchising</em> → Operational Perfection and <em>Megacorp</em> → Milkshake Monopoly) plus two staggered trees: <strong>Automation</strong> (5 nodes from tier 1: kiosks → … → <em>Lights-Out Shops</em>, also needs Staff Scheduling) and <strong>Innovation</strong> (4 nodes from tier 3: Skunkworks Lab → <em>Breakthrough</em>, also needs Megacorp).</p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Signature node</th><th>Branch</th><th>Effect (L1 / L2)</th></tr></thead>
+              <tbody>
+                <tr><td>Hiring Pipeline</td><td>Cost Control</td><td>−12% / −22% hire cost</td></tr>
+                <tr><td>Cost Reduction</td><td>Cost Control</td><td>−8% / −15% upgrade cost</td></tr>
+                <tr><td>Crisis Management</td><td>Cost Control</td><td>+15% / +30% event rewards</td></tr>
+                <tr><td>Catering Expertise</td><td>Scale</td><td>+25% / +45% contract reward</td></tr>
+                <tr><td>Tax Optimization</td><td>Scale</td><td>Tax −5% / −10%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section__lead">Every other node is a one-time <strong>+global income</strong> unlock (up to ~+10% on the deepest nodes), with XP cost and research time rising by tier depth.</p>
           <div class="wk-tip">
             <i data-lucide="coins"></i>
             <p>

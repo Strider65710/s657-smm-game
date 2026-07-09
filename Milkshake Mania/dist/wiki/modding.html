@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="How modding works in Milkshake Mania (v1.4): install .zip mods, asset vs code mods, the Mods panel, safety and consent, and how to build your own."
+    />
+    <meta property="og:title" content="Modding overview — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Install and build mods for Milkshake Mania: asset mods, code mods, hooks, and safety." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/modding.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Modding overview — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Modding overview</span></nav>
+          <h1 class="wk-page__title">Modding overview</h1>
+          <p class="wk-page__lead">
+            <strong>New in v1.4:</strong> Milkshake Mania is moddable. Install
+            community mods that add content or extend the game, entirely at
+            runtime. There is no rebuild and no separate launcher. This page is
+            the friendly tour; the
+            <a href="modding-reference.html">Hook &amp; registry reference</a> is
+            the exact contract, and the <a href="example-mods.html">Example
+            mods</a> page has full working source.
+          </p>
+          <nav class="wk-crumbs" style="margin-top:0.6rem">
+            Jump to:
+            <a href="#get-started">Get started</a> ·
+            <a href="#cookbook">Cookbook</a> ·
+            <a href="#multifile">Imports</a> ·
+            <a href="#two-kinds">Mod types</a> ·
+            <a href="#hooks">Hooks</a> ·
+            <a href="#debugging">Debugging</a> ·
+            <a href="#safety">Safety</a> ·
+            <a href="#build">Building</a>
+          </nav>
+        </header>
+
+        <section class="section" id="get-started" data-versions="1.4">
+          <span class="eyebrow">Get started</span>
+          <h2 class="section__title">Make your first mod in 5 minutes</h2>
+          <p class="section__lead">
+            You need three things: a <strong>text editor</strong> (Notepad works),
+            a way to make a <strong>.zip</strong> (built into Windows and macOS),
+            and the game. <strong>No coding, no installs, no build tools</strong>
+            for a content mod. Follow whichever track fits you.
+          </p>
+
+          <div class="wk-tip">
+            <i data-lucide="palette"></i>
+            <p><strong>Track A — a content mod (no code).</strong> Adds a new flavor. Two text files, zipped.</p>
+          </div>
+          <ol class="wk-list">
+            <li>Make a folder called <code>my_first_mod</code>.</li>
+            <li>Inside it, create <code>mod.json</code> and paste this:</li>
+          </ol>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>{
+  "manifestVersion": 1,
+  "apiVersion": "1.4",
+  "namespace": "my_first_mod",
+  "displayName": "My First Mod",
+  "description": "Adds a Mango Tango flavor.",
+  "version": "1.0.0",
+  "type": "asset",
+  "authors": ["you"]
+}</code></pre>
+          </div>
+          <ol class="wk-list" start="3">
+            <li>Next to it, create <code>registry.json</code> and paste this:</li>
+          </ol>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>{
+  "flavors": [
+    {
+      "id": "mango_tango",
+      "name": "Mango Tango",
+      "multiplier": 3.0,
+      "unlockCost": 120000,
+      "color": "#f59e0b",
+      "description": "Bright, juicy, a little tropical."
+    }
+  ]
+}</code></pre>
+          </div>
+          <ol class="wk-list" start="4">
+            <li><strong>Zip the folder</strong> (right-click → Send to → Compressed / Zip). You want <code>my_first_mod.zip</code> containing the folder.</li>
+            <li>In the game: main menu → <strong>Mods</strong> → <strong>Install</strong> → pick your zip → toggle it <strong>on</strong> → <strong>Reload</strong>.</li>
+            <li>Open the Flavors tab — Mango Tango is there, tagged <strong>MOD</strong>. That's a published mod. 🎉</li>
+          </ol>
+
+          <div class="wk-tip">
+            <i data-lucide="code"></i>
+            <p><strong>Track B — a code mod (basic JS).</strong> Changes how the game behaves. Still no build tools — just hand-write the JS.</p>
+          </div>
+          <ol class="wk-list">
+            <li>Make a folder <code>my_code_mod</code> with a <code>mod.json</code> — same as above but <code>"type": "code"</code> and add <code>"code": { "entry": "dist/main.js" }</code>.</li>
+            <li>Inside it make a <code>dist</code> folder, and in there a <code>main.js</code> with:</li>
+          </ol>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>// The game hands your mod these ready to use: hooks, gameApi, events,
+// storage, ui, mods, register, crash. No imports needed.
+
+// 1) +25% to all global income:
+hooks.append("game/logic.ts@calcGlobalMultiplier", function (value) {
+  return value * 1.25;
+});
+
+// 2) Add a button to the main menu that pops a message:
+ui.addMenuButton({
+  label: "Hi!",
+  icon: "sparkles",
+  onClick: function () {
+    ui.notify("My code mod is running!", { tone: "success" });
+  },
+});</code></pre>
+          </div>
+          <ol class="wk-list" start="3">
+            <li>Zip the folder, install it. Because it runs code, the panel asks you to <strong>tick consent</strong> first — then reload.</li>
+            <li>You'll see the "Hi!" button on the menu and earn 25% more. Every hook id and API call is listed on the <a href="modding-reference.html">reference page</a> — call <code>gameApi.hooks()</code> in your mod to print every hookable point at runtime.</li>
+          </ol>
+
+          <div class="wk-tip">
+            <i data-lucide="rocket"></i>
+            <p><strong>Going further (optional).</strong> For TypeScript types, autocomplete, multi-file mods, and a real build command, grab the <a href="#build">mod kit</a> below. Pros: it's plain esbuild with <code>@smm/modkit</code> external — see <a href="modding-reference.html#build">Building</a>. But you never <em>need</em> it; everything above ships as-is.</p>
+          </div>
+        </section>
+
+        <section class="section section--alt" id="cookbook" data-versions="1.4">
+          <span class="eyebrow">Cookbook</span>
+          <h2 class="section__title">Recipes for the things people actually make</h2>
+          <p class="section__lead">
+            Each of these is a complete <code>dist/main.js</code> body — drop it
+            in a code mod (see Track B) and it works. The game hands your mod
+            <code>hooks</code>, <code>gameApi</code>, <code>events</code>,
+            <code>storage</code>, <code>ui</code>, <code>mods</code>,
+            <code>register</code> and <code>crash</code> as ready-to-use globals;
+            no imports required.
+          </p>
+
+          <h3>1 · Change a number (hooks)</h3>
+          <p>
+            A <strong>hook</strong> lets you transform a value the game just
+            computed. <code>append</code> takes the value and returns a new one.
+            The id names the exact function — the
+            <a href="modding-reference.html#top">reference</a> lists all 30.
+          </p>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>// Double passive income, and make leveling 20% faster.
+hooks.append("game/logic.ts@calcIncomePerSecond", function (v) {
+  return v * 2;
+});
+hooks.append("game/leveling.ts@xpForLevelUp", function (xp) {
+  return xp * 0.8;
+});</code></pre>
+          </div>
+
+          <h3>2 · React to what the player does (events + storage)</h3>
+          <p>
+            <code>events.on</code> fires on blends, rebrands and save changes.
+            <code>storage</code> remembers things across reloads, scoped to your
+            mod and the current save.
+          </p>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>// Count every blend; celebrate every 100th.
+var blends = storage.get("blends", 0);
+events.on("blend", function (e) {
+  blends += 1;
+  storage.set("blends", blends);
+  if (blends % 100 === 0) {
+    ui.notify(blends + " blends and counting!", { tone: "success" });
+  }
+});</code></pre>
+          </div>
+
+          <h3>3 · Add real UI (ui)</h3>
+          <p>
+            <code>ui</code> gives you theme-matched buttons, modals, toasts and
+            prompts — no HTML/CSS of your own needed. <code>gameApi.stats()</code>
+            is a read-only snapshot of the live save.
+          </p>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>// A menu button that opens a little stats panel.
+ui.addMenuButton({
+  label: "Stats+",
+  icon: "bar-chart-3",
+  onClick: function () {
+    var s = gameApi.stats();
+    ui.modal({
+      title: "My Stats",
+      icon: "bar-chart-3",
+      html: s
+        ? "Lifetime money: <b>" + gameApi.format.money(s.totalLifetimeMoney)
+          + "</b><br>Blends: <b>" + gameApi.format.number(s.totalMilkshakes) + "</b>"
+        : "Open a save first!",
+    });
+  },
+});
+// ui.icons() lists every valid icon name.</code></pre>
+          </div>
+
+          <h3>4 · Add content from code (register)</h3>
+          <p>
+            Everything a <code>registry.json</code> can do, the
+            <code>register</code> API can do from code — handy when the values
+            are computed. (For static content, plain <code>registry.json</code>
+            is simpler and needs no consent.)
+          </p>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>register.registerFlavor("cosmic_cream", {
+  name: "Cosmic Cream",
+  multiplier: 4.2,
+  unlockCost: 500000,
+  color: "#8b5cf6",
+  description: "Out of this world.",
+});
+// Also: registerCountry, registerCombo, registerShop,
+// registerEmployee, registerUpgrade, registerLocation, registerBackground.</code></pre>
+          </div>
+
+          <h3>5 · Depend on (or avoid) another mod (mods + crash)</h3>
+          <p>
+            Check what else is installed. If a hard requirement is missing, stop
+            cleanly with <code>crash()</code> — it disables your mod and shows the
+            crash screen instead of failing halfway.
+          </p>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>if (!mods.has("blend_lib")) {
+  crash("This mod needs the 'blend_lib' library mod installed.");
+}
+if (mods.has("hardcore_mode")) {
+  ui.notify("Heads up: balance may feel odd with Hardcore Mode.", { tone: "warn" });
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section" id="multifile" data-versions="1.4">
+          <span class="eyebrow">Bigger mods</span>
+          <h2 class="section__title">Multiple files &amp; imports</h2>
+          <p class="section__lead">
+            When one file gets unwieldy, split it. The loader understands both
+            <strong><code>import</code>/<code>export</code></strong> and
+            CommonJS <code>require</code>, and <strong>relative imports resolve to
+            other files inside your zip</strong> — so you can write a mod the way
+            you'd write any small JavaScript project, no bundler required.
+          </p>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>my_mod/
+  mod.json
+  dist/
+    main.js       &lt;- entry (mod.json's code.entry)
+    balance.js    &lt;- your own helper file</code></pre>
+          </div>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>// dist/balance.js
+export const INCOME_MULT = 1.5;
+export function tax(amount) {
+  return amount * 0.9;
+}</code></pre>
+          </div>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>// dist/main.js
+import { INCOME_MULT, tax } from "./balance.js";
+import { gameApi } from "@smm/modkit"; // optional: same as the global
+
+hooks.append("game/logic.ts@calcGlobalMultiplier", function (v) {
+  return v * INCOME_MULT;
+});
+hooks.append("game/logic.ts@calcManualBlendGain", function (v) {
+  return tax(v);
+});</code></pre>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="info"></i>
+            <p>
+              The injected globals (<code>hooks</code>, <code>ui</code>, &hellip;)
+              are available in <em>every</em> file, so importing from
+              <code>@smm/modkit</code> is optional — it's mainly for TypeScript
+              autocomplete. To share code <em>across separate mods</em>, publish a
+              <strong>library mod</strong> and <code>require()</code> /
+              <code>import</code> it by namespace — see
+              <a href="modding-reference.html#top">the reference</a>.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.4">
+          <span class="eyebrow">Basics</span>
+          <h2 class="section__title">What a mod is</h2>
+          <p class="section__lead">
+            A mod is a <strong>.zip file</strong> containing a
+            <code>mod.json</code> manifest and its content. You install it from
+            the <strong>Mods</strong> button on the main menu. Mods are stored
+            locally in your browser and applied when the game loads.
+          </p>
+          <ul class="wk-list">
+            <li>Every mod declares a <strong>namespace</strong> (lowercase letters, digits, underscores). All of its content is prefixed with it, e.g. <code>my_mod:flavors/mango</code>, so it can never clash with the base game (which uses <code>smm:</code>).</li>
+            <li>Mods apply on load. Enabling, disabling, or installing prompts a <strong>reload</strong>, not a rebuild.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="two-kinds" data-versions="1.4">
+          <span class="eyebrow">Two kinds</span>
+          <h2 class="section__title">Asset mods vs code mods</h2>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead>
+                <tr><th>Type</th><th>Contains</th><th>Runs code?</th><th>Use it for</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Asset mod</strong></td><td>A declarative <code>registry.json</code> (data only)</td><td>No</td><td>Adding content: flavors, countries, shops, employees, upgrades, locations. Safe, no consent needed.</td></tr>
+                <tr><td><strong>Code mod</strong></td><td>Everything an asset mod has, <em>plus</em> a compiled <code>dist/main.js</code></td><td>Yes, with consent</td><td>Changing behavior: scaling income, retuning the XP curve, adjusting prices, and more.</td></tr>
+                <tr><td><strong>Library mod</strong></td><td>Compiled code whose <code>module.exports</code> is shared via <code>require("&lt;namespace&gt;")</code></td><td>Yes, with consent</td><td>Shared helpers other mods depend on. Loaded before its dependents; declare it in a mod's <code>dependencies</code>.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section__lead">
+            A <strong>code mod is a superset of an asset mod</strong>: it can ship
+            content <em>and</em> run code. An asset mod is the safe, data-only
+            subset.
+          </p>
+        </section>
+
+        <section class="section section--alt" id="hooks" data-versions="1.4">
+          <span class="eyebrow">Code mods</span>
+          <h2 class="section__title">Hooks, in plain terms</h2>
+          <p class="section__lead">
+            Code mods do not patch arbitrary internals (the shipped game is
+            obfuscated). Instead the game exposes a fixed set of
+            <strong>hook points</strong> - specific functions a mod may extend.
+            A mod registers a handler against a hook by its string id:
+          </p>
+          <ul class="wk-list">
+            <li><strong>append</strong> - runs after the function; transforms its return value. Multiple mods stack in load order.</li>
+            <li><strong>prepend</strong> - runs before; used to observe or react to the inputs.</li>
+            <li><strong>override</strong> - replaces the result entirely. Use sparingly; if two mods override the same hook the last one (alphabetically) wins and a warning is shown.</li>
+          </ul>
+          <p class="section__lead">
+            v1.4 wires <strong>30</strong> hook points — income, prestige,
+            manual blend, special outcomes, customer &amp; location ratings, the
+            XP curve, level rewards, country / shop / upgrade / location pricing,
+            research, the Flavor Lab, and generated reviews. The policy is "almost everything is
+            hookable," and the set grows every version. The full list with
+            signatures is on the <a href="modding-reference.html">reference
+            page</a> — or call <code>gameApi.hooks()</code> in your mod to print
+            every hookable point at runtime.
+          </p>
+          <p class="section__lead">
+            <strong>Beyond hooks</strong>, code mods can also: react to
+            <em>lifecycle events</em> (every blend, every rebrand), keep
+            <em>persistent per-mod storage</em> across sessions, read the live
+            flavor/country registries, check which <em>other mods</em> are
+            installed (and <code>crash()</code> safely on a hard
+            incompatibility), and even <em>add their own buttons</em> to the
+            main menu. Together that's enough for reactive, stateful mods with
+            real UI - not just number tweaks.
+          </p>
+        </section>
+
+        <section class="section" id="debugging" data-versions="1.4">
+          <span class="eyebrow">Testing</span>
+          <h2 class="section__title">Debugging &amp; when something breaks</h2>
+          <p class="section__lead">
+            You don't need a build pipeline to iterate — edit, re-zip, re-install,
+            reload. A few things make it painless:
+          </p>
+          <ul class="wk-list">
+            <li><strong>Open the browser console</strong> (F12). Your
+              <code>console.log</code> shows up there, and any mod error is
+              printed with a <code>[mod&hellip;]</code> prefix.</li>
+            <li><strong>Discover the surface at runtime.</strong>
+              <code>gameApi.hooks()</code> returns every hookable point
+              (<code>{ id, kind, desc }</code>); <code>ui.icons()</code> lists
+              valid icon names; <code>mods.list()</code> shows what's installed.
+              <code>console.table(gameApi.hooks())</code> is a nice way to browse.</li>
+            <li><strong>If your mod throws</strong> — in a hook, an event handler,
+              a button, or top-level code — the game shows a
+              <strong>crash screen</strong> with a Reload button rather than a
+              blank page, and tells you which mod was at fault. The current frame
+              isn't corrupted; you get a clean reload. Call
+              <code>crash("why")</code> yourself for a tidy, labelled stop.</li>
+            <li><strong>A bad mod can't brick you.</strong> If a mod breaks the
+              page on load, the game auto-disables it on the next boot. You can
+              always disable or uninstall from the Mods panel and reload.</li>
+            <li><strong>Your save is separate</strong> from mods. Turning a mod
+              off (or having it crash) never touches your progress.</li>
+          </ul>
+          <div class="wk-tip">
+            <i data-lucide="refresh-cw"></i>
+            <p>
+              <strong>Sharing &amp; updating.</strong> A mod is just its
+              <code>.zip</code> — send it to anyone and they install it the same
+              way. Shipping a new version? Bump <code>version</code> in
+              <code>mod.json</code>, re-zip, and re-install over the old one
+              (same <code>namespace</code>). Keep your <code>namespace</code>
+              stable so saved content and per-mod storage carry over.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--alt" id="safety" data-versions="1.4">
+          <span class="eyebrow">Safety</span>
+          <h2 class="section__title">Trust, consent &amp; warnings</h2>
+          <p class="section__lead">
+            You install your own mods, the same trust model as a browser
+            extension. The Mods panel is explicit about risk:
+          </p>
+          <ul class="wk-list">
+            <li>A mod <strong>flagged unsafe</strong> by its author shows a red warning.</li>
+            <li>Any <strong>code mod</strong> is labelled as running code and changing gameplay, and will not execute its code until you tick the <strong>consent</strong> box.</li>
+            <li>Version and load-order <strong>conflicts</strong> are surfaced as warnings.</li>
+          </ul>
+          <div class="wk-tip">
+            <i data-lucide="shield-alert"></i>
+            <p>Only install mods from sources you trust. Code mods run their own JavaScript in your browser. The game's EULA covers user-made content.</p>
+          </div>
+        </section>
+
+        <section class="section" id="build" data-versions="1.4">
+          <span class="eyebrow">Build your own</span>
+          <h2 class="section__title">Making a mod</h2>
+          <ol class="wk-list">
+            <li>Create a folder named after your mod with a <code>mod.json</code> (see the reference for the schema).</li>
+            <li><strong>Asset mod:</strong> add a <code>registry.json</code> with your content. No build step. Done.</li>
+            <li><strong>Code mod:</strong> write TypeScript against the <strong><code>@smm/modkit</code></strong> package (types + autocomplete), then <strong>transpile + bundle to <code>dist/main.js</code></strong> with <code>@smm/modkit</code> kept external. The game does not compile TypeScript for you — you ship the compiled bundle.</li>
+            <li>Zip the folder and install it via the Mods panel.</li>
+          </ol>
+          <div class="wk-tip">
+            <i data-lucide="download"></i>
+            <p>
+              <strong>Get the mod kit — it's everything you need to build.</strong>
+              The <code>@smm/modkit</code> download bundles the TypeScript
+              declarations (type-checking + autocomplete), <strong><code>build.mjs</code></strong>
+              — the actual build script (esbuild: <code>--bundle --format=cjs
+              --external:@smm/modkit</code>) — and a ready
+              <code>tsconfig.json</code>. Unzip, drop your mod folder next to
+              <code>build.mjs</code>, run <code>node build.mjs</code>, zip, install.
+              The bundled <code>README</code> walks through it.
+            </p>
+          </div>
+          <p>
+            <a class="btn btn--primary" href="smm-modkit.zip" download>
+              <i data-lucide="download"></i> Download @smm/modkit
+            </a>
+            <a class="btn btn--ghost" href="build.mjs" download style="margin-left:.5rem">
+              <i data-lucide="file-code"></i> Just build.mjs
+            </a>
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="pencil"></i>
+            <p>
+              <strong>No build tools? Hand-write it.</strong> The build step is
+              <em>optional</em> — it exists for TypeScript types, autocomplete
+              and multi-file mods. What compilation produces is just a plain
+              JavaScript file, and you can write that directly. A complete
+              hand-written code mod is two files:
+            </p>
+          </div>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>my_mod/
+  mod.json       &lt;- manifest
+  dist/main.js   &lt;- plain JS, written by hand (no imports, no build)</code></pre>
+          </div>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>// dist/main.js — the game injects the API as globals when your mod runs:
+// hooks, gameApi, events, storage, ui, mods, crash, register (+ require)
+hooks.append("game/logic.ts@calcGlobalMultiplier", function (v) {
+  return v * 1.25; // +25% global income
+});
+ui.addMenuButton({
+  label: "Hi",
+  icon: "sparkles",
+  onClick: function () {
+    ui.notify("Hello from my hand-written mod!", { tone: "success" });
+  },
+});</code></pre>
+          </div>
+          <p class="section__lead">
+            Zip the folder, install it from the Mods panel — that's a working
+            mod. This is also exactly what a <em>compiled</em> mod looks like
+            inside: <code>build.mjs</code> just turns your TypeScript into a
+            file like the one above (CommonJS, with <code>@smm/modkit</code>
+            imports left as <code>require("@smm/modkit")</code> calls the game
+            resolves at runtime). Peek at any example mod's
+            <code>dist/main.js</code> to see real compiled output.
+          </p>
+          <p class="section__lead">
+            <strong>Example mods</strong> show the API in practice: asset mods
+            (Neapolitan Pack, Flavors+), small and large code mods (Lucky Blends,
+            Tycoon Mode), and stateful companion mods (Shake Journal, Journal+)
+            that show events, storage, and UI injection working together. Their
+            <code>dist/main.js</code> bundles are genuinely compiled from their
+            <code>src/</code> by the kit's build script — read the source to see
+            each API used in context.
+          </p>
+        </section>
+
+        <div class="wk-next">
+          <a href="research.html"><i data-lucide="arrow-left"></i><span>Research tree<small>Progression tree</small></span></a>
+          <a href="modding-reference.html"><i data-lucide="arrow-right"></i><span>Hook &amp; registry reference<small>The exact contract</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

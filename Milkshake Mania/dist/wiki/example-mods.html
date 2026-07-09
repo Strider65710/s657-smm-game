@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html { background: #0f1115; }
+      html.wk-pre-light { background: #f6f8fb; }
+      .wk-code {
+        margin: 0;
+        padding: 1rem 1.1rem;
+        font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        white-space: pre;
+        tab-size: 2;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Read the full source of the Milkshake Mania example mods (v1.4): asset, code, and library mods — hooks, events, storage, UI, and cross-mod require()."
+    />
+    <meta property="og:title" content="Example mods — Milkshake Mania Wiki" />
+    <meta property="og:description" content="Full source of the Milkshake Mania example mods: asset, code, and library mods." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/example-mods.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Example mods — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Example mods</span></nav>
+          <h1 class="wk-page__title">Example mods</h1>
+          <p class="wk-page__lead">
+            The full source of every bundled example mod, so you can see each
+            part of the API used in context. Each is downloadable as an
+            installable <code>.zip</code>. These are learning examples — the
+            official <strong>Flavors+</strong> and <strong>Journal+</strong>
+            extensions are separate. New to modding? Start with the
+            <a href="modding.html">overview</a>, then the
+            <a href="modding-reference.html">hook &amp; registry reference</a>.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="info"></i>
+            <p>Every <code>dist/main.js</code> in these zips is <strong>genuinely compiled</strong> from the <code>src/</code> shown here by the kit's build script (<code>node example_mods/build.mjs</code>) — not hand-written. Grab the <a href="modding-reference.html">mod kit</a> to build your own the same way.</p>
+          </div>
+        </header>
+
+        <section class="section" data-versions="1.4">
+          <span class="eyebrow">Asset mod</span>
+          <h2 class="section__title">Neapolitan Pack</h2>
+          <p class="section__lead">The simplest kind of mod: three new flavors, declared as pure data in <code>registry.json</code>. No code, no consent. This is the whole mod.</p>
+          <p><a class="btn btn--primary" href="NeapolitanPack.zip" download><i data-lucide="download"></i> Download Neapolitan Pack</a></p>
+          <p class="section__lead" style="margin-bottom:.3rem"><strong>registry.json</strong></p>
+          <div class="wk-scroll">
+            <pre class="wk-code"><code>{
+  "flavors": [
+    {
+      "id": "strawberry_swirl",
+      "name": "Strawberry Swirl",
+      "multiplier": 3.2,
+      "unlockCost": 250000,
+      "color": "#f472b6",
+      "description": "A bright ribbon of real strawberry through creamy vanilla."
+    },
+    {
+      "id": "vanilla_bean",
+      "name": "Vanilla Bean",
+      "multiplier": 2.6,
+      "unlockCost": 90000,
+      "color": "#fde68a",
+      "description": "Speckled Madagascar vanilla - simple, classic, dependable."
+    },
+    {
+      "id": "dark_chocolate",
+      "name": "Dark Chocolate",
+      "multiplier": 3.8,
+      "unlockCost": 480000,
+      "color": "#78350f",
+      "description": "70% cocoa for the grown-up palate."
+    }
+  ]
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.4">
+          <span class="eyebrow">Code mod</span>
+          <h2 class="section__title">Lucky Blends</h2>
+          <p class="section__lead">The smallest possible code mod: a single <code>append</code> hook that raises global income 10%, plus a no-op <code>prepend</code> tap to show the shape.</p>
+          <p><a class="btn btn--primary" href="LuckyBlends.zip" download><i data-lucide="download"></i> Download Lucky Blends</a></p>
+          <p class="section__lead" style="margin-bottom:.3rem"><strong>src/main.ts</strong></p>
+          <div class="wk-scroll">
+            <pre class="wk-code"><code>// Author-side source (NOT read by the game - the game runs ../dist/main.js).
+// Write TypeScript here, compile it to dist/main.js with the mod authoring kit
+// before zipping. The game does not compile TypeScript.
+//
+// `hooks` (and a read-only `gameApi`) are provided by the mod sandbox scope;
+// in source you import them from the modkit types for autocompletion.
+
+import { hooks } from "@smm/modkit";
+
+// Lucky Blends: nudge total income up 10%. `append` runs AFTER the hooked
+// function and receives its return value; return a replacement.
+hooks.append("game/logic.ts@calcGlobalMultiplier", (value: number) =&gt; {
+  return value * 1.1;
+});
+
+// `prepend` runs BEFORE the function and can inspect/transform inputs. This one
+// is a no-op tap that just demonstrates the shape.
+hooks.prepend("game/logic.ts@calcManualBlendGain", (ctx: unknown) =&gt; {
+  return ctx;
+});</code></pre>
+          </div>
+        </section>
+
+        <section class="section" data-versions="1.4">
+          <span class="eyebrow">Code mod</span>
+          <h2 class="section__title">Tycoon Mode</h2>
+          <p class="section__lead">A cohesive economy overhaul that touches many hook points at once (income, prestige, leveling, pricing, rating), adds its own flavor via <code>registry.json</code>, and injects a main-menu button — proof a code mod is a superset of an asset mod.</p>
+          <p><a class="btn btn--primary" href="TycoonMode.zip" download><i data-lucide="download"></i> Download Tycoon Mode</a></p>
+          <p class="section__lead" style="margin-bottom:.3rem"><strong>src/main.ts</strong></p>
+          <div class="wk-scroll">
+            <pre class="wk-code"><code>// Author-side source (NOT read by the game - the game runs ../dist/main.js).
+//
+// Tycoon Mode: a full, real code mod that touches MANY hook points at once to
+// deliver a cohesive "power fantasy" economy overhaul, and ships its own flavor
+// (see ../registry.json) - proof that a code mod is a superset of an asset mod.
+//
+// Every id used here is listed as wired/hookable in ../../docs.md.
+
+import { hooks, gameApi, mods, crash, ui } from "@smm/modkit";
+
+// --- Income: triple passive income, and buff the prestige multiplier. ---
+hooks.append("game/logic.ts@calcIncomePerSecond", (v: number) =&gt; v * 3);
+hooks.append("game/logic.ts@calcPrestigeMultiplier", (v: number) =&gt; v + 0.5);
+
+// --- Progression: level up faster, and double the level-up cash reward. ---
+hooks.append("game/leveling.ts@xpForLevelUp", (v: number) =&gt;
+  Math.max(1, Math.floor(v * 0.6)),
+);
+hooks.append("game/leveling.ts@levelUpReward", (v: number) =&gt; v * 2);
+
+// --- Pricing: cheaper countries and shops so you expand aggressively. ---
+hooks.append("constants.ts@scaledCountryCost", (v: number) =&gt;
+  Math.floor(v * 0.5),
+);
+hooks.append("registry.ts@shopCost", (v: number) =&gt; Math.floor(v * 0.8));
+
+// --- Reputation: a small permanent bump to customer rating. ---
+hooks.append("game/logic.ts@calcCustomerRating", (v: number) =&gt;
+  Math.min(5, v + 0.5),
+);
+
+// Compatibility: `mods` lists the active mods; `crash(reason)` is a controlled
+// emergency exit (auto-disables this mod, save untouched). Uncomment to gate on
+// another mod's presence:
+// if (!mods.has("some_dependency")) crash("Tycoon Mode requires some_dependency.");
+// if (mods.has("no_tycoon")) crash("Incompatible with no_tycoon.");
+
+// UI injection: a whole new main-menu button, added by a mod. This one is a
+// joke/demo - it deliberately triggers the runtime emergency exit so you can
+// see crash handling in action (mod auto-disables, game reloads, save safe).
+ui.addMenuButton({
+  label: "Crash",
+  icon: "alert-triangle",
+  onClick: () =&gt; crash("You pressed the big red button. Congratulations?"),
+});
+
+// gameApi is a frozen read-only surface - handy for logging / sanity checks.
+console.log(
+  `[Tycoon Mode] loaded on API ${gameApi.apiVersion}. ` +
+    `Base shake sale: ${gameApi.format.money(gameApi.constants.BASE_SHAKE_SALE)}. ` +
+    `Active mods: ${mods.list().map((m) =&gt; m.namespace).join(", ")}`,
+);
+void crash; // referenced above (commented); keep the import meaningful</code></pre>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.4">
+          <span class="eyebrow">Code mod</span>
+          <h2 class="section__title">Shake Journal</h2>
+          <p class="section__lead">The full mod scope working together: lifecycle <code>events</code>, per-mod <code>storage</code>, a stats-fed income <code>hook</code>, a <code>ui.modal</code> Journal, and a bundled country.</p>
+          <p><a class="btn btn--primary" href="ShakeJournal.zip" download><i data-lucide="download"></i> Download Shake Journal</a></p>
+          <p class="section__lead" style="margin-bottom:.3rem"><strong>src/main.ts</strong></p>
+          <div class="wk-scroll">
+            <pre class="wk-code"><code>// Author-side source (NOT read by the game - the game runs ../dist/main.js).
+// Compile this to dist/main.js before zipping; the game does not compile TS.
+//
+// Shake Journal demonstrates the full v1.4 mod scope working together:
+//   events  - subscribe to "blend" / "prestige" lifecycle events
+//   storage - persist stats across sessions (per-mod, namespaced)
+//   hooks   - an income bonus that grows with the stored stats
+//   ui      - a "Journal" main-menu button showing the stats
+//   registry.json - a bundled country (Atlantis)
+
+import { hooks, gameApi, events, storage, ui } from "@smm/modkit";
+
+let lifetimeBlends = storage.get&lt;number&gt;("lifetimeBlends", 0);
+let lifetimeSpecials = storage.get&lt;number&gt;("lifetimeSpecials", 0);
+let prestiges = storage.get&lt;number&gt;("prestiges", 0);
+let sessionBlends = 0;
+
+const save = () =&gt; {
+  storage.set("lifetimeBlends", lifetimeBlends);
+  storage.set("lifetimeSpecials", lifetimeSpecials);
+  storage.set("prestiges", prestiges);
+};
+
+events.on("blend", (e: { gain: number; special: boolean }) =&gt; {
+  sessionBlends += 1;
+  lifetimeBlends += 1;
+  if (e?.special) lifetimeSpecials += 1;
+  if (lifetimeBlends % 25 === 0) save(); // throttle writes
+});
+
+events.on("prestige", () =&gt; {
+  prestiges += 1;
+  save();
+});
+
+// +0.5% income per 1,000 lifetime blends, capped at +25%.
+const journalBonus = () =&gt;
+  Math.min(0.25, Math.floor(lifetimeBlends / 1000) * 0.005);
+
+hooks.append("game/logic.ts@calcGlobalMultiplier", (v: number) =&gt;
+  v * (1 + journalBonus()),
+);
+
+ui.addMenuButton({
+  label: "Journal",
+  icon: "book-open",
+  onClick: () =&gt; {
+    ui.modal({
+      title: "Shake Journal",
+      icon: "book-open",
+      html: `
+        &lt;ul style="margin:0;padding-left:1.1rem;line-height:1.7"&gt;
+          &lt;li&gt;Lifetime blends: &lt;b&gt;${gameApi.format.number(lifetimeBlends)}&lt;/b&gt;&lt;/li&gt;
+          &lt;li&gt;Lifetime specials: &lt;b&gt;${gameApi.format.number(lifetimeSpecials)}&lt;/b&gt;&lt;/li&gt;
+          &lt;li&gt;Rebrands witnessed: &lt;b&gt;${prestiges}&lt;/b&gt;&lt;/li&gt;
+          &lt;li&gt;Blends this session: &lt;b&gt;${sessionBlends}&lt;/b&gt;&lt;/li&gt;
+          &lt;li&gt;Journal income bonus: &lt;b&gt;+${(journalBonus() * 100).toFixed(1)}%&lt;/b&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      `,
+    });
+  },
+});
+
+console.log(`[Shake Journal] loaded. Lifetime blends so far: ${lifetimeBlends}`);</code></pre>
+          </div>
+        </section>
+
+        <section class="section" data-versions="1.4">
+          <span class="eyebrow">Library mod</span>
+          <h2 class="section__title">Blend Lib</h2>
+          <p class="section__lead">A <strong>library mod</strong> (<code>type: "lib"</code>). It registers no content; everything it <code>export</code>s becomes what other mods get from <code>require("blend_lib")</code>. Install it only if a mod depends on it.</p>
+          <p><a class="btn btn--primary" href="BlendLib.zip" download><i data-lucide="download"></i> Download Blend Lib</a></p>
+          <p class="section__lead" style="margin-bottom:.3rem"><strong>src/main.ts</strong></p>
+          <div class="wk-scroll">
+            <pre class="wk-code"><code>import { gameApi } from "@smm/modkit";
+
+/**
+ * Blend Lib — a LIBRARY mod (type: "lib"). It registers no content and changes
+ * nothing on its own. Everything it `export`s becomes the value other mods get
+ * from `require("blend_lib")`, because the loader publishes a lib mod's
+ * module.exports under its namespace and loads it before its dependents.
+ *
+ * (Built with esbuild --format=cjs, so each `export` below becomes a property on
+ * module.exports — exactly what require() returns.)
+ */
+
+export const version = "1.0.0";
+
+/** Turn a percentage into a multiplier: pctBonus(5) -&gt; 1.05. Clamped sanely. */
+export function pctBonus(pct: number): number {
+  const p = Math.max(-90, Math.min(500, Number(pct) || 0));
+  return 1 + p / 100;
+}
+
+/** Format a number with the game's own formatter (falls back to String). */
+export function formatBig(n: number): string {
+  try {
+    return gameApi.format.number(n);
+  } catch {
+    return String(n);
+  }
+}
+
+/** A fun "blender rank" label derived from lifetime blends. */
+export function tierLabel(blends: number): string {
+  if (blends &gt;= 1_000_000) return "Legendary Blender";
+  if (blends &gt;= 100_000) return "Master Blender";
+  if (blends &gt;= 10_000) return "Pro Blender";
+  if (blends &gt;= 1_000) return "Apprentice";
+  return "Rookie";
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.4">
+          <span class="eyebrow">Code mod + dependency</span>
+          <h2 class="section__title">Blend Lib Demo</h2>
+          <p class="section__lead">Depends on Blend Lib. It lists <code>"blend_lib"</code> in <code>dependencies</code> (so the loader loads the lib first) and imports it with <code>require("blend_lib")</code>, then uses its helpers for a +5% income boost and a rank readout.</p>
+          <p><a class="btn btn--primary" href="BlendLibDemo.zip" download><i data-lucide="download"></i> Download Blend Lib Demo</a></p>
+          <p class="section__lead" style="margin-bottom:.3rem"><strong>mod.json</strong></p>
+          <div class="wk-scroll">
+            <pre class="wk-code"><code>{
+  "manifestVersion": 1,
+  "apiVersion": "1.4",
+  "namespace": "blend_lib_demo",
+  "displayName": "Blend Lib Demo",
+  "description": "Demonstrates depending on a library mod. Requires Blend Lib; uses its helpers for a +5% income boost and a rank readout.",
+  "version": "1.0.0",
+  "type": "code",
+  "authors": ["Strider657"],
+  "dependencies": ["blend_lib"],
+  "code": { "entry": "dist/main.js" }
+}</code></pre>
+          </div>
+          <p class="section__lead" style="margin-bottom:.3rem"><strong>src/main.ts</strong></p>
+          <div class="wk-scroll">
+            <pre class="wk-code"><code>import { hooks, gameApi, ui } from "@smm/modkit";
+
+// A library mod is imported by its NAMESPACE. Because we listed "blend_lib" in
+// this mod's `dependencies`, the loader loads it first and resolves this
+// require() to its exports. (The build marks declared deps external, so this
+// require call survives into dist/main.js instead of being bundled.)
+declare const require: (id: string) =&gt; any;
+const lib = require("blend_lib") as {
+  version: string;
+  pctBonus: (pct: number) =&gt; number;
+  formatBig: (n: number) =&gt; string;
+  tierLabel: (blends: number) =&gt; string;
+};
+
+// Use the library's helper to apply a +5% global income bonus.
+hooks.append("game/logic.ts@calcGlobalMultiplier", (v: number) =&gt;
+  v * lib.pctBonus(5),
+);
+
+ui.addMenuButton({
+  label: "Lib Demo",
+  icon: "puzzle",
+  onClick: () =&gt; {
+    const s = gameApi.stats();
+    const blends = s ? s.totalMilkshakes : 0;
+    ui.modal({
+      title: "Blend Lib Demo",
+      icon: "puzzle",
+      text:
+        `blend_lib v${lib.version}\n` +
+        `Your rank: ${lib.tierLabel(blends)}\n` +
+        `Lifetime blends: ${lib.formatBig(blends)}\n\n` +
+        `This mod applies +5% global income using the shared library.`,
+    });
+  },
+});</code></pre>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="modding-reference.html"><i data-lucide="arrow-left"></i><span>Hook &amp; registry reference<small>The exact contract</small></span></a>
+          <a href="modding.html"><i data-lucide="arrow-right"></i><span>Modding overview<small>The friendly tour</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania&trade; &mdash; &copy; 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

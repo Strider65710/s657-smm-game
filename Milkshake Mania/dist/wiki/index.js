@@ -48,6 +48,14 @@
       ],
     },
     {
+      label: "Modding (v1.4)",
+      items: [
+        ["modding", "Modding overview", "blocks"],
+        ["modding-reference", "Hook & registry reference", "file-code"],
+        ["example-mods", "Example mods", "puzzle"],
+      ],
+    },
+    {
       label: "Reference",
       items: [
         ["settings", "Settings & saves", "settings"],

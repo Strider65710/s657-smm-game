@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        if (localStorage.getItem("mm-wiki-theme") === "light")
+          document.documentElement.classList.add("wk-pre-light");
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #0f1115;
+      }
+      html.wk-pre-light {
+        background: #f6f8fb;
+      }
+    </style>
+    <meta
+      name="description"
+      content="The Milkshake Mania modding reference (v1.4): mod.json schema, the 30 wired hook points with signatures, registry content types, and handler kinds."
+    />
+    <meta property="og:title" content="Modding reference — Milkshake Mania Wiki" />
+    <meta property="og:description" content="mod.json schema, hook points, registry types, and handler kinds for Milkshake Mania mods." />
+    <meta property="og:url" content="https://striderplays.vercel.app/wiki/modding-reference.html" />
+    <meta property="og:image" content="https://striderplays.vercel.app/banner.png" />
+    <meta name="robots" content="index, follow" />
+    <title>Modding reference — Milkshake Mania Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://striderplays.vercel.app/favicon.png" />
+    <link rel="stylesheet" href="https://striderplays.vercel.app/index.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <button class="icon-btn wk-menu-btn" id="navBurger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <a class="nav__brand" href="index.html"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="Milkshake Mania logo" /><span>Milkshake Mania <span class="grad">Wiki</span></span></a>
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="https://striderplays.vercel.app/smm">Play</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark"><i data-lucide="moon"></i></button>
+      </div>
+    </header>
+
+    <div class="wk-shell">
+      <aside class="wk-sidebar" id="sidebar" aria-label="Wiki navigation"></aside>
+      <div class="wk-backdrop" id="wkBackdrop"></div>
+
+      <main class="wk-main" id="top">
+        <header class="wk-page">
+          <nav class="wk-crumbs"><a href="index.html">Wiki</a> <span>/</span> <span>Modding reference</span></nav>
+          <h1 class="wk-page__title">Hook &amp; registry reference</h1>
+          <p class="wk-page__lead">
+            The exact modding contract for v1.4: the manifest schema, the wired
+            hook points, the content types, and everything available in a code
+            mod's scope. New here? Start with the
+            <a href="modding.html">modding overview</a>.
+          </p>
+        </header>
+
+        <section class="section" data-versions="1.4">
+          <span class="eyebrow">Manifest</span>
+          <h2 class="section__title">mod.json</h2>
+          <p class="section__lead">Every mod has a <code>mod.json</code> at its root.</p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><code>namespace</code></td><td>Lowercase <code>[a-z0-9_]</code>. Prefixes every id this mod adds. Cannot be <code>smm</code>.</td></tr>
+                <tr><td><code>displayName</code></td><td>Human name shown in the Mods panel.</td></tr>
+                <tr><td><code>version</code></td><td>The mod's own version.</td></tr>
+                <tr><td><code>apiVersion</code></td><td>Modding API version targeted (<code>1.4</code>). Mismatches are warned.</td></tr>
+                <tr><td><code>type</code></td><td><code>"asset"</code> (data only), <code>"code"</code> (also runs JS), or <code>"lib"</code> (a library whose <code>module.exports</code> other mods <code>require()</code>).</td></tr>
+                <tr><td><code>registry</code></td><td>Path to the declarative content file, e.g. <code>registry.json</code>. Valid for all types.</td></tr>
+                <tr><td><code>code.entry</code></td><td>Code &amp; lib mods: path to the pre-compiled JS, e.g. <code>dist/main.js</code>.</td></tr>
+                <tr><td><code>dependencies</code></td><td>Optional. Namespaces this mod needs (array, or <code>{ namespace: versionRange }</code> map). Loaded first; a missing one is warned. Declaring a library dep also lets the build keep the cross-mod <code>require</code> external.</td></tr>
+                <tr><td><code>unsafe</code></td><td>Optional. Set <code>true</code> to flag the mod as experimental; shows a red warning.</td></tr>
+                <tr><td><code>changesGameplay</code></td><td>Optional hint. Any code/lib mod is treated as gameplay-changing regardless.</td></tr>
+                <tr><td><code>authors</code>, <code>assets</code></td><td>Optional metadata.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section section--alt" data-versions="1.4">
+          <span class="eyebrow">Code mods</span>
+          <h2 class="section__title">Wired hook points (30)</h2>
+          <p class="section__lead">
+            Register handlers with <code>hooks.append(id, fn)</code>,
+            <code>hooks.prepend(id, fn)</code>, or
+            <code>hooks.override(id, fn)</code>. <code>hooks</code> is provided in
+            your mod's scope. The policy is "almost everything is hookable" — 30
+            points are wired in v1.4, and the set grows every version. Call
+            <code>gameApi.hooks()</code> at runtime for the authoritative list of
+            <code>{ id, kind, desc }</code>. The economy, pricing, leveling,
+            research, ratings and reviews are all fair game; save/crypto, raw
+            state mutation and the modding API itself are deliberately off-limits.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Hook id</th><th>Returns</th><th>What it controls</th></tr></thead>
+              <tbody>
+                <tr><td><code>game/logic.ts@calcGlobalMultiplier</code></td><td>number</td><td>Global income multiplier (countries, flavors, upgrades, prestige).</td></tr>
+                <tr><td><code>game/logic.ts@calcIncomePerSecond</code></td><td>number</td><td>Passive income per second.</td></tr>
+                <tr><td><code>game/logic.ts@calcManualBlendGain</code></td><td>number</td><td>Cash from one manual blend.</td></tr>
+                <tr><td><code>game/logic.ts@calcRoleIncomeMult</code></td><td>number</td><td>Employee role-allocation income multiplier.</td></tr>
+                <tr><td><code>game/logic.ts@calcTotalEmployeeCapacity</code></td><td>number</td><td>Total employee capacity (shops + locations).</td></tr>
+                <tr><td><code>game/logic.ts@rollSpecialOutcomes</code></td><td>number</td><td>Special-outcome payout multiplier per blend.</td></tr>
+                <tr><td><code>game/logic.ts@calcCustomerRating</code></td><td>number (0-5)</td><td>Star rating; drives reviews and events.</td></tr>
+                <tr><td><code>game/logic.ts@calcLocationRating</code></td><td>number (0-5)</td><td>Per-location rating.</td></tr>
+                <tr><td><code>game/logic.ts@calcPrestigeMultiplier</code></td><td>number</td><td>Permanent prestige multiplier.</td></tr>
+                <tr><td><code>registry.ts@shopCost</code></td><td>number</td><td>Shop / employee purchase price.</td></tr>
+                <tr><td><code>registry.ts@shopIncome</code></td><td>number</td><td>Shop / employee base income.</td></tr>
+                <tr><td><code>registry.ts@prestigeCostFor</code></td><td>number</td><td>Price cap gating prestige-locked content.</td></tr>
+                <tr><td><code>registry.ts@eternalCost</code></td><td>number</td><td>Token cost of an eternal upgrade.</td></tr>
+                <tr><td><code>constants.ts@scaledCountryCost</code></td><td>number</td><td>Country unlock price.</td></tr>
+                <tr><td><code>game/appHelpers.ts@computeUpgradeCost</code></td><td>number</td><td>Money-upgrade cost (incl. research discounts).</td></tr>
+                <tr><td><code>game/locations.ts@getLocationCost</code></td><td>number</td><td>Next-location purchase cost.</td></tr>
+                <tr><td><code>game/locations.ts@getLocationCapacity</code></td><td>number</td><td>Employee capacity of one location.</td></tr>
+                <tr><td><code>game/locations.ts@getLocationIncome</code></td><td>number</td><td>Passive income of one location.</td></tr>
+                <tr><td><code>game/locations.ts@getExtensionCost</code></td><td>number</td><td>Location-extension upgrade cost.</td></tr>
+                <tr><td><code>game/locations.ts@getTotalLocationRent</code></td><td>number</td><td>Total monthly rent across locations.</td></tr>
+                <tr><td><code>game/leveling.ts@xpForLevelUp</code></td><td>number</td><td>XP needed for the next level (the whole curve).</td></tr>
+                <tr><td><code>game/leveling.ts@levelUpReward</code></td><td>number</td><td>Cash bonus for reaching a level.</td></tr>
+                <tr><td><code>game/leveling.ts@prestigeLevelReq</code></td><td>number</td><td>Player level required for the next rebrand.</td></tr>
+                <tr><td><code>game/research.ts@getResearchGlobalMultiplier</code></td><td>number</td><td>Pooled '+global income' research bonus.</td></tr>
+                <tr><td><code>game/research.ts@getResearchCost</code></td><td>number</td><td>XP cost of a research node level.</td></tr>
+                <tr><td><code>game/research.ts@getResearchDays</code></td><td>number</td><td>In-game days a research level takes.</td></tr>
+                <tr><td><code>game/reviews.ts@generateReviews</code></td><td>Review[]</td><td>The generated set of customer reviews.</td></tr>
+                <tr><td><code>game/flavorDev.ts@getFlavorDevGlobalMultiplier</code></td><td>number</td><td>Pooled '+flavor income' Flavor Lab bonus.</td></tr>
+                <tr><td><code>game/flavorDev.ts@getFlavorDevCost</code></td><td>number</td><td>Money cost of a Flavor Lab node level.</td></tr>
+                <tr><td><code>game/flavorDev.ts@getFlavorDevDays</code></td><td>number</td><td>In-game days a Flavor Lab level takes.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-tip">
+            <i data-lucide="code"></i>
+            <p>Example: <code>hooks.append("game/logic.ts@calcIncomePerSecond", (v) =&gt; v * 2)</code> doubles passive income. Don't hard-code this list — read <code>gameApi.hooks()</code> so your mod adapts as the surface grows.</p>
+          </div>
+        </section>
+
+        <section class="section" data-versions="1.4">
+          <span class="eyebrow">Handlers</span>
+          <h2 class="section__title">append / prepend / override</h2>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Kind</th><th>When</th><th>Stacks?</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td><code>append</code></td><td>After the function</td><td>Yes</td><td>Receives the return value, returns a replacement. The common case.</td></tr>
+                <tr><td><code>prepend</code></td><td>Before the function</td><td>Yes</td><td>Observe or react to inputs. Return value ignored.</td></tr>
+                <tr><td><code>override</code></td><td>Replaces the result</td><td>No</td><td>Last (alphabetical) wins on conflict, with a warning. Use sparingly.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section__lead">A throwing handler doesn't corrupt the frame it fired in - the game keeps the pre-hook value for that computation - but the error is then surfaced on the <strong>crash screen</strong> (a real, reloadable overlay) rather than swallowed silently, so a mod that throws is visible instead of mysteriously wrong. Throw on purpose, or call <code>crash(reason)</code>, when your mod genuinely can't continue.</p>
+        </section>
+
+        <section class="section section--alt" data-versions="1.4">
+          <span class="eyebrow">Asset content</span>
+          <h2 class="section__title">registry.json</h2>
+          <p class="section__lead">
+            Declarative content applied through the register API. v1.4 supports
+            <strong>flavors</strong>, <strong>countries</strong>,
+            <strong>combos</strong>, <strong>backgrounds</strong>,
+            <strong>shops</strong>, <strong>employees</strong>,
+            <strong>upgrades</strong> and <strong>locations</strong>. Every
+            numeric field is <strong>clamped</strong> to a sane range (a mod
+            can't register a 1e307 multiplier). Content a mod adds is tagged with
+            a small <strong>Mod</strong> badge in-game.
+          </p>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Flavor field</th><th>Type</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><code>id</code></td><td>string</td><td>Path portion; becomes <code>&lt;namespace&gt;:flavors/&lt;id&gt;</code>.</td></tr>
+                <tr><td><code>name</code></td><td>string</td><td>Display name.</td></tr>
+                <tr><td><code>multiplier</code></td><td>number</td><td>Flavor income multiplier.</td></tr>
+                <tr><td><code>unlockCost</code></td><td>number</td><td>Cash to unlock in-game.</td></tr>
+                <tr><td><code>color</code></td><td>string</td><td>Hex color.</td></tr>
+                <tr><td><code>description</code></td><td>string</td><td>Flavor blurb.</td></tr>
+                <tr><td><code>seasonal</code></td><td>string?</td><td>Optional event id for seasonal flavors.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Country field</th><th>Type</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><code>id</code></td><td>string</td><td>Path portion; becomes <code>&lt;namespace&gt;:countries/&lt;id&gt;</code>.</td></tr>
+                <tr><td><code>name</code></td><td>string</td><td>Display name.</td></tr>
+                <tr><td><code>multiplier</code></td><td>number</td><td>Country income multiplier.</td></tr>
+                <tr><td><code>cost</code></td><td>number</td><td>Base unlock cost (before the game's scaling curve).</td></tr>
+                <tr><td><code>description</code></td><td>string</td><td>Country blurb.</td></tr>
+                <tr><td><code>images</code></td><td>string[]?</td><td>Optional relative asset paths bundled in the mod zip.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="wk-scroll">
+            <table class="wk-table wk-table--wide">
+              <thead><tr><th>Other type</th><th>Key</th><th>Notable fields</th></tr></thead>
+              <tbody>
+                <tr><td>Flavor combo</td><td><code>combos</code></td><td><code>id</code>, <code>name</code>, <code>flavors</code> (&ge;2 FULL flavor ids that must all be active), <code>multiplier</code>, <code>description</code>.</td></tr>
+                <tr><td>Background</td><td><code>backgrounds</code></td><td><code>name</code>, <code>image</code> (relative asset path).</td></tr>
+                <tr><td>Shop</td><td><code>shops</code></td><td><code>id</code>, <code>name</code>, <code>baseCost</code>, <code>baseIncome</code>, <code>costMultiplier</code>.</td></tr>
+                <tr><td>Employee</td><td><code>employees</code></td><td>Same fields as shops (rendered in the employee roster).</td></tr>
+                <tr><td>Upgrade</td><td><code>upgrades</code></td><td><code>id</code>, <code>name</code>, <code>baseCost</code>, <code>costMultiplier</code>, <code>maxLevel</code>, <code>effect</code>, <code>description</code>, optional <code>category</code>/<code>section</code>.</td></tr>
+                <tr><td>Location</td><td><code>locations</code></td><td><code>id</code>, <code>name</code>, <code>baseCost</code>, <code>costMultiplier</code>, <code>description</code>.</td></tr>
+                <tr><td>Research node</td><td><code>register.registerResearch(id, opts)</code></td><td><code>track</code> (production/marketing/operations), <code>branch</code> (A–D), <code>tier</code>, <code>name</code>, <code>cost</code> (XP), <code>bonus</code> (+income fraction), <code>requires[]</code>, <code>researchDays</code>. One-time unlock; folds into the global-income pool.</td></tr>
+                <tr><td>Flavor Lab node</td><td><code>register.registerFlavorResearch(id, opts)</code></td><td>Same as research but <strong>money</strong>-funded on the Flavor Lab track; folds into the flavor-income pool.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" data-versions="1.4">
+          <span class="eyebrow">Scope</span>
+          <h2 class="section__title">The complete code-mod scope</h2>
+          <p class="section__lead">
+            A code mod's entry runs with the modding API injected as
+            globals: <code>hooks</code> (above) plus these. You can use them
+            directly, or write <code>import { gameApi } from "@smm/modkit"</code>
+            &mdash; the loader understands both <strong>ES module <code>import</code>/
+            <code>export</code> syntax and CommonJS <code>require</code></strong>,
+            including <strong>relative imports</strong> like
+            <code>import { helper } from "./util.js"</code> that resolve to other
+            files inside your zip. Author in TypeScript against the
+            <strong><code>@smm/modkit</code></strong> package (types +
+            autocomplete); the game supplies the real objects at runtime, so mark
+            it <em>external</em> when you bundle.
+          </p>
+          <ul class="wk-list">
+            <li><strong><code>gameApi</code></strong> - frozen, read-only: <code>gameApi.apiVersion</code>, <code>gameApi.format.money(n)</code> / <code>.number(n)</code>, tuning constants under <code>gameApi.constants</code>, live registry views <code>gameApi.registry.flavors()</code> / <code>gameApi.registry.countries()</code>, <code>gameApi.stats()</code> - a snapshot of the active save's real progress (lifetime blends, money, level, prestige, unlock counts, records&hellip;), or <code>null</code> if no save is open, and <code>gameApi.hooks()</code> - the catalog of every hookable point (<code>{ id, kind, desc }</code>) so you can discover the hook surface at runtime. It never exposes mutable state.</li>
+            <li><strong>Library mods</strong> - a mod with <code>type: "lib"</code> exposes its <code>module.exports</code> to other mods via <code>require("&lt;namespace&gt;")</code>. Declare the lib in a dependent's <code>dependencies</code> so it loads first; the loader publishes each lib's exports under its namespace. Great for sharing math/UI helpers across a mod family.</li>
+            <li><strong><code>mods</code></strong> - introspection over the active mods: <code>mods.list()</code>, <code>mods.has(namespace)</code>, <code>mods.get(namespace)</code>. Each entry is <code>{ namespace, displayName, version, type }</code>. Use it to detect siblings for compatibility.</li>
+            <li><strong><code>crash(reason)</code></strong> - a controlled emergency exit, phase-aware: during load it's recorded as a warning and your mod is <strong>auto-disabled</strong> for the next reload; at runtime (from a button click or event handler) it <strong>disables your mod, then shows the crash screen</strong> - a themed overlay explaining what happened, with a Reload button - so the reload doesn't hit the same crash again. The save is never touched either way. A plain <code>throw</code> also reaches the crash screen; <code>crash()</code> is the tidy, labelled version.</li>
+            <li><strong><code>events</code></strong> - lifecycle subscriptions via <code>events.on(name, fn)</code>. v1.4 emits <code>"blend"</code> (<code>{ gain, special }</code>, every manual or auto blend), <code>"prestige"</code> (<code>{ level }</code>, on rebrand), and <code>"saveChanged"</code> (<code>{ saveId, stats }</code>, when a save opens/closes) - whose <code>stats</code> snapshot lets a mod seed counters from real progress. Handlers are error-isolated.</li>
+            <li><strong><code>storage</code></strong> - persistent key-value storage that survives reloads, <strong>scoped to your mod AND the active save</strong> by default: <code>storage.get(key, fallback)</code>, <code>storage.set(key, value)</code>, <code>storage.remove(key)</code>, <code>storage.keys()</code>. A <code>storage.global</code> scope (same methods) persists across every save. Values are JSON-serialized. Throttle writes if you update on every blend.</li>
+            <li><strong><code>ui</code></strong> - real, theme-matched GUI: <code>ui.addMenuButton({ label, icon?, onClick })</code>, <code>ui.modal({ title?, icon?, text?/html?, closeLabel? })</code>, <code>ui.notify(message, { tone?, icon?, durationMs? })</code>, <code>ui.confirm(&hellip;)</code> &rarr; <code>Promise&lt;boolean&gt;</code>, <code>ui.prompt(&hellip;)</code> &rarr; <code>Promise&lt;string|null&gt;</code>, <code>ui.addBadge({ label, icon?, tone?, onClick? })</code> &rarr; a persistent HUD pill with <code>{ update, remove }</code>, and <code>ui.icons()</code> for the valid <strong>Lucide</strong> <code>icon</code> names.</li>
+          </ul>
+          <div class="wk-tip">
+            <i data-lucide="shield-alert"></i>
+            <p>Compatibility crash pattern (run at load):<br /><code>if (!mods.has("some_dependency")) crash("Requires some_dependency.");</code><br /><code>if (mods.has("conflicting_mod")) crash("Incompatible with conflicting_mod.");</code></p>
+          </div>
+          <p class="section__lead" id="build">
+            <strong>Building a code mod.</strong>
+            A code mod ships one compiled <code>dist/main.js</code>. Author in
+            TypeScript under <code>src/</code>, then transpile + bundle with
+            <code>@smm/modkit</code> kept <em>external</em>. The repo ships a real
+            build for the example mods &mdash; the same command you'd run for your
+            own mod &mdash; so the shipped <code>example_mods/*/dist/main.js</code>
+            bundles are genuinely compiled from their <code>src/</code>, not
+            hand-written:
+          </p>
+          <ul class="wk-list">
+            <li><code>node example_mods/build.mjs</code> &mdash; build every example mod (or add a name to build just one, e.g. <code>&hellip; journal_plus</code>). It runs esbuild with <code>--bundle --format=cjs --platform=browser --target=es2020 --external:@smm/modkit</code>.</li>
+            <li><code>tsc -p example_mods/tsconfig.json</code> &mdash; type-check your source (the config maps <code>@smm/modkit</code> to the kit's declarations, so imports resolve with nothing installed).</li>
+            <li><strong>Why CommonJS:</strong> the loader evaluates your bundle inside a function that supplies <code>require</code>, <code>module</code> and <code>exports</code>, so <code>format=cjs</code> drops straight in. (Hand-written files may also use plain <code>import</code>/<code>export</code> &mdash; the loader rewrites that syntax for you &mdash; but a bundler still gives you the cleanest multi-file result.) Asset-only mods (a <code>registry.json</code>, no code) need no build step.</li>
+          </ul>
+          <p>
+            <a class="btn btn--primary" href="smm-modkit.zip" download>
+              <i data-lucide="download"></i> Download @smm/modkit
+            </a>
+            <a class="btn btn--ghost" href="build.mjs" download style="margin-left:.5rem">
+              <i data-lucide="file-code"></i> Just build.mjs
+            </a>
+          </p>
+          <p class="section__lead">
+            The kit download is <strong>self-contained</strong>: the TypeScript
+            declarations (<code>modkit/index.d.ts</code>), a runtime shim,
+            <strong><code>build.mjs</code></strong> (the real esbuild build
+            script — drop your mod folder next to it and run
+            <code>node build.mjs</code>), a pre-wired <code>tsconfig.json</code>,
+            and a <code>README</code> that walks through the whole flow. You need
+            Node.js and one <code>npm i esbuild</code>; nothing else.
+          </p>
+          <p class="section__lead">
+            Hook and event handler errors are always isolated - a throwing
+            handler is logged and skipped, so a buggy mod degrades gracefully
+            instead of crashing the game. <code>crash()</code> is the explicit,
+            louder path when a mod genuinely cannot run.
+          </p>
+          <div class="wk-tip">
+            <i data-lucide="book-open"></i>
+            <p>This page is the modding contract for the current game version. Removing or renaming a hook, event, or field documented here is a breaking change and bumps the modding <code>apiVersion</code>.</p>
+          </div>
+        </section>
+
+        <div class="wk-next">
+          <a href="modding.html"><i data-lucide="arrow-left"></i><span>Modding overview<small>The friendly tour</small></span></a>
+          <a href="faq.html"><i data-lucide="arrow-right"></i><span>FAQ<small>Common questions</small></span></a>
+        </div>
+
+        <footer class="footer">
+          <span class="footer__brand"><img class="nav__logo" src="https://striderplays.vercel.app/favicon.png" alt="" /> Milkshake Mania</span>
+          <nav class="footer__links">
+            <a href="https://striderplays.vercel.app/">Home</a>
+            <a href="https://striderplays.vercel.app/smm">Play</a>
+            <a href="faq.html">FAQ</a>
+          </nav>
+          <small class="footer__legal">Strider657's Milkshake Mania™ — © 2026 Strider657. All rights reserved.</small>
+        </footer>
+      </main>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
