@@ -2,9 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Pinch-zoom stays ENABLED (accessibility + the only recovery if any UI
+         clips on a small screen); double-tap zoom is suppressed per-element
+         via `touch-action: manipulation` in index.css instead.
+         viewport-fit=cover lets bottom bars pad around the iPhone home
+         indicator with env(safe-area-inset-bottom). -->
+    <!-- interactive-widget=resizes-content: on-screen keyboard / URL bar resize
+         the layout instead of overlaying it (helps Chrome Android). The shell
+         uses 100svh (small-viewport height) so it always fits inside the shown
+         toolbars — Chrome Mobile no longer clips the top/bottom of the GUI. -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content"
     />
     <meta
       name="description"
@@ -34,7 +43,7 @@
     <meta name="theme-color" content="#0a0a0a" />
 
     <meta name="robots" content="index, follow" />
-    <title>Strider657's Milkshake Mania 1.4</title>
+    <title>Strider657's Milkshake Mania 1.5</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -113,8 +122,8 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-DkzwDIoR.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CtHGOaCd.css">
+    <script type="module" crossorigin src="./assets/index-YmQ9WcEp.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CjizYcW-.css">
   </head>
 
   <body>
