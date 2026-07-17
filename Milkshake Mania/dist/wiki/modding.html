@@ -64,6 +64,7 @@
           </p>
           <nav class="wk-crumbs" style="margin-top:0.6rem">
             Jump to:
+            <a href="#concepts">Learn the basics</a> ·
             <a href="#get-started">Get started</a> ·
             <a href="#cookbook">Cookbook</a> ·
             <a href="#multifile">Imports</a> ·
@@ -74,6 +75,175 @@
             <a href="#build">Building</a>
           </nav>
         </header>
+
+        <section class="section" id="concepts" data-versions="1.5">
+          <span class="eyebrow">Start here</span>
+          <h2 class="section__title">Learn the basics first (5-minute read)</h2>
+          <p class="section__lead">
+            The fastest way to get lost in modding is to start by copy-pasting
+            code you don't understand. This section explains the handful of
+            ideas that make everything below make sense — read it once, and
+            every example afterward will read as "oh, that's just X" instead
+            of a magic incantation.
+          </p>
+
+          <h3>What a mod actually <em>is</em></h3>
+          <p class="section__lead">
+            A mod is just a <strong>folder</strong>, zipped up. Inside, there's
+            always a <code>mod.json</code> — a small file (the "manifest")
+            that tells the game the mod's name, version, and what kind of mod
+            it is. Beyond that, a mod is one of two things (or both):
+          </p>
+          <ul>
+            <li>
+              <strong>Data</strong> — a <code>registry.json</code> file listing
+              new content (flavors, countries, achievements…) as plain data.
+              The game reads it and adds that content. No programming
+              involved — it's the same idea as filling out a spreadsheet.
+            </li>
+            <li>
+              <strong>Code</strong> — a <code>dist/main.js</code> file that
+              runs inside the game and can change how things behave (not just
+              add static content). This is where <strong>hooks</strong> come in
+              (explained below).
+            </li>
+          </ul>
+          <p class="section__lead">
+            When you "install" a mod, nothing gets compiled or rebuilt — the
+            game just reads your manifest, applies your data (if any), and
+            runs your code (if any) inside a sandbox that hands it a specific,
+            limited set of tools. It can't reach anything you didn't give it
+            access to.
+          </p>
+
+          <h3>JSON, for absolute beginners</h3>
+          <p class="section__lead">
+            If you've never written JSON, here's everything you need: it's
+            just <strong>keys and values</strong>, wrapped in curly braces.
+          </p>
+          <div class="wk-scroll">
+            <pre style="margin:0;padding:1rem 1.1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;line-height:1.55;white-space:pre"><code>{
+  "name": "Mango Tango",
+  "multiplier": 3.0,
+  "seasonal": null
+}</code></pre>
+          </div>
+          <ul>
+            <li>
+              <code>"name": "Mango Tango"</code> — a <strong>key</strong>
+              (<code>name</code>) and its <strong>value</strong>
+              (<code>"Mango Tango"</code>), joined by a colon. Text values
+              always get double quotes; the key always does too.
+            </li>
+            <li>
+              <code>"multiplier": 3.0</code> — numbers <strong>don't</strong>
+              get quotes. <code>"3.0"</code> (with quotes) is text, not a
+              number, and the game will reject it.
+            </li>
+            <li>
+              Every key/value pair except the <strong>last one</strong> in a
+              <code>{ }</code> or <code>[ ]</code> needs a comma after it. A
+              trailing comma after the last one is the single most common
+              JSON mistake — it'll make the whole file fail to parse.
+            </li>
+            <li>
+              <code>[ ]</code> square brackets mean a <strong>list</strong> —
+              you'll see <code>"flavors": [ {...}, {...} ]</code>, a list of
+              flavor objects, even if you only add one.
+            </li>
+          </ul>
+          <div class="wk-tip">
+            <i data-lucide="lightbulb"></i>
+            <p>
+              <strong>If a mod won't load</strong>, 9 times out of 10 it's a
+              JSON typo (a missing comma, quote, or brace). Paste your file
+              into any free online "JSON validator" to find the exact spot —
+              or just check the Mods panel, which shows the parse error.
+            </p>
+          </div>
+
+          <h3>Namespaces &amp; ids — why your content gets a weird prefix</h3>
+          <p class="section__lead">
+            Every mod declares a <code>namespace</code> in its manifest — a
+            short, unique-to-you slug (e.g. <code>my_first_mod</code>). Every
+            piece of content you add gets automatically prefixed with it, so
+            your <code>"id": "mango_tango"</code> flavor actually becomes
+            <code>my_first_mod:flavors/mango_tango</code> inside the game.
+            That's <strong>why</strong>: two different mods can both add a
+            flavor called <code>"cool"</code> without colliding — they end up
+            as two entirely different ids. You'll see these full ids
+            referenced when one piece of content needs to point at another
+            (e.g. a combo listing which flavors it needs).
+          </p>
+
+          <h3>Hooks — the one concept worth actually understanding</h3>
+          <p class="section__lead">
+            Almost everything a code mod does comes down to <strong>hooks</strong>,
+            and the whole idea is simpler than it looks. Picture the moment
+            the game computes your income: somewhere inside, a plain function
+            runs, does some math, and returns a number. A hook lets your mod
+            step into that exact moment. There are three ways to step in,
+            and each answers a different question:
+          </p>
+          <ul>
+            <li>
+              <strong><code>append</code></strong> — "let me see the answer,
+              and hand back a different one." The game computes its normal
+              value, then your function receives it and returns a
+              replacement. This is how <code>value * 1.25</code> works: the
+              game says "the multiplier is 4", your mod says "I'll take that
+              and make it 5" (<code>4 * 1.25</code>). Multiple mods can each
+              <code>append</code> to the same hook — they just stack, one
+              after another.
+            </li>
+            <li>
+              <strong><code>override</code></strong> — "don't bother
+              computing it, I'll answer instead." Your function fully
+              replaces the game's own logic. Powerful, but only one override
+              can win per hook (the last one loaded), so use it sparingly —
+              prefer <code>append</code> when a transform is all you need.
+            </li>
+            <li>
+              <strong><code>prepend</code></strong> — "just tell me when this
+              happens, I'm not changing anything." Your function is called
+              with the <em>inputs</em> right before the game's own logic
+              runs, but its return value is ignored. Useful for reacting to
+              something (logging, triggering your own effect) without
+              touching the result.
+            </li>
+          </ul>
+          <p class="section__lead">
+            Every hookable moment in the game has a stable <strong>hook id</strong>
+            like <code>"game/logic.ts@calcGlobalMultiplier"</code> — read it as
+            "the file this lives in, then which function." You don't need to
+            memorize them: call <code>gameApi.hooks()</code> from inside your
+            own mod's code to print the full, current list at runtime, with a
+            one-line description of what each one does.
+          </p>
+
+          <h3>Quick glossary</h3>
+          <ul>
+            <li><strong>Manifest</strong> — the <code>mod.json</code> file; every mod has exactly one.</li>
+            <li><strong>Asset mod</strong> — data only (a <code>registry.json</code>), no code, no consent prompt.</li>
+            <li><strong>Code mod</strong> — includes a <code>dist/main.js</code> that runs inside the game; needs the player's consent to enable.</li>
+            <li><strong>Registry</strong> — one of the game's content lists (flavors, countries, achievements, …) that a mod can add entries to.</li>
+            <li><strong>Hook id</strong> — the stable string name of one hookable moment, e.g. <code>"game/logic.ts@calcGlobalMultiplier"</code>.</li>
+            <li><strong><code>gameApi</code></strong> — read-only helpers and live data (formatting, registries, stats) your code can call.</li>
+            <li><strong><code>register</code></strong> — the API a code mod calls to add content imperatively (the code-mod equivalent of writing a registry.json).</li>
+          </ul>
+
+          <div class="wk-tip">
+            <i data-lucide="graduation-cap"></i>
+            <p>
+              <strong>New to programming entirely?</strong> Start with
+              <strong>Track A</strong> below (an asset mod — pure JSON, no
+              code) and get comfortable with the manifest + one registry
+              first. Code mods (Track B) are a natural second step once
+              hooks click, and it's genuinely fine to stop at Track A forever
+              — plenty of great mods are data-only.
+            </p>
+          </div>
+        </section>
 
         <section class="section" id="get-started" data-versions="1.4">
           <span class="eyebrow">Get started</span>
@@ -105,6 +275,17 @@
   "authors": ["you"]
 }</code></pre>
           </div>
+          <p class="section__lead">
+            What each field is actually <em>for</em> — not just what to type:
+          </p>
+          <ul>
+            <li><code>manifestVersion</code> — the manifest FORMAT version (not your mod's version). Always <code>1</code> today.</li>
+            <li><code>namespace</code> — your mod's unique slug. Every id you add gets prefixed with it (see "Namespaces &amp; ids" above) — pick something unlikely to collide with another mod.</li>
+            <li><code>displayName</code> / <code>description</code> — what players see in the Mods panel. Purely cosmetic, but this is a player-facing listing, so make them clear.</li>
+            <li><code>version</code> — your OWN mod's version (semver-ish, e.g. bump to <code>1.1.0</code> when you update it). Unrelated to <code>apiVersion</code>.</li>
+            <li><code>type</code> — <code>"asset"</code> (data only, this example) or <code>"code"</code> (also runs a script — see Track B).</li>
+            <li><code>authors</code> — a list (square brackets!) even for one name.</li>
+          </ul>
           <ol class="wk-list" start="3">
             <li>Next to it, create <code>registry.json</code> and paste this:</li>
           </ol>
@@ -122,6 +303,21 @@
   ]
 }</code></pre>
           </div>
+          <p class="section__lead">
+            Reading this: <code>"flavors"</code> is a <strong>list</strong>
+            (square brackets) of flavor objects — you could add more by
+            comma-separating additional <code>{ ... }</code> blocks inside it.
+            <code>"id": "mango_tango"</code> becomes
+            <code>my_first_mod:flavors/mango_tango</code> once loaded (your
+            namespace gets prefixed automatically — see "Namespaces &amp; ids"
+            above). <code>multiplier</code> is how much each blend of this
+            flavor is worth relative to the base rate; <code>unlockCost</code>
+            is its price in the Flavors tab. That's the whole shape — every
+            other registry type (countries, combos, achievements, …) follows
+            the same "a named list of objects with typed fields" pattern; see
+            the <a href="modding-reference.html">reference</a> for every
+            field on every type.
+          </p>
           <ol class="wk-list" start="4">
             <li><strong>Zip the folder</strong> (right-click → Send to → Compressed / Zip). You want <code>my_first_mod.zip</code> containing the folder.</li>
             <li>In the game: main menu → <strong>Mods</strong> → <strong>Install</strong> → pick your zip → toggle it <strong>on</strong> → <strong>Reload</strong>.</li>
@@ -154,10 +350,33 @@ ui.addMenuButton({
   },
 });</code></pre>
           </div>
+          <p class="section__lead">
+            Walking through it: line 1 is an <code>append</code> hook (see
+            "Hooks" above) on
+            <code>"game/logic.ts@calcGlobalMultiplier"</code> — the moment the
+            game computes your overall income multiplier. The game hands your
+            function <code>value</code> (whatever it just calculated), and
+            whatever you <code>return</code> replaces it — here, 25% more than
+            whatever it would've been. Line 2 uses <code>ui</code>, one of the
+            objects the game injects, to add a real menu button with a click
+            handler; <code>ui.notify(...)</code> is a toast. Nothing here was
+            <code>import</code>ed — <code>hooks</code> and <code>ui</code>
+            simply exist as globals inside your mod's code, already connected
+            to the live game.
+          </p>
           <ol class="wk-list" start="3">
             <li>Zip the folder, install it. Because it runs code, the panel asks you to <strong>tick consent</strong> first — then reload.</li>
             <li>You'll see the "Hi!" button on the menu and earn 25% more. Every hook id and API call is listed on the <a href="modding-reference.html">reference page</a> — call <code>gameApi.hooks()</code> in your mod to print every hookable point at runtime.</li>
           </ol>
+
+          <h3>If your first mod doesn't show up</h3>
+          <ul>
+            <li><strong>Zip structure.</strong> The zip should contain the <em>folder</em> (e.g. <code>my_first_mod/mod.json</code> inside the zip), not just the loose files at the zip's root. If your zip tool put the files straight in, re-zip the parent folder.</li>
+            <li><strong>Forgot to reload.</strong> Installing/enabling a mod stages it — nothing changes until you hit <strong>Reload</strong>.</li>
+            <li><strong>JSON typo.</strong> The Mods panel shows the parse error and roughly where it is — a missing comma or quote is the usual culprit (see "JSON, for absolute beginners" above).</li>
+            <li><strong>Code mod not running.</strong> Code mods need the consent checkbox ticked in the Mods panel before they'll execute — asset-only mods don't need this.</li>
+            <li><strong>Still stuck?</strong> Open the browser/devtools console — a failed mod logs its error there too, in addition to the in-game warning.</li>
+          </ul>
 
           <div class="wk-tip">
             <i data-lucide="rocket"></i>
@@ -458,11 +677,32 @@ hooks.append("game/logic.ts@calcManualBlendGain", function (v) {
         <section class="section" id="build" data-versions="1.4">
           <span class="eyebrow">Build your own</span>
           <h2 class="section__title">Making a mod</h2>
+          <div class="wk-tip">
+            <i data-lucide="info"></i>
+            <p>
+              <strong>The mod kit is NOT required to install or play mods.</strong>
+              Loading a mod is always just: Mods panel → Install → pick a zip
+              → toggle it on → Reload. <code>@smm/modkit</code> is a separate,
+              entirely optional download for <em>people writing their own
+              mods</em> — it's encouraged if you're authoring one (TypeScript
+              types, autocomplete, and a real build command make code mods
+              much easier to write), but you can also hand-write plain
+              JavaScript with zero tooling (see below) and skip it completely.
+            </p>
+          </div>
           <ol class="wk-list">
             <li>Create a folder named after your mod with a <code>mod.json</code> (see the reference for the schema).</li>
             <li><strong>Asset mod:</strong> add a <code>registry.json</code> with your content. No build step. Done.</li>
             <li><strong>Code mod:</strong> write TypeScript against the <strong><code>@smm/modkit</code></strong> package (types + autocomplete), then <strong>transpile + bundle to <code>dist/main.js</code></strong> with <code>@smm/modkit</code> kept external. The game does not compile TypeScript for you — you ship the compiled bundle.</li>
             <li>Zip the folder and install it via the Mods panel.</li>
+          </ol>
+          <h3 style="margin-top:1.25rem">Installing the mod kit (for authoring — skip this if you're just playing mods)</h3>
+          <ol class="wk-list">
+            <li>Click <strong>Download @smm/modkit</strong> below and unzip it anywhere on your machine.</li>
+            <li>Create your mod's folder <strong>next to</strong> the unzipped <code>build.mjs</code> (e.g. as a sibling folder) — that's how the build script finds it.</li>
+            <li>Write your code mod's TypeScript against <code>@smm/modkit</code>'s types (<code>import { hooks, gameApi, ui, ... } from "@smm/modkit"</code> — full autocomplete in any editor that understands the bundled <code>tsconfig.json</code>).</li>
+            <li>Run <code>node build.mjs</code> (or <code>node build.mjs your_mod_name</code> for just one mod) — it transpiles + bundles your TypeScript to <code>dist/main.js</code>, keeping <code>@smm/modkit</code> external so the game can inject the real API at runtime.</li>
+            <li>Zip your mod's folder (<code>mod.json</code> + <code>dist/main.js</code> + any <code>registry.json</code>/assets) and install it from the Mods panel — same as any other mod.</li>
           </ol>
           <div class="wk-tip">
             <i data-lucide="download"></i>
