@@ -1,151 +1,257 @@
+STRIDER657'S MILKSHAKE MANIA™
 END USER LICENSE AGREEMENT (EULA)
 
-Effective Date: January 1, 2026
+Version 2.0 — Effective Date: July 17, 2026
+Supersedes the Agreement dated January 1, 2026.
 Copyright © 2026 Strider657. All Rights Reserved.
 
-This End User License Agreement ("Agreement") is a legal agreement between you
-("User", "you") and Strider657 ("Licensor", "we", "our", or "us") governing the
-use of the software product known as "Milkshake Mania" (the "Software").
+This End User License Agreement (the "Agreement") is a legal agreement between
+you ("User", "you", "your") and Strider657 ("Licensor", "we", "our", "us")
+governing your use of the software product known as "Milkshake Mania",
+including all of its versions, updates, patches, documentation, and bundled
+content (collectively, the "Software").
 
-BY INSTALLING, ACCESSING, COPYING, DOWNLOADING, LAUNCHING, OR USING THE
-SOFTWARE IN ANY WAY, YOU AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF
-YOU DO NOT AGREE TO THESE TERMS, DO NOT INSTALL OR USE THE SOFTWARE.
+BY INSTALLING, ACCESSING, DOWNLOADING, LAUNCHING, OR OTHERWISE USING THE
+SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT
+AGREE TO THESE TERMS, DO NOT INSTALL OR USE THE SOFTWARE.
 
 1. OWNERSHIP
 
-The Software and all associated content, including but not limited to source
-code, compiled binaries, assets, textures, models, animations, music, sound
-effects, dialogue, visual designs, UI/UX elements, systems, mechanics, scripts,
-documentation, branding, and related materials are and shall remain the
-exclusive intellectual property of Strider657 and are protected under
-applicable copyright, trademark, and intellectual property laws.
+The Software and all associated content — including but not limited to source
+code, compiled binaries, assets, textures, models, animations, original music,
+sound design, dialogue, visual designs, UI/UX elements, game systems and
+mechanics, scripts, documentation, branding, the "Milkshake Mania" name, and
+related materials — are and shall remain the exclusive intellectual property
+of Strider657, protected under applicable copyright, trademark, and other
+intellectual-property laws.
 
-No ownership rights are transferred to you under this Agreement.
+Except for the limited license expressly granted in Section 2 and the rights
+expressly reserved to you in Sections 4, 5, and 6, no ownership rights or
+other rights are transferred to you under this Agreement. All rights not
+expressly granted are reserved by Strider657.
 
-1.1. MUSIC / AUDIO ASSETS
+1.1. MUSIC AND AUDIO ASSETS
 
-All music, sound recordings, sound effects, and audio files included with the
-Software (including any files located in an "assets/music" or similar folder)
-are part of the Software and are protected works. You may not extract,
-separate, rip, download, re-upload, copy, distribute, publicly perform, or
-otherwise reuse any audio assets outside the Software, except where you have
-separately obtained explicit written permission from Strider657 (or where such
-restriction is prohibited by applicable law).
+All original music, sound recordings, and audio files included with the
+Software (including files located in an "assets/music" or similar folder) are
+part of the Software and are protected works. You may not extract, separate,
+rip, re-upload, copy, distribute, publicly perform, or otherwise reuse any
+audio assets outside the Software, except (a) as an incidental part of
+gameplay videos or streams permitted under Section 5, (b) with separate
+explicit written permission from Strider657, or (c) where such a restriction
+is prohibited by applicable law.
 
 1.2. THIRD-PARTY ASSETS
 
 Certain assets displayed in the Software are NOT owned by Strider657 and are
-excluded from the ownership claim in Section 1. In particular, the country
-landmark photographs are the property of their respective authors and are used
-under their respective licenses (including Creative Commons Attribution and
-Attribution-ShareAlike licenses and public domain dedications), and
-public-domain imagery from NASA is used for the Moon and Mars. Country flag
-images are public-domain works served via flagcdn.com. Each photograph links to
-its source page on Wikimedia Commons, which identifies the author and the
-applicable license. All such third-party assets remain the property of their
-respective owners, and nothing in this Agreement grants you any rights to them
-beyond those provided by their own licenses. The restrictions in this Agreement
-apply to the Software as a whole and to Strider657's own content; they do not
-purport to restrict third-party assets beyond what their own licenses permit.
+excluded from the ownership claims above. In particular: country landmark
+photographs are the property of their respective authors and are used under
+their respective licenses (including Creative Commons Attribution and
+Attribution-ShareAlike licenses and public-domain dedications); public-domain
+imagery from NASA is used for the Moon and Mars; and country flag images are
+public-domain works served via flagcdn.com. Each photograph links to its
+source page on Wikimedia Commons, which identifies the author and the
+applicable license (see also the Image Credits in the in-game Credits
+section). All such third-party assets remain the property of their respective
+owners, and nothing in this Agreement restricts or expands the rights granted
+to you by those assets' own licenses.
 
 2. LIMITED LICENSE
 
 Subject to your compliance with this Agreement, Strider657 grants you a
 limited, revocable, non-exclusive, non-transferable, non-sublicensable license
-to install and use one copy of the Software solely for personal, non-commercial
-entertainment purposes.
+to install and use the Software on devices you own or control, solely for
+personal, non-commercial entertainment purposes.
+
+For clarity, the following copies are expressly permitted and do not violate
+Section 3: (a) copies created automatically and necessarily as part of lawful
+installation, launching, caching, and running of the Software (including
+transient copies in memory); (b) a reasonable number of personal backup copies
+of the Software as obtained from an official distribution channel, provided
+they are not shared or distributed; and (c) local save data, settings, and
+similar files the Software itself creates for you.
+
+"Official distribution channels" means the distribution locations designated
+by Strider657, including the official releases page and the official website.
 
 3. RESTRICTIONS
 
-You may NOT, without prior written permission from Strider657:
+Except as expressly permitted by Section 2 (permitted copies), Section 4
+(Mods), Section 5 (videos and streaming), or applicable law, you may NOT,
+without prior written permission from Strider657:
 
 - Copy, reproduce, distribute, republish, or redistribute the Software or any
-  component thereof
+  component of it;
 - Modify, adapt, translate, patch, or create derivative works based on the
-  Software
-- Sell, rent, lease, sublicense, monetize, or commercially exploit the Software
+  Software;
+- Sell, rent, lease, sublicense, monetize, or commercially exploit the
+  Software;
 - Reverse engineer, decompile, disassemble, or attempt to derive the source
-  code, algorithms, or underlying systems of the Software, except where
-  expressly permitted by applicable law
-- Remove, alter, or obscure any copyright, trademark, or proprietary notices
-- Upload, mirror, host, or redistribute the Software on third-party platforms
-  under any name other than the official release
-- Use the Software for unlawful, harmful, fraudulent, or malicious purposes
-- Circumvent, disable, or interfere with security features, authentication
-  systems, or technical protections used by the Software
+  code, algorithms, or underlying systems of the Software, except to the
+  extent such a restriction is prohibited by applicable law (and except that
+  use of the documented Modding API as described in Section 4 does not violate
+  this clause);
+- Remove, alter, or obscure any copyright, trademark, or proprietary notices;
+- Upload, mirror, host, or redistribute the Software on third-party platforms,
+  or present any copy of the Software as official other than copies obtained
+  from official distribution channels;
+- Use the Software for unlawful, harmful, fraudulent, or malicious purposes;
+  or
+- Circumvent, disable, or interfere with security features, save-data
+  integrity protections, anti-cheat measures, or other technical protections
+  used by the Software (installing and using Mods through the Software's own
+  mod loader is not, by itself, a violation of this clause).
 
-3.1. MODS / USER-MADE CONTENT (IF EVER SUPPORTED)
+4. MODS AND USER-MADE CONTENT
 
-If the Software ever supports mods, plug-ins, add-ons, user-made levels, or any
-other user-made content ("Mods"), then:
+The Software officially supports user-made modifications through its
+documented modding interface (the "Modding API"). "Mods" means original code,
+content, or other materials created by you or third parties that interoperate
+with the Software through the Modding API and that do not contain a
+substantial portion of the Software's own code or assets.
 
-- Mods must be free of charge. Paid Mods, paywalled content, subscriptions, or
-  "premium" unlocks are not permitted.
-- Ads are not permitted in or via Mods (including ad SDKs, affiliate links, ad
-  overlays, sponsored placements, or any other advertising or promotional
-  monetization).
-- In-app purchases and paid digital content are not permitted via the Software
-  or via Mods (including purchase flows, external stores, microtransactions,
-  tips, donations, or any mechanism that results in the user paying money for
-  content, features, access, currency, or progression).
-- Mods may not require or encourage payment to access gameplay content,
-  features, or progression, whether inside the Software or via external links.
-- Strider657 may remove, disable, or block any Mod at any time and for any
-  reason, including for violations of this Agreement.
+4.1. Your Mods belong to you. Mods that consist of your original work are your
+property, and Strider657 claims no ownership of them. Any portion of the
+Software (code or assets) contained in, or required by, a Mod remains the
+property of Strider657 and is licensed to you only as described in this
+Agreement.
 
-4. USER CONTENT
+4.2. Mods may not be sold. You may develop and share Mods for the Software,
+and we encourage it — but Mods must remain free. You may not sell Mods, charge
+for access to a Mod, or lock a Mod (or any of its features or content) behind
+a mandatory payment, subscription, paywall, or equivalent gate, whether inside
+or outside the Software.
 
-If the Software permits the creation or sharing of user-generated content, you
-retain ownership of your original content. However, by submitting or sharing
-such content through the Software, you grant Strider657 a worldwide,
-non-exclusive, royalty-free license to host, display, reproduce, and distribute
-that content solely for operation, promotion, and improvement of the Software.
+4.3. Voluntary support is allowed. You may accept voluntary donations and
+offer general supporter memberships (for example, through Patreon, Ko-fi, or
+similar platforms), including brief early-access previews of Mod updates for
+supporters, provided that the Mod itself (in its current or a recent version)
+always remains freely available to everyone at no charge, and that no gameplay
+content or functionality of the Mod is permanently exclusive to paying
+supporters.
 
-You are solely responsible for any content you create or share.
+4.4. No advertising inside Mods. Mods may not contain or inject advertising
+(including ad SDKs, ad overlays, affiliate links, or sponsored placements)
+into the Software.
 
-5. UPDATES AND MODIFICATIONS
+4.5. Conduct and safety. Mods must not: redistribute the Software or any
+substantial portion of its code or assets; disable, bypass, or interfere with
+the Software's security, anti-cheat, or save-integrity protections beyond what
+the Modding API deliberately exposes; contain malicious, deceptive, or
+unlawful code or content; or collect users' data without clear disclosure and
+consent.
 
-Strider657 may update, patch, modify, suspend, or discontinue the Software or
-any online functionality at any time without notice or liability.
+4.6. No implied endorsement. Mods must not state or imply that they are
+official, made by, or endorsed by Strider657. You may use the "Milkshake
+Mania" name descriptively to indicate compatibility (for example, "a mod for
+Milkshake Mania"), but you may not use the Software's name or branding as your
+Mod's own primary name or branding.
 
-6. TERMINATION
+4.7. Enforcement. Strider657 may remove, disable, block, or refuse to load any
+Mod at any time, including for violations of this Agreement. Mods created by
+third parties are used at your own risk; Strider657 is not responsible for
+third-party Mods.
 
-This Agreement automatically terminates if you violate any provision of this
-Agreement. Upon termination, you must immediately cease all use of the
-Software and delete all copies in your possession or control.
+5. GAMEPLAY VIDEOS AND STREAMING
 
-7. DISCLAIMER OF WARRANTIES
+You may create, publish, and monetize videos, screenshots, and live streams
+featuring the Software's gameplay (including its visuals and audio as they
+occur in gameplay), provided your content does not state or imply official
+endorsement by Strider657, does not primarily consist of the Software's music
+or assets outside a gameplay context, and complies with the hosting platform's
+rules and applicable law.
+
+6. USER CONTENT
+
+If the Software permits the creation or sharing of user-generated content
+(including save files, custom names, flavor presets, and Mods), you retain
+ownership of your original content. By submitting or sharing such content
+through the Software or its official community channels, you grant Strider657
+a worldwide, non-exclusive, royalty-free license to host, display, reproduce,
+and distribute that content solely for the operation, promotion, and
+improvement of the Software. You are solely responsible for content you create
+or share, and you represent that you have the rights necessary to share it.
+
+7. UPDATES, ONLINE FUNCTIONALITY, AND DISCONTINUATION
+
+Strider657 may update, patch, or modify the Software at any time. Strider657
+may also modify, suspend, or discontinue any ONLINE functionality or service
+(such as hosted pages, downloads, or update feeds) at any time without notice
+or liability. Discontinuation of online functionality does not, by itself,
+revoke your license to continue using locally installed copies of the Software
+for offline play; however, Strider657 makes no commitment to maintain,
+support, or preserve any version of the Software.
+
+8. TERMINATION
+
+This Agreement terminates automatically if you materially violate any of its
+provisions. Upon termination, you must immediately cease all use of the
+Software and delete all copies in your possession or control. Sections 1
+(Ownership), 4.1, and 8 through 16 survive any termination of this Agreement.
+
+9. DISCLAIMER OF WARRANTIES
 
 THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY
 KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, OR
-THAT THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE.
+THAT THE SOFTWARE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE. SOME
+JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF CERTAIN WARRANTIES, SO SOME OF THE
+ABOVE EXCLUSIONS MAY NOT APPLY TO YOU.
 
-8. LIMITATION OF LIABILITY
+10. LIMITATION OF LIABILITY
 
 TO THE MAXIMUM EXTENT PERMITTED BY LAW, STRIDER657 SHALL NOT BE LIABLE FOR ANY
-INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES,
-INCLUDING LOSS OF DATA, LOSS OF PROFITS, BUSINESS INTERRUPTION, OR SYSTEM
-FAILURE ARISING FROM OR RELATED TO USE OF THE SOFTWARE.
+INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES —
+INCLUDING LOSS OF DATA (INCLUDING SAVE DATA), LOSS OF PROFITS, BUSINESS
+INTERRUPTION, OR SYSTEM FAILURE — ARISING FROM OR RELATED TO THE USE OF, OR
+INABILITY TO USE, THE SOFTWARE. TO THE MAXIMUM EXTENT PERMITTED BY LAW,
+STRIDER657'S TOTAL AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL NOT EXCEED
+THE AMOUNT YOU PAID FOR THE SOFTWARE (IF ANY) OR TEN (10) UNITED STATES
+DOLLARS, WHICHEVER IS GREATER. NOTHING IN THIS AGREEMENT EXCLUDES OR LIMITS
+LIABILITY THAT CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW.
 
-9. INDEMNIFICATION
+11. INDEMNIFICATION
 
 You agree to indemnify and hold harmless Strider657 from any claims,
-liabilities, damages, losses, or expenses arising from your misuse of the
-Software or violation of this Agreement.
+liabilities, damages, losses, or expenses (including reasonable legal fees)
+arising from your misuse of the Software, your Mods or other user-generated
+content, or your violation of this Agreement.
 
-10. GOVERNING LAW
+12. GOVERNING LAW
 
-This Agreement shall be governed and interpreted in accordance with the laws
-applicable in the Licensor's jurisdiction, without regard to conflict of law
-principles.
+This Agreement shall be governed by and interpreted in accordance with the
+laws of the jurisdiction in which the Licensor resides, without regard to its
+conflict-of-law principles, and any dispute arising under this Agreement shall
+be brought exclusively in the courts of that jurisdiction, except where
+applicable consumer-protection law grants you mandatory rights to another
+venue.
 
-11. ENTIRE AGREEMENT
+13. SEVERABILITY
+
+If any provision of this Agreement is held to be unenforceable or invalid,
+that provision shall be limited or eliminated to the minimum extent necessary,
+and the remaining provisions shall remain in full force and effect.
+
+14. WAIVER
+
+Failure by Strider657 to enforce any provision of this Agreement shall not
+constitute a waiver of that provision, of any other provision, or of the right
+to enforce it at a later time.
+
+15. CHANGES TO THIS AGREEMENT
+
+Strider657 may revise this Agreement from time to time. The current version
+will be included with the Software (in the in-game About section and the
+LICENSE file) and published through official distribution channels, together
+with its effective date. Your continued use of the Software after a revised
+Agreement takes effect constitutes your acceptance of the revised terms; if
+you do not agree, you must stop using the Software.
+
+16. ENTIRE AGREEMENT
 
 This Agreement constitutes the complete and exclusive agreement between you
-and Strider657 regarding the Software and supersedes all prior agreements or
-understandings.
-
-All rights not expressly granted herein are reserved exclusively by Strider657.
+and Strider657 regarding the Software and supersedes all prior agreements and
+understandings regarding the Software, including the Agreement dated
+January 1, 2026.
 
 Copyright © 2026 Strider657. All Rights Reserved.
